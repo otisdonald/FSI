@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FSI | Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white shadow z-50">
+  <h1 class="font-bold text-blue-700 text-lg">FSI</h1>
+
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html" class="text-blue-700 font-bold">Events</a>
+  </nav>
+
+  <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+</header>
+
+<div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+<nav id="mobile-menu"
+class="fixed right-0 top-0 h-full w-72 bg-white shadow transform translate-x-full transition duration-300 z-50 p-6">
+  <button id="close-btn" class="text-2xl mb-6">✕</button>
+  <a href="index.html" class="block mb-4">Home</a>
+  <a href="programs.html" class="block mb-4">Programs</a>
+  <a href="opportunities.html" class="block mb-4">Opportunities</a>
+  <a href="learning.html" class="block mb-4">Learning Hub</a>
+  <a href="community.html" class="block mb-4">Community</a>
+  <a href="events.html" class="block mb-4">Events</a>
+</nav>
+
+<!-- HERO -->
+<section class="relative bg-blue-700 text-white py-32 text-center px-6">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
+         class="w-full h-full object-cover opacity-30 hero-float">
+  </div>
+  <div class="relative z-10">
+    <h1 class="text-4xl md:text-5xl font-bold">Events & Workshops</h1>
+    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+      Join live sessions, bootcamps and networking events designed for founders.
+    </p>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section class="py-20 px-6 max-w-6xl mx-auto">
+  <h2 class="text-3xl font-bold text-center">Upcoming Events</h2>
+  <p class="text-center text-gray-500 mb-12 mt-3">
+    Event details and registration will be announced soon.
+  </p>
+
+  <div class="grid md:grid-cols-3 gap-10">
+
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <h3 class="font-bold text-blue-700">Startup Bootcamp</h3>
+      <p class="text-sm text-gray-500 mt-1">July 2026 • Virtual</p>
+      <p class="mt-3 text-gray-600">Learn how to validate, build and launch your startup.</p>
+      <button class="mt-4 bg-gray-900 text-white px-4 py-2 rounded cursor-default">
+        Get Notified
+      </button>
+    </div>
+
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <h3 class="font-bold text-blue-700">Fundraising Masterclass</h3>
+      <p class="text-sm text-gray-500 mt-1">August 2026 • Virtual</p>
+      <p class="mt-3 text-gray-600">Learn how to pitch investors and secure funding.</p>
+      <button class="mt-4 bg-gray-900 text-white px-4 py-2 rounded cursor-default">
+        Get Notified
+      </button>
+    </div>
+
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <h3 class="font-bold text-blue-700">Founder Networking Night</h3>
+      <p class="text-sm text-gray-500 mt-1">September 2026 • Lagos</p>
+      <p class="mt-3 text-gray-600">Meet founders, mentors and investors.</p>
+      <button class="mt-4 bg-gray-900 text-white px-4 py-2 rounded cursor-default">
+        Get Notified
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-blue-700 text-white text-center py-20">
+  <h2 class="text-3xl font-bold">Want to host an event with FSI?</h2>
+  <p class="mt-4">Partner with us to support founders in your ecosystem.</p>
+  <a href="mailto:hello@founderssupport.org"
+     class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">
+     Contact Us
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 border-t mt-12">
+  <div class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm text-gray-700">
+
+    <div>
+      <p class="font-bold text-blue-700 text-lg">Founders Support Initiative</p>
+      <p class="mt-2">
+        Supporting African founders with funding, mentorship and global opportunities.
+      </p>
+      <p class="mt-4 text-gray-500">
+        © 2026 Founders Support Initiative. All rights reserved.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-semibold text-gray-900 mb-2">Contact</p>
+      <p>Email: 
+        <a href="mailto:hello@founderssupport.org" class="hover:text-blue-700">
+          hello@founderssupport.org
+        </a>
+      </p>
+      <p class="text-xs text-gray-500 mt-2">
+        Monday – Friday, 9am – 5pm WAT
+      </p>
+    </div>
+
+    <div class="flex flex-col md:items-end space-y-2">
+      <a href="faq.html" class="hover:text-blue-700">FAQ</a>
+      <a href="privacy.html" class="hover:text-blue-700">Privacy Policy</a>
+      <a href="legal.html" class="hover:text-blue-700">Legal Notice</a>
+      <a href="terms.html" class="hover:text-blue-700">Terms of Use</a>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const menuBtn=document.getElementById("menu-btn");
+const closeBtn=document.getElementById("close-btn");
+const mobileMenu=document.getElementById("mobile-menu");
+const overlay=document.getElementById("overlay");
+
+menuBtn.onclick=()=>{mobileMenu.classList.remove("translate-x-full");overlay.classList.remove("hidden");}
+closeBtn.onclick=overlay.onclick=()=>{mobileMenu.classList.add("translate-x-full");overlay.classList.add("hidden");}
+</script>
+
+<style>
+.hero-float{animation:floatBg 18s ease-in-out infinite;}
+@keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+</style>
+
+</body>
+</html>

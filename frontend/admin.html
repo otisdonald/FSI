@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  background: #f1f5f9;
+  font-family: system-ui;
+}
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="bg-blue-700 text-white p-4 flex justify-between items-center">
+  <h1 class="font-bold text-lg">FSI Admin Dashboard</h1>
+
+  <div class="flex gap-3 items-center">
+    <input id="search" placeholder="Search..." class="p-1 text-black rounded">
+    <button onclick="logout()" class="bg-red-600 px-3 py-1 rounded">Logout</button>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto p-6">
+
+<!-- ANALYTICS -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <div class="card">Total <br><b id="total"></b></div>
+  <div class="card">Approved <br><b id="approved"></b></div>
+  <div class="card">Rejected <br><b id="rejected"></b></div>
+  <div class="card">Avg Score <br><b id="avg"></b></div>
+</div>
+
+<!-- FILTER -->
+<select id="filter" class="mb-4 border p-2 rounded">
+  <option value="all">All</option>
+  <option value="high">High (70+)</option>
+  <option value="mid">Mid (40–69)</option>
+  <option value="low">Low (<40)</option>
+</select>
+
+<!-- LIST -->
+<div id="list" class="space-y-4"></div>
+
+</div>
+
+<script>
+
+// 🔐 AUTH CHECK
+const token = localStorage.getItem("token");
+if(!token){
+  window.location.href = "/admin-login.html";
+}
+
+// STORE DATA
+let store = [];
+
+// 🚀 LOAD DATA
+async function load(){
+
+  const res = await fetch("/api/all-applications", {
+    headers:{ Authorization: token }
+  });
+
+  store = await res.json();
+  render(store);
+}
+
+// 📊 ANALYTICS
+async function loadAnalytics(){
+
+  const res = await fetch("/api/analytics", {
+    headers:{ Authorization: token }
+  });
+
+  const d = await res.json();
+
+  document.getElementById("total").innerText = d.total;
+  document.getElementById("approved").innerText = d.approved;
+  document.getElementById("rejected").innerText = d.rejected;
+  document.getElementById("avg").innerText = Math.round(d.avgScore);
+}
+
+// 🎨 RENDER
+function render(data){
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  data.forEach(a => {
+
+    let color =
+      a.totalScore >= 70 ? "bg-green-100 text-green-700" :
+      a.totalScore >= 40 ? "bg-yellow-100 text-yellow-700" :
+      "bg-red-100 text-red-700";
+
+    list.innerHTML += `
+    <div class="card">
+
+      <div class="flex justify-between">
+
+        <div>
+          <h2 class="font-bold">${a.name}</h2>
+          <p class="text-sm text-gray-500">${a.email}</p>
+          <p class="text-sm text-gray-500">${a.country || ""}</p>
+        </div>
+
+        <span class="badge ${color}">
+          ${a.totalScore || 0}
+        </span>
+
+      </div>
+
+      <p class="mt-2 text-sm">${a.startup}</p>
+
+      <!-- AI REVIEW -->
+      <div class="mt-2 text-sm text-gray-600">
+        <p><b>AI:</b> ${a.aiReview?.summary || ""}</p>
+        <p><b>Strengths:</b> ${a.aiReview?.strengths || ""}</p>
+        <p><b>Weaknesses:</b> ${a.aiReview?.weaknesses || ""}</p>
+        <p class="font-bold mt-1">${a.aiReview?.recommendation || ""}</p>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="flex gap-2 mt-3">
+
+        <button onclick="update('${a._id}','approved')"
+        class="bg-green-600 text-white px-3 py-1 rounded text-sm">
+        Approve
+        </button>
+
+        <button onclick="update('${a._id}','rejected')"
+        class="bg-red-600 text-white px-3 py-1 rounded text-sm">
+        Reject
+        </button>
+
+      </div>
+
+    </div>
+    `;
+  });
+
+}
+
+// 🔄 UPDATE STATUS
+async function update(id, status){
+
+  await fetch("/api/update-status",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      Authorization: token
+    },
+    body:JSON.stringify({ id, status })
+  });
+
+  load();
+  loadAnalytics();
+}
+
+// 🔍 SEARCH
+document.getElementById("search").addEventListener("input", function(){
+
+  const q = this.value.toLowerCase();
+
+  const filtered = store.filter(a =>
+    a.name?.toLowerCase().includes(q) ||
+    a.email?.toLowerCase().includes(q)
+  );
+
+  render(filtered);
+});
+
+// 🎯 FILTER
+document.getElementById("filter").addEventListener("change", function(){
+
+  const val = this.value;
+
+  let filtered = store;
+
+  if(val === "high") filtered = store.filter(a => a.totalScore >= 70);
+  if(val === "mid") filtered = store.filter(a => a.totalScore >= 40 && a.totalScore < 70);
+  if(val === "low") filtered = store.filter(a => a.totalScore < 40);
+
+  render(filtered);
+});
+
+// 🚪 LOGOUT
+function logout(){
+  localStorage.removeItem("token");
+  window.location.href = "/admin-login.html";
+}
+
+// INIT
+load();
+loadAnalytics();
+
+</script>
+
+</body>
+</html>

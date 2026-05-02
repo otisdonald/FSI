@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Founders Support Initiative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+ 
+<style>
+body::before{content:"";position:fixed;width:120%;height:120%;background: radial-gradient(circle at 20% 20%, rgba(37,99,235,0.07), transparent 40%),radial-gradient(circle at 80% 80%, rgba(220,38,38,0.07), transparent 40%);z-index:-1;animation: moveBg 12s infinite alternate;}
+@keyframes moveBg{from{transform:translate(0,0);}to{transform:translate(-50px,-40px);}}
+.shadow,.shadow-lg{transition:.4s}.shadow:hover,.shadow-lg:hover{transform:translateY(-8px)}
+img{transition:transform .6s ease}img:hover{transform:scale(1.05)}
+header.scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(14px)}
+a.bg-blue-600:hover{box-shadow:0 10px 25px rgba(37,99,235,.35);transform:translateY(-2px);transition:.3s}
+a.bg-white:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.15);transition:.3s}
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- TOP BAR -->
+<div class="bg-red-600 text-white text-center text-sm py-2">Applications close May 30 — Limited slots available</div>
+
+<!-- NAVBAR -->
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+  <h1 class="font-bold text-blue-700 text-lg">FSI</h1>
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+  </nav>
+  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+  </button>
+</header>
+
+<!-- OVERLAY -->
+<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
+
+<!-- MOBILE MENU -->
+<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
+  <div class="flex justify-between items-center"><h2 class="font-bold text-blue-700">Menu</h2></div>
+  <div class="flex flex-col gap-5 text-gray-800 font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+  </div>
+  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
+</nav>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+
+  // Mobile menu
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("overlay");
+  const bars = document.querySelectorAll(".bar");
+  let open = false;
+
+  function closeMenu(){
+    mobileMenu.classList.add("translate-x-full");
+    overlay.classList.add("opacity-0","pointer-events-none");
+    document.body.style.overflow="auto";
+    bars[0].style.transform="none";
+    bars[1].style.opacity="1";
+    bars[2].style.transform="none";
+    open=false;
+  }
+
+  if(menuBtn){
+    menuBtn.addEventListener("click",()=>{
+      open=!open;
+      if(open){
+        mobileMenu.classList.remove("translate-x-full");
+        overlay.classList.remove("opacity-0","pointer-events-none");
+        overlay.classList.add("opacity-100");
+        document.body.style.overflow="hidden";
+        bars[0].style.transform="rotate(45deg) translateY(6px)";
+        bars[1].style.opacity="0";
+        bars[2].style.transform="rotate(-45deg) translateY(-6px)";
+      } else closeMenu();
+    });
+  }
+
+  if(overlay) overlay.addEventListener("click", closeMenu);
+
+  // AOS animation
+  if (typeof AOS !== "undefined") {
+    AOS.init({ duration: 1000, once: true, offset: 80 });
+  }
+
+  // Sticky header
+  const header = document.querySelector("header");
+  window.addEventListener("scroll", () => {
+    if (!header) return;
+    if (window.scrollY > 20) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  });
+
+});
+</script>
+</body>
+</html>
+
+<!-- HERO -->
+<section data-aos="fade" class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
+  <div class="absolute inset-0"><img src="/images/hero.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs"></div>
+  <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
+  <div class="absolute w-72 h-72 bg-red-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+  <div class="relative z-10">
+    <h1 class="text-4xl md:text-5xl font-bold max-w-3xl mx-auto">Backing Africa’s Next Generation of High-Impact Founders</h1>
+    <p class="mt-6 text-lg text-gray-200 max-w-2xl mx-auto">Funding. Mentorship. Training. Global ecosystem access for ambitious entrepreneurs.</p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="grants.html" class="bg-white text-blue-700 px-6 py-3 rounded font-bold">Apply Now</a>
+      <a href="programs.html" class="border border-white px-6 py-3 rounded">Explore Programs</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST / CREDIBILITY -->
+<section data-aos="fade-up" class="py-14 bg-gray-50 text-center px-6">
+  <p class="text-gray-500 text-sm uppercase tracking-wide">Built for transparency and accountability</p>
+  <h2 class="text-xl md:text-2xl font-bold mt-3">A structured, merit-based funding ecosystem</h2>
+  <p class="text-gray-600 max-w-2xl mx-auto mt-4">FSI is designed with a clear evaluation and selection process to ensure that only serious founders with viable ideas receive access to funding and support. Every application is reviewed against standardized criteria.</p>
+  <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-10 text-left">
+    <div data-aos="fade-up" data-aos-delay="100" class="bg-white p-6 rounded-xl shadow">
+      <h3 class="font-bold text-blue-700">Structured Evaluation</h3>
+      <p class="text-gray-600 mt-2">Every application goes through a defined scoring framework focused on clarity, execution, and market potential.</p>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="200" class="bg-white p-6 rounded-xl shadow">
+      <h3 class="font-bold text-blue-700">Fair Selection Process</h3>
+      <p class="text-gray-600 mt-2">All applicants are reviewed under the same criteria to ensure fairness and consistency in funding decisions.</p>
+    </div>
+    <div data-aos="fade-up" data-aos-delay="300" class="bg-white p-6 rounded-xl shadow">
+      <h3 class="font-bold text-blue-700">Founder Accountability</h3>
+      <p class="text-gray-600 mt-2">We prioritize builders who demonstrate commitment, traction potential, and clear execution plans.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section data-aos="fade-up" class="py-20 px-6 bg-white">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <img src="/images/about.png" class="rounded-xl shadow-lg w-full h-[350px] object-cover" alt="Entrepreneurs working">
+    </div>
+    <div>
+      <h2 class="text-3xl font-bold text-gray-900">About Founders Support Initiative</h2>
+      <p class="mt-6 text-gray-600 leading-relaxed">The Founders Support Initiative (FSI) is dedicated to empowering ambitious entrepreneurs across Africa with the resources they need to build impactful and scalable businesses.</p>
+      <p class="mt-4 text-gray-600 leading-relaxed">We provide access to funding, mentorship, and structured training programs designed to help founders navigate early-stage challenges, validate their ideas, and grow sustainable ventures.</p>
+      <p class="mt-4 text-gray-600 leading-relaxed">Our mission is to unlock the next generation of African innovators by creating opportunities that bridge the gap between ideas and execution.</p>
+      <a href="grants.html" class="inline-block mt-6 bg-blue-600 text-white px-6 py-3 rounded font-semibold">Apply for Support</a>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCHING FIRST COHORT -->
+<section class="grid md:grid-cols-4 text-center py-12 bg-gray-50 gap-6 px-6">
+  <div><h2 class="text-xl font-bold">2026 Cohort</h2><p class="text-sm text-gray-500">Applications Now Open</p></div>
+  <div><h2 class="text-xl font-bold">Pan‑African</h2><p class="text-sm text-gray-500">Founder Focus</p></div>
+  <div><h2 class="text-xl font-bold">Merit‑Based</h2><p class="text-sm text-gray-500">Selection Process</p></div>
+  <div><h2 class="text-xl font-bold">Long‑Term</h2><p class="text-sm text-gray-500">Founder Ecosystem</p></div>
+</section>
+
+<!-- FEATURED SECTIONS -->
+<section data-aos="fade-up" class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4" alt="Funding">
+    <h3 class="font-bold text-blue-700">Funding</h3>
+    <p class="text-gray-600 mt-2">Access non-dilutive capital in Naira to build and scale your startup.</p>
+    <a href="grants.html" class="mt-4 inline-block text-blue-600 font-bold">Learn More →</a>
+  </div>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="/images/mentorship.png" class="w-full h-40 object-cover rounded mb-4" alt="Mentorship">
+    <h3 class="font-bold text-blue-700">Mentorship</h3>
+    <p class="text-gray-600 mt-2">Learn directly from experienced founders and global operators.</p>
+    <a href="community.html" class="mt-4 inline-block text-blue-600 font-bold">Join Community →</a>
+  </div>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="/images/training.png" class="w-full h-40 object-cover rounded mb-4" alt="Training">
+    <h3 class="font-bold text-blue-700">Training</h3>
+    <p class="text-gray-600 mt-2">Structured startup building and leadership development programs.</p>
+    <a href="learning.html" class="mt-4 inline-block text-blue-600 font-bold">Explore Hub →</a>
+  </div>
+</section>
+
+<!-- SELECTION FLOW -->
+<section data-aos="fade-up" class="bg-white py-24 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold">Selection Process</h2>
+    <p class="mt-4 text-gray-600 max-w-2xl mx-auto">We don’t accept everyone. We follow a structured evaluation process to identify founders with high potential, strong execution ability, and real problem understanding.</p>
+    <div class="grid md:grid-cols-4 gap-6 mt-14 text-left">
+      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-md hover:-translate-y-2 transition">
+        <h3 class="font-bold text-blue-700">1. Application</h3>
+        <p class="mt-3 text-gray-600">You submit your startup idea, problem, solution, traction (if any), and founder profile. Clarity matters more than complexity.</p>
+        <p class="text-sm text-gray-500 mt-3">⏱ 10–15 mins • Required</p>
+      </div>
+      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-md hover:-translate-y-2 transition">
+        <h3 class="font-bold text-blue-700">2. Initial Screening</h3>
+        <p class="mt-3 text-gray-600">Our system and review team filter applications based on clarity, problem strength, and execution potential.</p>
+        <p class="text-sm text-gray-500 mt-3">📊 Shortlisting stage</p>
+      </div>
+      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-md hover:-translate-y-2 transition">
+        <h3 class="font-bold text-blue-700">3. Deep Evaluation</h3>
+        <p class="mt-3 text-gray-600">Shortlisted founders are evaluated on business model strength, market size, and ability to execute.</p>
+        <p class="text-sm text-gray-500 mt-3">🧠 Scored review process</p>
+      </div>
+      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-md hover:-translate-y-2 transition">
+        <h3 class="font-bold text-blue-700">4. Selection & Funding</h3>
+        <p class="mt-3 text-gray-600">Selected founders receive funding, mentorship, and entry into the FSI ecosystem.</p>
+        <p class="text-sm text-gray-500 mt-3">🎯 Final decision stage</p>
+      </div>
+    </div>
+    <div class="mt-14 text-sm text-gray-500 max-w-2xl mx-auto">Selection is competitive. We prioritize founders who demonstrate clarity, urgency, and strong understanding of the problem they are solving.</div>
+  </div>
+</section>
+
+<!-- COHORT TIMELINE -->
+<section class="py-24 bg-gray-50 px-6">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">2026 Cohort Timeline</h2>
+    <p class="text-gray-600 max-w-2xl mx-auto mb-12">
+      Our process follows a clear, transparent schedule so founders know exactly what to expect.
+    </p>
+
+    <div class="grid md:grid-cols-4 gap-6 text-left">
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="font-bold text-blue-700">Applications Open</h3>
+        <p class="mt-2 text-gray-600">May 10</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="font-bold text-blue-700">Applications Close</h3>
+        <p class="mt-2 text-gray-600">July 31</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="font-bold text-blue-700">Review Period</h3>
+        <p class="mt-2 text-gray-600">August</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="font-bold text-blue-700">Cohort Begins</h3>
+        <p class="mt-2 text-gray-600">September</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT FOUNDERS RECEIVE -->
+<section class="py-24 px-6 bg-white">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold">What Selected Founders Receive</h2>
+    <div class="grid md:grid-cols-4 gap-6 mt-12 text-left">
+      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Non‑Dilutive Funding</h3><p class="text-gray-600 mt-2">Capital provided in Naira to help you build and scale without giving up equity.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Structured Training</h3><p class="text-gray-600 mt-2">8–12 week startup execution program covering product, growth, and operations.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Mentorship Access</h3><p class="text-gray-600 mt-2">Guidance from experienced founders, operators, and ecosystem leaders.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Investor Exposure</h3><p class="text-gray-600 mt-2">Demo opportunities and access to future funding pathways.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCEPTANCE RATE -->
+<section class="py-16 bg-blue-700 text-white text-center">
+  <h2 class="text-3xl md:text-4xl font-bold">Less than 10% of applicants are selected</h2>
+  <p class="mt-4 text-blue-100 max-w-2xl mx-auto">Our process is competitive to ensure we support founders with strong execution ability and real problem understanding.</p>
+</section>
+
+<!-- WAITLIST -->
+<section class="py-24 bg-gray-50 px-6">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-3xl font-bold">Join the Founders Waitlist</h2>
+    <p class="text-gray-600 mt-4">Get funding alerts, program updates and early access to future cohorts.</p>
+    <div class="mt-8 flex flex-col md:flex-row gap-4">
+      <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg border">
+      <button class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">Join Waitlist</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section data-aos="fade-up" class="bg-blue-700 text-white text-center py-20">
+  <h2 class="text-3xl font-bold">Build something that matters.</h2>
+  <a href="grants.html" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">Apply Now</a>
+</section>
+
+<footer class="bg-gray-100 border-t mt-12">
+  <div class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm text-gray-700">
+
+    <!-- BRAND -->
+    <div>
+      <p class="font-bold text-blue-700 text-lg">Founders Support Initiative</p>
+      <p class="mt-2">
+        Supporting African founders with funding, mentorship and global opportunities.
+      </p>
+      <p class="mt-4 text-gray-500">
+        © 2026 Founders Support Initiative. All rights reserved.
+      </p>
+    </div>
+
+    <!-- CONTACT -->
+    <div>
+      <p class="font-semibold text-gray-900 mb-2">Contact</p>
+      <p>Email: 
+        <a href="mailto:hello@founderssupport.org" class="hover:text-blue-700">
+          hello@founderssupport.org
+        </a>
+      </p>
+      <p class="text-xs text-gray-500 mt-2">
+        Monday – Friday, 9am – 5pm WAT
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="flex flex-col md:items-end space-y-2">
+      <a href="faq.html" class="hover:text-blue-700">FAQ</a>
+      <a href="privacy.html" class="hover:text-blue-700">Privacy Policy</a>
+      <a href="legal.html" class="hover:text-blue-700">Legal Notice</a>
+      <a href="terms.html" class="hover:text-blue-700">Terms of Use</a>
+    </div>
+
+  </div>
+</footer>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+
+  // Safe AOS init
+  if (typeof AOS !== "undefined") {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 80
+    });
+  }
+
+  // Sticky header effect
+  const header = document.querySelector("header");
+  window.addEventListener("scroll", () => {
+    if (!header) return;
+    if (window.scrollY > 20) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+
+});
+</script>
+</body>
+</html>

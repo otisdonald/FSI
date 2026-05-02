@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ - Founders Support Initiative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+  <h1 class="font-bold text-blue-700 text-lg">FSI</h1>
+
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="faq.html" class="text-blue-700 font-bold">FAQ</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="legal.html">Legal Notice</a>
+    <a href="terms.html">Terms of Use</a>
+  </nav>
+
+  <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+</header>
+
+<div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+<nav id="mobile-menu"
+class="fixed right-0 top-0 h-full w-72 bg-white shadow transform translate-x-full transition duration-300 z-50 p-6">
+  <button id="close-btn" class="text-2xl mb-6">✕</button>
+  <a href="index.html" class="block mb-4">Home</a>
+  <a href="faq.html" class="block mb-4">FAQ</a>
+  <a href="privacy.html" class="block mb-4">Privacy Policy</a>
+  <a href="legal.html" class="block mb-4">Legal Notice</a>
+  <a href="terms.html" class="block mb-4">Terms of Use</a>
+  <a href="grants.html" class="block mt-6 text-center bg-blue-600 text-white py-3 rounded-lg">Apply Now</a>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.getElementById("close-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("overlay");
+
+  menuBtn.onclick = () => {
+    mobileMenu.classList.remove("translate-x-full");
+    overlay.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  };
+
+  function closeMenu(){
+    mobileMenu.classList.add("translate-x-full");
+    overlay.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+
+  closeBtn.onclick = overlay.onclick = closeMenu;
+});
+</script>
+
+<!-- HERO -->
+<section class="bg-blue-700 text-white py-20 text-center px-6">
+  <h1 class="text-4xl md:text-5xl font-bold">Frequently Asked Questions</h1>
+  <p class="mt-4 text-blue-100 max-w-2xl mx-auto">
+    Everything you need to know before applying to the Founders Support Initiative.
+  </p>
+</section>
+
+<!-- FAQ CONTENT -->
+<section class="max-w-4xl mx-auto px-6 py-16 space-y-10 text-gray-700">
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">Why is there an application fee?</h2>
+<p>
+We charge a small <b>₦1,000 application fee</b> to cover administrative review, 
+prevent spam applications, and ensure only serious founders apply.  
+The fee is <b>non-refundable</b>.
+</p>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">Who can apply?</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li>Nigerian startup founders</li>
+<li>Early-stage and growth-stage startups</li>
+<li>Applicants must be 18 years or older</li>
+</ul>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">Do I need a registered business?</h2>
+<p>
+No. You can apply with an idea, prototype, or existing startup.
+However, having traction or a registered business strengthens your application.
+</p>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">What type of startups do you fund?</h2>
+<p>
+We support startups across sectors including technology, agriculture, education, 
+health, creative industries, logistics, fintech and social impact.
+</p>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">How much funding can I receive?</h2>
+<p>
+Grants range from <b>₦750,000 to ₦7,500,000</b> depending on the stage and impact of your startup.
+</p>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">Is the funding repayable?</h2>
+<p>
+No. Grants are <b>non-dilutive</b> and do not require repayment or equity.
+</p>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">Does applying guarantee funding?</h2>
+<p>
+No. Applications go through a competitive review and selection process.
+</p>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">What happens after I apply?</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li>Application review</li>
+<li>Shortlisting</li>
+<li>Interview & verification</li>
+<li>Final selection and onboarding</li>
+</ul>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">What support do selected founders receive?</h2>
+<ul class="list-disc pl-6 space-y-2">
+<li>Grant funding</li>
+<li>Mentorship & advisory</li>
+<li>Investor & partner introductions</li>
+<li>Training & business resources</li>
+<li>Founder community access</li>
+</ul>
+</div>
+
+<div>
+<h2 class="text-xl font-bold text-gray-900">Can I apply more than once?</h2>
+<p>
+Yes. You may apply again in future cohorts if your startup evolves.
+</p>
+</div>
+
+</section>
+
+<footer class="bg-gray-100 border-t">
+  <div class="max-w-6xl mx-auto px-6 py-8 grid md:grid-cols-2 gap-6 text-sm text-gray-700">
+    <div>
+      <p class="font-bold text-blue-700">Founders Support Initiative</p>
+      <p class="mt-2">© 2026 Founders Support Initiative. All rights reserved.</p>
+    </div>
+    <div class="flex flex-col md:items-end space-y-2">
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="legal.html">Legal Notice</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

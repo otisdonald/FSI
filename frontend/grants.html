@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FSI | Grants</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-gray-900">
+
+<!-- ===== NAVBAR ===== -->
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white shadow z-50">
+  <h1 class="font-bold text-blue-700 text-lg">FSI</h1>
+
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+    <a href="grants.html" class="text-blue-700 font-bold">Grants</a>
+  </nav>
+
+  <button id="menu-btn" class="md:hidden text-3xl">☰</button>
+</header>
+
+<div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+<nav id="mobile-menu"
+class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-full transition duration-300 md:hidden p-6 z-50">
+  <button id="close-btn" class="text-2xl mb-6">✕</button>
+
+  <div class="flex flex-col gap-5">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+    <a href="grants.html">Grants</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative bg-blue-700 text-white py-32 text-center px-6">
+  <div class="absolute inset-0">
+    <img src="/images/startupgrant.png"
+         class="w-full h-full object-cover opacity-30 hero-float">
+  </div>
+  <div class="relative z-10">
+    <h1 class="text-4xl md:text-5xl font-bold">Startup Grants for African Founders</h1>
+    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+      Access non-dilutive funding designed to help early and growth-stage startups scale.
+      Grants are primarily awarded in Naira, with local currency equivalents available for non-Nigerian founders.
+    </p>
+
+    <a href="apply.html" class="mt-8 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">
+      Apply Now
+    </a>
+
+    <p class="mt-4 text-blue-200 text-sm">
+      Application Fee: ₦1,000 • Open to founders across Africa 🌍
+    </p>
+  </div>
+</section>
+
+<!-- GRANT DETAILS -->
+<section class="py-20 px-6 max-w-6xl mx-auto">
+  <h2 class="text-3xl font-bold mb-12 text-center">Grant Categories</h2>
+
+  <div class="grid md:grid-cols-2 gap-10">
+
+    <!-- General -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-48 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700">General Startup Grant</h3>
+      <ul class="list-disc pl-6 mt-2 text-gray-600">
+        <li>Funding: ₦750,000 – ₦7,500,000</li>
+        <li>All industries</li>
+        <li>Product development, marketing & scaling</li>
+      </ul>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+    </div>
+
+    <!-- Youth -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <img src="/images/youth.png" class="w-full h-48 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700">Youth Grant</h3>
+      <ul class="list-disc pl-6 mt-2 text-gray-600">
+        <li>Age 18 – 35</li>
+        <li>₦750,000 – ₦3,000,000</li>
+        <li>Early-stage founders</li>
+      </ul>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+    </div>
+
+    <!-- Women -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <img src="/images/women.png" class="w-full h-48 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700">Women in Business Grant</h3>
+      <ul class="list-disc pl-6 mt-2 text-gray-600">
+        <li>Female-led startups</li>
+        <li>₦1,500,000 – ₦4,500,000</li>
+        <li>All sectors</li>
+      </ul>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+    </div>
+
+    <!-- Innovation -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+      <img src="/images/programs.png" class="w-full h-48 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700">Innovation & Tech Grant</h3>
+      <ul class="list-disc pl-6 mt-2 text-gray-600">
+        <li>Health • EdTech • Agri • Fintech • Climate</li>
+        <li>₦3,000,000 – ₦7,500,000</li>
+        <li>Impact-driven startups</li>
+      </ul>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+    </div>
+
+  </div>
+
+  <p class="text-center text-gray-500 mt-10 text-sm">
+    Grant amounts may be paid in local currency equivalent for non-Nigerian founders.
+  </p>
+</section>
+
+<!-- SDG -->
+<section class="py-20 px-6 max-w-6xl mx-auto">
+  <h2 class="text-3xl font-bold text-center mb-12">Aligned With UN Sustainable Development Goals</h2>
+
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 1 — No Poverty</div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 3 — Good Health</div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 5 — Gender Equality</div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 8 — Economic Growth</div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 9 — Innovation</div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 13 — Climate Action</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-blue-700 text-white text-center py-20">
+  <h2 class="text-3xl font-bold">2026 Cohort Now Accepting Applications</h2>
+  <p class="mt-4 text-blue-200">Join ambitious founders building the future of Africa.</p>
+  <a href="apply.html" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">
+    Start Your Application
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 border-t mt-12">
+  <div class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm text-gray-700">
+
+    <!-- BRAND -->
+    <div>
+      <p class="font-bold text-blue-700 text-lg">Founders Support Initiative</p>
+      <p class="mt-2">
+        Supporting African founders with funding, mentorship and global opportunities.
+      </p>
+      <p class="mt-4 text-gray-500">
+        © 2026 Founders Support Initiative. All rights reserved.
+      </p>
+    </div>
+
+    <!-- CONTACT -->
+    <div>
+      <p class="font-semibold text-gray-900 mb-2">Contact</p>
+      <p>Email: 
+        <a href="mailto:hello@founderssupport.org" class="hover:text-blue-700">
+          hello@founderssupport.org
+        </a>
+      </p>
+      <p class="text-xs text-gray-500 mt-2">
+        Monday – Friday, 9am – 5pm WAT
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="flex flex-col md:items-end space-y-2">
+      <a href="faq.html" class="hover:text-blue-700">FAQ</a>
+      <a href="privacy.html" class="hover:text-blue-700">Privacy Policy</a>
+      <a href="legal.html" class="hover:text-blue-700">Legal Notice</a>
+      <a href="terms.html" class="hover:text-blue-700">Terms of Use</a>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+const menuBtn=document.getElementById("menu-btn");
+const closeBtn=document.getElementById("close-btn");
+const mobileMenu=document.getElementById("mobile-menu");
+const overlay=document.getElementById("overlay");
+
+menuBtn.onclick=()=>{mobileMenu.classList.remove("translate-x-full");overlay.classList.remove("hidden");}
+closeBtn.onclick=overlay.onclick=()=>{mobileMenu.classList.add("translate-x-full");overlay.classList.add("hidden");}
+});
+</script>
+
+<style>
+.hero-float{animation:floatBg 18s ease-in-out infinite;}
+@keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+</style>
+
+</body>
+</html>

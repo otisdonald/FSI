@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Legal Notice - Founders Support Initiative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+  <h1 class="font-bold text-blue-700 text-lg">FSI</h1>
+
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="faq.html">FAQ</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="legal.html" class="text-blue-700 font-bold">Legal Notice</a>
+    <a href="terms.html">Terms of Use</a>
+  </nav>
+
+  <button id="menu-btn" class="md:hidden text-2xl">☰</button>
+</header>
+
+<div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+<nav id="mobile-menu"
+class="fixed right-0 top-0 h-full w-72 bg-white shadow transform translate-x-full transition duration-300 z-50 p-6">
+  <button id="close-btn" class="text-2xl mb-6">✕</button>
+  <a href="index.html" class="block mb-4">Home</a>
+  <a href="faq.html" class="block mb-4">FAQ</a>
+  <a href="privacy.html" class="block mb-4">Privacy Policy</a>
+  <a href="legal.html" class="block mb-4">Legal Notice</a>
+  <a href="terms.html" class="block mb-4">Terms of Use</a>
+  <a href="grants.html" class="block mt-6 text-center bg-blue-600 text-white py-3 rounded-lg">Apply Now</a>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.getElementById("close-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("overlay");
+
+  menuBtn.onclick = () => {
+    mobileMenu.classList.remove("translate-x-full");
+    overlay.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  };
+
+  function closeMenu(){
+    mobileMenu.classList.add("translate-x-full");
+    overlay.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+
+  closeBtn.onclick = overlay.onclick = closeMenu;
+});
+</script>
+
+<!-- HERO -->
+<section class="bg-blue-700 text-white py-20 text-center px-6">
+  <h1 class="text-4xl md:text-5xl font-bold">Legal Notice</h1>
+  <p class="mt-4 max-w-2xl mx-auto text-blue-100">
+    Transparency and compliance are core to how we operate across Africa.
+  </p>
+</section>
+
+<!-- CONTENT -->
+<section class="max-w-4xl mx-auto px-6 py-16 space-y-10 text-gray-700">
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">Organization Information</h2>
+    <p>
+      Founders Support Initiative (FSI) is a startup support and grant organization
+      dedicated to empowering entrepreneurs across Africa through funding,
+      training, mentorship, and ecosystem access.
+    </p>
+    <p class="mt-2">
+      References to “FSI”, “we”, “our”, or “us” on this website refer to the
+      Founders Support Initiative.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">Jurisdiction</h2>
+    <p>
+      This website is operated in accordance with applicable Nigerian laws and
+      international digital regulations. By accessing this website, you agree
+      that any disputes arising from its use will be governed by applicable laws.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">Intellectual Property</h2>
+    <p>
+      All content on this website — including text, branding, graphics,
+      program materials, and design — is the intellectual property of FSI unless
+      otherwise stated.
+    </p>
+    <p class="mt-2">
+      Unauthorized reproduction, distribution, modification, or commercial use
+      of our materials without written permission is strictly prohibited.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">Program & Grant Disclaimer</h2>
+    <p>
+      Submission of an application does not guarantee funding, acceptance,
+      or participation in any FSI program.
+    </p>
+    <p class="mt-2">
+      All applications undergo a competitive review process and selections
+      are made at the sole discretion of FSI and its partners.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">External Links</h2>
+    <p>
+      Our website may contain links to third-party platforms. FSI is not
+      responsible for the content, policies, or practices of these external sites.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">Limitation of Liability</h2>
+    <p>
+      FSI shall not be liable for any loss, damages, or interruptions resulting
+      from the use of this website or participation in our programs.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900 mb-3">Updates</h2>
+    <p>
+      We may update this Legal Notice at any time to reflect operational,
+      regulatory, or program changes. Continued use of this website implies
+      acceptance of any updates.
+    </p>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 border-t">
+  <div class="max-w-6xl mx-auto px-6 py-8 grid md:grid-cols-2 gap-6 text-sm text-gray-700">
+    <div>
+      <p class="font-bold text-blue-700">Founders Support Initiative</p>
+      <p class="mt-2">© 2026 Founders Support Initiative. All rights reserved.</p>
+    </div>
+    <div class="flex flex-col md:items-end space-y-2">
+      <a href="faq.html">FAQ</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="legal.html">Legal Notice</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

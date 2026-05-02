@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FSI | Learning Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+  <h1 class="font-bold text-blue-700 text-lg">FSI</h1>
+
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+  </nav>
+
+  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+  </button>
+</header>
+
+<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
+
+<nav id="mobile-menu"
+class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
+
+  <h2 class="font-bold text-blue-700">Menu</h2>
+
+  <div class="flex flex-col gap-5 text-gray-800 font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+  </div>
+
+  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">
+    Apply Now
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="relative bg-blue-700 text-white py-32 text-center px-6">
+  <div class="absolute inset-0">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
+    class="w-full h-full object-cover opacity-30" alt="">
+  </div>
+  <div class="relative z-10">
+    <h1 class="text-4xl md:text-5xl font-bold">Learning Hub</h1>
+    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+      Access guides, toolkits, and training resources to strengthen your startup journey.
+    </p>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+  <div class="card border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-40 object-cover rounded mb-4">
+    <h3 class="font-bold text-blue-700">Startup Basics</h3>
+    <p class="text-gray-600 mt-2">Step-by-step guides for launching and structuring your business.</p>
+  </div>
+
+  <div class="card border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="/images/leadership.png" class="w-full h-40 object-cover rounded mb-4">
+    <h3 class="font-bold text-blue-700">Leadership</h3>
+    <p class="text-gray-600 mt-2">Develop skills to lead teams and inspire growth.</p>
+  </div>
+
+  <div class="card border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4">
+    <h3 class="font-bold text-blue-700">Fundraising</h3>
+    <p class="text-gray-600 mt-2">Learn how to pitch and secure investment effectively.</p>
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<section class="py-24 bg-gray-50 text-center px-6">
+  <h2 class="text-3xl font-bold">Resource Library Launching Soon</h2>
+  <p class="mt-6 text-gray-600 max-w-2xl mx-auto">
+    We’re building a comprehensive library of startup guides, templates and playbooks.
+  </p>
+  <div class="mt-10 flex justify-center gap-6 flex-wrap text-sm text-gray-700">
+    <div class="bg-white px-6 py-3 rounded-full shadow">Pitch Deck Templates</div>
+    <div class="bg-white px-6 py-3 rounded-full shadow">Financial Models</div>
+    <div class="bg-white px-6 py-3 rounded-full shadow">Legal Guides</div>
+    <div class="bg-white px-6 py-3 rounded-full shadow">Go-to-Market Playbooks</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 border-t mt-12">
+  <div class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm text-gray-700">
+
+    <!-- BRAND -->
+    <div>
+      <p class="font-bold text-blue-700 text-lg">Founders Support Initiative</p>
+      <p class="mt-2">
+        Supporting African founders with funding, mentorship and global opportunities.
+      </p>
+      <p class="mt-4 text-gray-500">
+        © 2026 Founders Support Initiative. All rights reserved.
+      </p>
+    </div>
+
+    <!-- CONTACT -->
+    <div>
+      <p class="font-semibold text-gray-900 mb-2">Contact</p>
+      <p>Email: 
+        <a href="mailto:hello@founderssupport.org" class="hover:text-blue-700">
+          hello@founderssupport.org
+        </a>
+      </p>
+      <p class="text-xs text-gray-500 mt-2">
+        Monday – Friday, 9am – 5pm WAT
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="flex flex-col md:items-end space-y-2">
+      <a href="faq.html" class="hover:text-blue-700">FAQ</a>
+      <a href="privacy.html" class="hover:text-blue-700">Privacy Policy</a>
+      <a href="legal.html" class="hover:text-blue-700">Legal Notice</a>
+      <a href="terms.html" class="hover:text-blue-700">Terms of Use</a>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ANIMATIONS -->
+<style>
+.card{opacity:0;transform:translateY(40px);transition:.8s}
+.card.show{opacity:1;transform:translateY(0)}
+#heroImg{animation:float 18s infinite ease-in-out}
+@keyframes float{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+</style>
+
+<script>
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show")});
+});
+document.querySelectorAll(".card").forEach(el=>observer.observe(el));
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("overlay");
+  const bars = document.querySelectorAll(".bar");
+
+  let open = false;
+
+  menuBtn.addEventListener("click", () => {
+    open = !open;
+
+    if (open) {
+      mobileMenu.classList.remove("translate-x-full");
+      overlay.classList.remove("opacity-0","pointer-events-none");
+      overlay.classList.add("opacity-100");
+      document.body.style.overflow = "hidden";
+
+      bars[0].style.transform = "rotate(45deg) translateY(6px)";
+      bars[1].style.opacity = "0";
+      bars[2].style.transform = "rotate(-45deg) translateY(-6px)";
+    } else {
+      closeMenu();
+    }
+  });
+
+  function closeMenu() {
+    mobileMenu.classList.add("translate-x-full");
+    overlay.classList.add("opacity-0","pointer-events-none");
+    document.body.style.overflow = "auto";
+
+    bars[0].style.transform = "none";
+    bars[1].style.opacity = "1";
+    bars[2].style.transform = "none";
+
+    open = false;
+  }
+
+  overlay.addEventListener("click", closeMenu);
+
+});
+</script>
+</body>
+</html>
