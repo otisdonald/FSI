@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const path = require("path");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
@@ -14,7 +14,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+
+// health check route (IMPORTANT for Render)
+app.get("/", (req,res)=>{
+  res.send("FSI API is running 🚀");
+});
 
 // ================= DB =================
 mongoose.connect(process.env.MONGO_URI)
@@ -82,22 +86,23 @@ app.get("/api/config",(req,res)=>{
   res.json({ flutterwavePublicKey:process.env.FLW_PUBLIC_KEY });
 });
 
-// ================= ROUTES =================
-app.get("/",(req,res)=>res.sendFile(path.join(__dirname,"public/index.html")));
-app.get("/apply",(req,res)=>res.sendFile(path.join(__dirname,"public/apply.html")));
-app.get("/success",(req,res)=>res.sendFile(path.join(__dirname,"public/success.html")));
-app.get("/admin",(req,res)=>res.sendFile(path.join(__dirname,"public/admin.html")));
-app.get("/admin-login",(req,res)=>res.sendFile(path.join(__dirname,"public/admin-login.html")));
-
 // ================= SAVE APPLICATION =================
 app.post("/api/save-application", async (req,res)=>{
   try{
     const data = req.body;
 
     const exists = await Application.findOne({ email:data.email });
-    if(exists) return res.json({ success:false, message:"Duplicate application" });
+
+    // IMPORTANT: only block duplicates if payment already made
+    if(exists && exists.paymentStatus === "paid"){
+      return res.json({ success:false, message:"You already completed an application." });
+    }
+
+    // If user started before but didn't pay → allow overwrite
+    await Application.findOneAndDelete({ email:data.email });
 
     const appData = await Application.create(data);
+
     res.json({ success:true, id:appData._id });
 
   }catch(err){
@@ -107,8 +112,6 @@ app.post("/api/save-application", async (req,res)=>{
 });
 
 // ================= VERIFY PAYMENT =================
-const axios = require("axios");
-
 app.post("/api/verify-payment", async (req,res)=>{
   const { transaction_id, email } = req.body;
 
@@ -136,7 +139,7 @@ app.post("/api/verify-payment", async (req,res)=>{
     await sendEmail(
       email,
       "Application Received",
-      "Your application has been successfully submitted."
+      "Your application has been successfully submitted to the Founders Support Initiative."
     );
 
     res.json({ success:true });
@@ -161,7 +164,7 @@ app.post("/api/admin/login", async (req,res)=>{
   res.json({ success:true, token });
 });
 
-// ================= ANALYTICS =================
+// ================= ADMIN DATA =================
 app.get("/api/all-applications", auth, async (req,res)=>{
   const apps = await Application.find().sort({ createdAt:-1 });
   res.json(apps);
@@ -173,4 +176,6 @@ app.get("/api/analytics", auth, async (req,res)=>{
   res.json({ total, paid });
 });
 
-app.listen(3000,()=>console.log("Server running on port 3000"));
+// ================= START SERVER =================
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>console.log("Server running on port", PORT));
