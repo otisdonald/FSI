@@ -193,110 +193,99 @@ Submit Application (₦1,000)
 </div>
 
 <script>
-let FLW_PUBLIC_KEY = "";
+let FLW_PUBLIC_KEY="";
 
-// get Flutterwave public key
-fetch("/api/config")
-.then(res => res.json())
-.then(data => {
-  FLW_PUBLIC_KEY = data.flutterwavePublicKey;
-});
+// GET PUBLIC KEY FROM BACKEND
+fetch("https://fsi.onrender.com/api/config")
+.then(res=>res.json())
+.then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
 
 async function submitForm(){
 
-  const f = document.getElementById("form");
+const f=document.getElementById("form");
 
-  const data = {
-    name: f.name.value,
-    email: f.email.value,
-    phone: f.phone.value,
-    country: f.country.value,
-    sex: f.sex.value,
-    dob: f.dob.value,
-    startup: f.startup.value,
-    problem: f.problem.value,
-    solution: f.solution.value,
-    business_model: f.business_model.value,
-    usage: f.usage.value
-  };
+if(!document.getElementById("agree").checked){
+alert("You must accept the Founder Agreement");
+return;
+}
 
-  if(!document.getElementById("agree").checked){
-    alert("You must accept the Founder Agreement");
-    return;
-  }
+const data={
+name:f.name.value,
+email:f.email.value,
+phone:f.phone.value,
+country:f.country.value,
+sex:f.sex.value,
+dob:f.dob.value,
+startup:f.startup.value,
+problem:f.problem.value,
+solution:f.solution.value,
+business_model:f.business_model.value,
+usage:f.usage.value
+};
 
-  // 🚨 SAVE FORM TEMPORARILY (not to database yet)
-  localStorage.setItem("fsi_application", JSON.stringify(data));
+// SAVE TEMP BEFORE PAYMENT
+localStorage.setItem("fsi_application",JSON.stringify(data));
 
-  // OPEN FLUTTERWAVE PAYMENT
-  FlutterwaveCheckout({
-    public_key: FLW_PUBLIC_KEY,
-    tx_ref: "FSI-" + Date.now(),
+FlutterwaveCheckout({
+public_key:FLW_PUBLIC_KEY,
+tx_ref:"FSI-"+Date.now(),
+amount:1000,
+currency:"NGN",
 
-    amount: 1000,
-    currency: "NGN",
-    payment_options: "card,banktransfer,ussd,mobilemoney",
+customer:{
+email:data.email,
+name:data.name,
+phone_number:data.phone
+},
 
-    customer: {
-      email: data.email,
-      name: data.name,
-      phone_number: data.phone
-    },
+customizations:{
+title:"Founders Support Initiative",
+description:"Application Fee"
+},
 
-    customizations: {
-      title: "Founders Support Initiative",
-      description: "Founder Application Fee",
-      logo: ""
-    },
+callback: async function(response){
 
-    // ✅ PAYMENT SUCCESS
-    callback: async function (response) {
+const storedData=JSON.parse(localStorage.getItem("fsi_application"));
 
-      const storedData = JSON.parse(localStorage.getItem("fsi_application"));
+// VERIFY PAYMENT
+const verifyRes=await fetch("https://fsi.onrender.com/api/verify-payment",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+transaction_id:response.transaction_id,
+email:storedData.email
+})
+});
 
-      // 1️⃣ verify payment
-      const verifyRes = await fetch("/api/verify-payment", {
-        method: "POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify({
-          transaction_id: response.transaction_id,
-          email: storedData.email
-        })
-      });
+const verifyData=await verifyRes.json();
+if(!verifyData.success){
+alert("Payment verification failed");
+return;
+}
 
-      const verifyData = await verifyRes.json();
+// SAVE APPLICATION
+const saveRes=await fetch("https://fsi.onrender.com/api/save-application",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify(storedData)
+});
 
-      if(!verifyData.success){
-        alert("Payment not verified");
-        return;
-      }
+const saveData=await saveRes.json();
+if(!saveData.success){
+alert(saveData.message);
+return;
+}
 
-      // 2️⃣ NOW SAVE APPLICATION TO DATABASE
-      const saveRes = await fetch("/api/save-application",{
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
-        body: JSON.stringify(storedData)
-      });
+// DONE 🎉
+localStorage.removeItem("fsi_application");
+window.location.href="https://fsi.onrender.com/success";
 
-      const saveData = await saveRes.json();
+},
 
-      if(!saveData.success){
-        alert(saveData.message || "Error saving application");
-        return;
-      }
-
-      // 3️⃣ clear temp storage
-      localStorage.removeItem("fsi_application");
-
-      // 4️⃣ redirect
-      window.location.href = "/success";
-    },
-
-    onclose: function() {
-      alert("Payment cancelled. Your application was NOT submitted.");
-    }
-  });
-
+onclose:function(){
+alert("Payment cancelled. Application not submitted.");
+}
+});
 }
 </script>
 </body>
