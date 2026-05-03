@@ -176,6 +176,58 @@ app.get("/api/analytics", auth, async (req,res)=>{
   res.json({ total, paid });
 });
 
+// ================= FLUTTERWAVE WEBHOOK =================
+app.post("/api/flutterwave-webhook", async (req,res)=>{
+  try {
+    const payload = req.body;
+
+    // Flutterwave sends many events — we only care about successful payments
+    if(payload.event !== "charge.completed"){
+      return res.sendStatus(200);
+    }
+
+    const payment = payload.data;
+
+    if(payment.status !== "successful"){
+      return res.sendStatus(200);
+    }
+
+    const email = payment.customer.email;
+
+    // get saved form from temp collection (or create if missing)
+    const exists = await Application.findOne({ email });
+
+    if(!exists){
+      await Application.create({
+        name: payment.customer.name,
+        email: email,
+        phone: payment.customer.phone_number,
+        paymentStatus: "paid",
+        tx_ref: payment.tx_ref
+      });
+    } else {
+      await Application.updateOne(
+        { email },
+        { paymentStatus:"paid", tx_ref:payment.tx_ref }
+      );
+    }
+
+    await sendEmail(
+      email,
+      "Application Received",
+      "Your FSI application and payment have been received successfully."
+    );
+
+    console.log("Webhook payment confirmed for:", email);
+
+    res.sendStatus(200);
+
+  } catch(err){
+    console.log("Webhook error:", err.message);
+    res.sendStatus(500);
+  }
+});
+
 // ================= START SERVER =================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>console.log("Server running on port", PORT));
