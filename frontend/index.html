@@ -357,5 +357,44 @@ window.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+<script>
+// ===== APPLICATION DATES =====
+const openDate  = new Date("May 10, 2026 00:00:00").getTime();
+const closeDate = new Date("July 31, 2026 23:59:59").getTime();
+const bar = document.getElementById("countdownBar");
+
+function updateCountdown() {
+  const now = new Date().getTime();
+
+  // Before applications open
+  if (now < openDate) {
+    const distance = openDate - now;
+    showTime(distance, "Applications open in");
+    return;
+  }
+
+  // While applications are open
+  if (now >= openDate && now <= closeDate) {
+    const distance = closeDate - now;
+    showTime(distance, "Applications close in");
+    return;
+  }
+
+  // After close
+  bar.innerHTML = "Applications closed — Join the waitlist for next cohort";
+}
+
+function showTime(distance, label) {
+  const days = Math.floor(distance / (1000*60*60*24));
+  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+  bar.innerHTML = `${label}: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
 </body>
 </html>
