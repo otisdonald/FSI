@@ -192,72 +192,85 @@ Submit Application (₦1,000)
 </div>
 </div>
 
-
 <script>
-let FLW_PUBLIC_KEY = "";
+let FLW_PUBLIC_KEY="";
 
-// get Flutterwave public key from backend
+// get Flutterwave public key
 fetch("https://fsi.onrender.com/api/config")
-.then(res => res.json())
-.then(data => FLW_PUBLIC_KEY = data.flutterwavePublicKey);
+.then(res=>res.json())
+.then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
 
 
+// 🚀 MAIN FUNCTION
 async function submitForm(){
 
-  const f = document.getElementById("form");
+  const f=document.getElementById("form");
 
-  // check agreement
   if(!document.getElementById("agree").checked){
-    alert("You must accept the Founder Agreement");
+    alert("Please accept the agreement");
     return;
   }
 
-  // collect form data
-  const data = {
-    name: f.name.value,
-    email: f.email.value,
-    phone: f.phone.value,
-    country: f.country.value,
-    sex: f.sex.value,
-    dob: f.dob.value,
-    startup: f.startup.value,
-    problem: f.problem.value,
-    solution: f.solution.value,
-    business_model: f.business_model.value,
-    usage: f.usage.value
+  const data={
+    name:f.name.value,
+    email:f.email.value,
+    phone:f.phone.value,
+    startup:f.startup.value,
+    problem:f.problem.value,
+    solution:f.solution.value
   };
 
-  // save application locally before payment
-  localStorage.setItem("fsi_application", JSON.stringify(data));
+  try{
 
-  // launch Flutterwave checkout
-  FlutterwaveCheckout({
-    public_key: FLW_PUBLIC_KEY,
-    tx_ref: "FSI-" + Date.now(),
-    amount: 1000,
-    currency: "NGN",
+    // ⭐ STEP 1 — SAVE APPLICATION FIRST
+    const saveRes = await fetch("https://fsi.onrender.com/api/save-application",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify(data)
+    });
 
-    // ⭐ VERY IMPORTANT — forces redirect flow
-    payment_options: "card,banktransfer,ussd",
+    const saveData = await saveRes.json();
 
-    // ⭐ user ALWAYS returns here after payment
-    redirect_url: "https://fsi.onrender.com/pending",
-
-    customer: {
-      email: data.email,
-      name: data.name,
-      phone_number: data.phone
-    },
-
-    customizations: {
-      title: "Founders Support Initiative",
-      description: "Application Fee"
-    },
-
-    onclose: function(){
-      alert("Payment window closed.");
+    if(!saveData.success){
+      alert("Could not submit application. Try again.");
+      return;
     }
-  });
+
+    // ⭐ STEP 2 — OPEN PAYMENT MODAL
+    FlutterwaveCheckout({
+      public_key: FLW_PUBLIC_KEY,
+      tx_ref: "FSI-"+Date.now(),
+      amount: 1000,
+      currency: "NGN",
+
+      payment_options: "card,banktransfer,ussd,account",
+
+      customer:{
+        email:data.email,
+        name:data.name,
+        phone_number:data.phone
+      },
+
+      customizations:{
+        title:"Founders Support Initiative",
+        description:"Application Fee"
+      },
+
+      // ⭐ STEP 3 — PAYMENT SUCCESS
+      callback:function(response){
+        // user ALWAYS lands on pending page
+        window.location.href="https://fsi.onrender.com/pending";
+      },
+
+      onclose:function(){
+        alert("Payment window closed.");
+      }
+    });
+
+  }catch(err){
+    alert("Server error. Please try again.");
+    console.log(err);
+  }
 }
 </script>
 </body>
