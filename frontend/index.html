@@ -283,8 +283,10 @@ window.addEventListener("DOMContentLoaded", () => {
     <h2 class="text-3xl font-bold">Join the Founders Waitlist</h2>
     <p class="text-gray-600 mt-4">Get funding alerts, program updates and early access to future cohorts.</p>
     <div class="mt-8 flex flex-col md:flex-row gap-4">
-      <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg border">
-      <button class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">Join Waitlist</button>
+     <input id="waitlistEmail" type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg border">
+<button id="waitlistBtn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">Join Waitlist</button>
+
+<p id="waitlistMsg" class="text-sm mt-3 text-gray-600"></p>
     </div>
   </div>
 </section>
@@ -395,6 +397,44 @@ function showTime(distance, label) {
 
 setInterval(updateCountdown, 1000);
 updateCountdown();
+</script>
+
+<script>
+const btn = document.getElementById("waitlistBtn");
+
+if(btn){
+  btn.onclick = async () => {
+    const email = document.getElementById("waitlistEmail").value;
+    const msg = document.getElementById("waitlistMsg");
+
+    if(!email){
+      msg.innerText = "Please enter your email";
+      return;
+    }
+
+    msg.innerText = "Joining waitlist...";
+
+    try{
+      const res = await fetch("https://fsi.onrender.com/api/waitlist",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+
+      if(data.success){
+        msg.innerText = "🎉 You’re on the waitlist! Check your email.";
+        document.getElementById("waitlistEmail").value="";
+      }else{
+        msg.innerText = "Something went wrong. Try again.";
+      }
+
+    }catch{
+      msg.innerText = "Network error. Try again.";
+    }
+  };
+}
 </script>
 </body>
 </html>
