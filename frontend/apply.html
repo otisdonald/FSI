@@ -192,10 +192,11 @@ Submit Application (₦1,000)
 </div>
 </div>
 
+
 <script>
 let FLW_PUBLIC_KEY="";
 
-// GET PUBLIC KEY FROM BACKEND
+// get key
 fetch("https://fsi.onrender.com/api/config")
 .then(res=>res.json())
 .then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
@@ -205,7 +206,7 @@ async function submitForm(){
 const f=document.getElementById("form");
 
 if(!document.getElementById("agree").checked){
-alert("You must accept the Founder Agreement");
+alert("Please accept agreement");
 return;
 }
 
@@ -213,9 +214,6 @@ const data={
 name:f.name.value,
 email:f.email.value,
 phone:f.phone.value,
-country:f.country.value,
-sex:f.sex.value,
-dob:f.dob.value,
 startup:f.startup.value,
 problem:f.problem.value,
 solution:f.solution.value,
@@ -224,67 +222,51 @@ usage:f.usage.value
 };
 
 // SAVE TEMP BEFORE PAYMENT
-localStorage.setItem("fsi_application",JSON.stringify(data));
+localStorage.setItem("fsi_application", JSON.stringify(data));
 
 FlutterwaveCheckout({
-public_key:FLW_PUBLIC_KEY,
-tx_ref:"FSI-"+Date.now(),
-amount:1000,
-currency:"NGN",
+  public_key: FLW_PUBLIC_KEY,
+  tx_ref: "FSI-" + Date.now(),
+  amount: 1000,
+  currency: "NGN",
 
-customer:{
-email:data.email,
-name:data.name,
-phone_number:data.phone
-},
+  customer: {
+    email: data.email,
+    name: data.name,
+    phone_number: data.phone
+  },
 
-customizations:{
-title:"Founders Support Initiative",
-description:"Application Fee"
-},
+  customizations: {
+    title: "Founders Support Initiative",
+    description: "Application Fee"
+  },
 
-callback: async function(response){
+  // 🔥 NEW FLOW
+  callback: async function(response) {
 
-const storedData=JSON.parse(localStorage.getItem("fsi_application"));
+    try{
+      const storedData = JSON.parse(localStorage.getItem("fsi_application"));
 
-// VERIFY PAYMENT
-const verifyRes=await fetch("https://fsi.onrender.com/api/verify-payment",{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-transaction_id:response.transaction_id,
-email:storedData.email
-})
-});
+      // save application FIRST as unpaid
+      await fetch("https://fsi.onrender.com/api/save-application",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify(storedData)
+      });
 
-const verifyData=await verifyRes.json();
-if(!verifyData.success){
-alert("Payment verification failed");
-return;
-}
+      // go to pending page while webhook confirms payment
+      window.location.href="https://fsi.onrender.com/pending";
 
-// SAVE APPLICATION
-const saveRes=await fetch("https://fsi.onrender.com/api/save-application",{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify(storedData)
-});
+    }catch(err){
+      alert("Something went wrong. Please contact support.");
+      console.log(err);
+    }
 
-const saveData=await saveRes.json();
-if(!saveData.success){
-alert(saveData.message);
-return;
-}
+  },
 
-// DONE 🎉
-localStorage.removeItem("fsi_application");
-window.location.href="https://fsi.onrender.com/success";
-
-},
-
-onclose:function(){
-alert("Payment cancelled. Application not submitted.");
-}
+  onclose:function(){
+    alert("Payment window closed.");
+  }
 });
 }
 </script>
