@@ -6,26 +6,43 @@ const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
+
 
 // ================= MIDDLEWARE =================
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// health check route (IMPORTANT for Render)
+// VERY IMPORTANT → serve frontend pages
+app.use(express.static(path.join(__dirname, "public")));
+
+
+// ================= BASIC ROUTES =================
+
+// Health check (Render uses this)
 app.get("/", (req,res)=>{
   res.send("FSI API is running 🚀");
 });
+
+// Pending payment page
+app.get("/pending",(req,res)=>{
+  res.sendFile(path.join(__dirname,"public/pending.html"));
+});
+
 
 // ================= DB =================
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("MongoDB Connected"))
 .catch(err=>console.log(err));
 
+
 // ================= MODELS =================
+
+// Applications
 const Application = mongoose.model("Application", new mongoose.Schema({
   name: String,
   email: String,
@@ -45,10 +62,18 @@ const Application = mongoose.model("Application", new mongoose.Schema({
   createdAt: { type:Date, default:Date.now }
 }));
 
+// WAITLIST ⭐ NEW
+const Waitlist = mongoose.model("Waitlist", new mongoose.Schema({
+  email: String,
+  createdAt: { type:Date, default:Date.now }
+}));
+
+// Admin
 const Admin = mongoose.model("Admin", new mongoose.Schema({
   email:String,
   password:String
 }));
+
 
 // ================= EMAIL =================
 const transporter = nodemailer.createTransport({
@@ -68,6 +93,34 @@ async function sendEmail(to,subject,text){
   });
 }
 
+
+// ================= WAITLIST API ⭐ NEW =================
+app.post("/api/waitlist", async (req,res)=>{
+  try{
+    const { email } = req.body;
+
+    const exists = await Waitlist.findOne({ email });
+    if(exists){
+      return res.json({ success:true, message:"Already joined waitlist" });
+    }
+
+    await Waitlist.create({ email });
+
+    await sendEmail(
+      email,
+      "You're on the FSI Waitlist 🎉",
+      "You have successfully joined the Founders Support Initiative waitlist. We will notify you when applications open."
+    );
+
+    res.json({ success:true });
+
+  }catch(err){
+    console.log(err);
+    res.status(500).json({ success:false });
+  }
+});
+
+
 // ================= AUTH =================
 function auth(req,res,next){
   const token = req.headers.authorization;
@@ -81,26 +134,24 @@ function auth(req,res,next){
   }
 }
 
-// ================= SEND FLUTTERWAVE PUBLIC KEY =================
+
+// ================= CONFIG =================
 app.get("/api/config",(req,res)=>{
   res.json({ flutterwavePublicKey:process.env.FLW_PUBLIC_KEY });
 });
+
 
 // ================= SAVE APPLICATION =================
 app.post("/api/save-application", async (req,res)=>{
   try{
     const data = req.body;
-
     const exists = await Application.findOne({ email:data.email });
 
-    // IMPORTANT: only block duplicates if payment already made
     if(exists && exists.paymentStatus === "paid"){
       return res.json({ success:false, message:"You already completed an application." });
     }
 
-    // If user started before but didn't pay → allow overwrite
     await Application.findOneAndDelete({ email:data.email });
-
     const appData = await Application.create(data);
 
     res.json({ success:true, id:appData._id });
@@ -111,6 +162,7 @@ app.post("/api/save-application", async (req,res)=>{
   }
 });
 
+
 // ================= VERIFY PAYMENT =================
 app.post("/api/verify-payment", async (req,res)=>{
   const { transaction_id, email } = req.body;
@@ -118,11 +170,7 @@ app.post("/api/verify-payment", async (req,res)=>{
   try{
     const response = await axios.get(
       `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
-      {
-        headers:{
-          Authorization:`Bearer ${process.env.FLW_SECRET_KEY}`
-        }
-      }
+      { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
     );
 
     const payment = response.data.data;
@@ -150,7 +198,8 @@ app.post("/api/verify-payment", async (req,res)=>{
   }
 });
 
-// ================= ADMIN LOGIN =================
+
+// ================= ADMIN =================
 app.post("/api/admin/login", async (req,res)=>{
   const { email,password } = req.body;
 
@@ -164,7 +213,6 @@ app.post("/api/admin/login", async (req,res)=>{
   res.json({ success:true, token });
 });
 
-// ================= ADMIN DATA =================
 app.get("/api/all-applications", auth, async (req,res)=>{
   const apps = await Application.find().sort({ createdAt:-1 });
   res.json(apps);
@@ -176,34 +224,26 @@ app.get("/api/analytics", auth, async (req,res)=>{
   res.json({ total, paid });
 });
 
+
 // ================= FLUTTERWAVE WEBHOOK =================
 app.post("/api/flutterwave-webhook", async (req,res)=>{
   try {
     const payload = req.body;
-
-    // Flutterwave sends many events — we only care about successful payments
-    if(payload.event !== "charge.completed"){
-      return res.sendStatus(200);
-    }
+    if(payload.event !== "charge.completed") return res.sendStatus(200);
 
     const payment = payload.data;
-
-    if(payment.status !== "successful"){
-      return res.sendStatus(200);
-    }
+    if(payment.status !== "successful") return res.sendStatus(200);
 
     const email = payment.customer.email;
-
-    // get saved form from temp collection (or create if missing)
     const exists = await Application.findOne({ email });
 
     if(!exists){
       await Application.create({
         name: payment.customer.name,
-        email: email,
+        email,
         phone: payment.customer.phone_number,
-        paymentStatus: "paid",
-        tx_ref: payment.tx_ref
+        paymentStatus:"paid",
+        tx_ref:payment.tx_ref
       });
     } else {
       await Application.updateOne(
@@ -218,8 +258,6 @@ app.post("/api/flutterwave-webhook", async (req,res)=>{
       "Your FSI application and payment have been received successfully."
     );
 
-    console.log("Webhook payment confirmed for:", email);
-
     res.sendStatus(200);
 
   } catch(err){
@@ -227,6 +265,7 @@ app.post("/api/flutterwave-webhook", async (req,res)=>{
     res.sendStatus(500);
   }
 });
+
 
 // ================= START SERVER =================
 const PORT = process.env.PORT || 3000;
