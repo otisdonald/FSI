@@ -28,11 +28,10 @@ app.get("/", (req,res)=>{
   res.send("FSI API is running 🚀");
 });
 
-// Pending payment page
-app.get("/pending",(req,res)=>{
-  res.sendFile(path.join(__dirname,"public/pending.html"));
+// Pending payment page (IMPORTANT FIX)
+app.get(["/pending","/pending.html"], (req,res)=>{
+  res.sendFile(path.join(__dirname,"public","pending.html"));
 });
-
 
 // ================= DB =================
 mongoose.connect(process.env.MONGO_URI)
