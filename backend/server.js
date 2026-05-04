@@ -266,6 +266,18 @@ app.post("/api/flutterwave-webhook", async (req,res)=>{
   }
 });
 
+// CHECK PAYMENT STATUS
+app.get("/api/check-status/:email", async (req,res)=>{
+  try{
+    const appData = await Application.findOne({ email:req.params.email });
+
+    if(!appData) return res.json({ status:"not_found" });
+
+    res.json({ status: appData.paymentStatus });
+  }catch(err){
+    res.json({ status:"error" });
+  }
+});
 
 // ================= START SERVER =================
 const PORT = process.env.PORT || 3000;
