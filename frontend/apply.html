@@ -196,7 +196,7 @@ Submit Application (₦1,000)
 <script>
 let FLW_PUBLIC_KEY="";
 
-// get key
+// GET PUBLIC KEY FROM BACKEND
 fetch("https://fsi.onrender.com/api/config")
 .then(res=>res.json())
 .then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
@@ -206,7 +206,7 @@ async function submitForm(){
 const f=document.getElementById("form");
 
 if(!document.getElementById("agree").checked){
-alert("Please accept agreement");
+alert("You must accept the Founder Agreement");
 return;
 }
 
@@ -214,6 +214,9 @@ const data={
 name:f.name.value,
 email:f.email.value,
 phone:f.phone.value,
+country:f.country.value,
+sex:f.sex.value,
+dob:f.dob.value,
 startup:f.startup.value,
 problem:f.problem.value,
 solution:f.solution.value,
@@ -241,20 +244,20 @@ FlutterwaveCheckout({
     description: "Application Fee"
   },
 
-  // 🔥 NEW FLOW
+  // NEW FLOW — works for CARD + TRANSFER
   callback: async function(response) {
 
     try{
       const storedData = JSON.parse(localStorage.getItem("fsi_application"));
 
-      // save application FIRST as unpaid
+      // 1️⃣ Save application FIRST (unpaid)
       await fetch("https://fsi.onrender.com/api/save-application",{
         method:"POST",
         headers:{ "Content-Type":"application/json" },
         body:JSON.stringify(storedData)
       });
 
-      // go to pending page while webhook confirms payment
+      // 2️⃣ Redirect to pending page
       window.location.href="https://fsi.onrender.com/pending";
 
     }catch(err){
