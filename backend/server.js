@@ -2,8 +2,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
@@ -15,170 +13,157 @@ const app = express();
 // ================= MIDDLEWARE =================
 app.use(cors());
 app.use(express.json({
-  verify: (req, res, buf) => { req.rawBody = buf.toString(); }
+  verify: (req,res,buf)=>{ req.rawBody = buf.toString(); }
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname,"public")));
 
 // ================= BASIC ROUTES =================
-app.get("/", (req, res) => res.send("FSI API running 🚀"));
+app.get("/", (req,res)=> res.send("FSI API running 🚀"));
 
-app.get(["/pending", "/pending.html"], (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "pending.html"));
+app.get(["/pending","/pending.html"], (req,res)=>{
+  res.sendFile(path.join(__dirname,"public","pending.html"));
 });
 
 // ================= DATABASE =================
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+.then(()=>console.log("MongoDB Connected"))
+.catch(err=>console.log(err));
 
-// ================= MODELS =================
+// ================= MODEL =================
 const Application = mongoose.model("Application", new mongoose.Schema({
-  name: String,
-  email: String,
-  phone: String,
-  sex: String,
-  dob: String,
-  startup: String,
-  problem: String,
-  solution: String,
-  business_model: String,
-  usage: String,
-  paymentStatus: { type: String, default: "unpaid" },
-  tx_ref: String,
-  createdAt: { type: Date, default: Date.now }
-}));
-
-const Admin = mongoose.model("Admin", new mongoose.Schema({
-  email: String,
-  password: String
+  name:String,
+  email:String,
+  phone:String,
+  sex:String,
+  dob:String,
+  startup:String,
+  problem:String,
+  solution:String,
+  business_model:String,
+  usage:String,
+  paymentStatus:{ type:String, default:"unpaid" },
+  tx_ref:String,
+  createdAt:{ type:Date, default:Date.now }
 }));
 
 // ================= EMAIL =================
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+  service:"gmail",
+  auth:{
+    user:process.env.EMAIL_USER,
+    pass:process.env.EMAIL_PASS
   }
 });
 
-async function sendEmail(to, subject, text) {
-  try {
+async function sendEmail(to,subject,text){
+  try{
     await transporter.sendMail({
-      from: "FSI <no-reply@fsi.com>",
+      from:"FSI <no-reply@fsi.com>",
       to, subject, text
     });
-  } catch (err) {
-    console.log("Email error:", err.message);
+  }catch(err){
+    console.log("Email error:",err.message);
   }
 }
 
 // ================= CONFIG =================
-app.get("/api/config", (req, res) => {
-  res.json({ flutterwavePublicKey: process.env.FLW_PUBLIC_KEY });
+app.get("/api/config",(req,res)=>{
+  res.json({ flutterwavePublicKey:process.env.FLW_PUBLIC_KEY });
 });
 
 // ================= SAVE APPLICATION =================
-app.post("/api/save-application", async (req, res) => {
-  try {
-    const data = req.body;
-    await Application.findOneAndDelete({ email: data.email });
-    const appData = await Application.create(data);
-    res.json({ success: true, id: appData._id });
-  } catch (err) {
-    res.status(500).json({ success: false });
+app.post("/api/save-application", async (req,res)=>{
+  try{
+    const data=req.body;
+    await Application.findOneAndDelete({ email:data.email });
+    const appData=await Application.create(data);
+    res.json({ success:true, id:appData._id });
+  }catch(err){
+    res.status(500).json({ success:false });
   }
 });
 
-// ================= VERIFY PAYMENT (fallback polling) =================
-app.post("/api/verify-payment", async (req, res) => {
-  const { transaction_id, email } = req.body;
-  try {
+// ================= VERIFY PAYMENT (FALLBACK) =================
+app.post("/api/verify-payment", async (req,res)=>{
+  const { transaction_id,email }=req.body;
+
+  try{
     const response = await axios.get(
       `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
-      { headers: { Authorization: `Bearer ${process.env.FLW_SECRET_KEY}` } }
+      { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
     );
 
-    const payment = response.data.data;
-    if (!payment || payment.status !== "successful") {
-      return res.json({ success: false });
-    }
+    const payment=response.data.data;
+    if(payment.status!=="successful") return res.json({ success:false });
 
     await Application.findOneAndUpdate(
       { email },
-      { paymentStatus: "paid", tx_ref: payment.tx_ref },
-      { upsert: true }
+      { paymentStatus:"paid", tx_ref:payment.tx_ref },
+      { upsert:true }
     );
 
-    await sendEmail(email,
-      "Application Received",
-      "Your FSI application has been submitted successfully."
-    );
+    await sendEmail(email,"Application Received 🎉",
+      "Your FSI application has been submitted successfully.");
 
-    res.json({ success: true });
-  } catch (err) {
+    res.json({ success:true });
+
+  }catch(err){
     console.log(err.message);
-    res.status(500).json({ success: false });
+    res.status(500).json({ success:false });
   }
 });
 
-// ================= CHECK PAYMENT STATUS =================
-app.get("/api/check-status/:email", async (req, res) => {
-  const appData = await Application.findOne({ email: req.params.email });
-  if (!appData) return res.json({ status: "not_found" });
-  res.json({ status: appData.paymentStatus });
+// ================= CHECK STATUS (PENDING PAGE) =================
+app.get("/api/check-status/:email", async (req,res)=>{
+  const appData = await Application.findOne({ email:req.params.email });
+  if(!appData) return res.json({ status:"not_found" });
+  res.json({ status:appData.paymentStatus });
 });
 
 
 // =======================================================
-// 🔥🔥 FINAL FLUTTERWAVE WEBHOOK (FIXED FOR ALL PAYMENTS) 🔥🔥
+// 🔥🔥 FINAL FLUTTERWAVE WEBHOOK 🔥🔥
 // =======================================================
-app.post("/api/flutterwave-webhook", (req, res) => {
+app.post("/api/flutterwave-webhook",(req,res)=>{
   console.log("🔔 Webhook received");
 
-  // Always reply immediately (VERY IMPORTANT)
+  // ALWAYS respond immediately (Flutterwave requirement)
   res.sendStatus(200);
 
-  setImmediate(async () => {
-    try {
-      const signature = req.headers["verif-hash"];
+  setImmediate(async ()=>{
+    try{
+      const signature=req.headers["verif-hash"];
 
-      if (!signature) {
+      if(!signature){
         console.log("❌ No signature header");
         return;
       }
 
-      if (signature !== process.env.FLW_SECRET_HASH) {
+      if(signature!==process.env.FLW_SECRET_HASH){
         console.log("❌ Invalid webhook signature");
         return;
       }
 
       console.log("✅ Webhook verified");
 
-      const payload = req.body;
+      const payment=req.body.data;
 
-      // ⭐ FIX: Flutterwave sends different event formats
-      const eventType = payload.event || payload["event.type"];
-
-      if (eventType !== "charge.completed" && eventType !== "BANK_TRANSFER_TRANSACTION") {
-        console.log("Ignored event:", eventType);
+      // ⭐ CRITICAL: Only trust successful payments
+      if(!payment || payment.status!=="successful"){
+        console.log("Payment not successful yet");
         return;
       }
 
-      const payment = payload.data;
+      const email=payment.customer?.email;
+      const tx_ref=payment.tx_ref;
 
-      if (!payment || payment.status !== "successful") {
-        console.log("Payment not successful");
-        return;
-      }
-
-      const email = payment.customer.email;
+      console.log("💰 PAYMENT DATA:",email,tx_ref);
 
       await Application.findOneAndUpdate(
         { email },
-        { paymentStatus: "paid", tx_ref: payment.tx_ref },
-        { upsert: true }
+        { paymentStatus:"paid", tx_ref },
+        { upsert:true }
       );
 
       await sendEmail(
@@ -187,14 +172,14 @@ app.post("/api/flutterwave-webhook", (req, res) => {
         "Your FSI application and payment have been received successfully."
       );
 
-      console.log("🎉 PAYMENT CONFIRMED:", email);
+      console.log("🎉 PAYMENT SAVED TO DB");
 
-    } catch (err) {
-      console.log("Webhook error:", err.message);
+    }catch(err){
+      console.log("Webhook error:",err.message);
     }
   });
 });
 
 // ================= START SERVER =================
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running on port", PORT));
+const PORT=process.env.PORT || 3000;
+app.listen(PORT,()=>console.log("Server running on port",PORT));
