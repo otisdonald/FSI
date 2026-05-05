@@ -135,51 +135,71 @@ app.get("/api/check-status/:email", async (req,res)=>{
 });
 
 
-// ================= FLUTTERWAVE WEBHOOK (FINAL) =================
+// ================= FLUTTERWAVE WEBHOOK (FINAL FIX) =================
 app.post("/api/flutterwave-webhook", async (req,res)=>{
   try{
-    // ⭐ NEW HEADER NAME (V3 WEBHOOKS)
-    const signature = req.headers["flutterwave-signature"];
+    console.log("🔔 Webhook received");
 
-    if(!signature){
-      console.log("❌ No signature header");
-      return res.sendStatus(200);
+    const signature =
+      req.headers["verif-hash"] ||
+      req.headers["flutterwave-signature"];
+
+    // If signature exists → verify it
+    if(signature){
+      if(signature !== process.env.FLW_WEBHOOK_SECRET){
+        console.log("❌ Invalid webhook signature");
+        return res.sendStatus(200);
+      }
+      console.log("✅ Webhook signature verified");
+    }else{
+      console.log("⚠️ No signature header — using fallback verification");
     }
-
-    // compare with Render env secret
-    if(signature !== process.env.FLW_WEBHOOK_SECRET){
-      console.log("❌ Invalid webhook signature");
-      return res.sendStatus(200);
-    }
-
-    console.log("✅ Webhook verified");
 
     const payload = req.body;
 
+    // Only care about successful charges
     if(payload.event !== "charge.completed"){
       return res.sendStatus(200);
     }
 
     const payment = payload.data;
-    if(payment.status !== "successful"){
+
+    // 🔥 SECOND LEVEL VERIFICATION (MOST IMPORTANT)
+    // We confirm the payment directly from Flutterwave API
+    const verifyRes = await axios.get(
+      `https://api.flutterwave.com/v3/transactions/${payment.id}/verify`,
+      {
+        headers:{
+          Authorization:`Bearer ${process.env.FLW_SECRET_KEY}`
+        }
+      }
+    );
+
+    const verified = verifyRes.data.data;
+
+    if(verified.status !== "successful"){
+      console.log("Payment not successful after verification");
       return res.sendStatus(200);
     }
 
-    const email = payment.customer.email;
+    const email = verified.customer.email;
+    console.log("💰 Payment verified for:", email);
 
     await Application.findOneAndUpdate(
       { email },
-      { paymentStatus:"paid", tx_ref:payment.tx_ref }
+      {
+        paymentStatus:"paid",
+        tx_ref: verified.tx_ref
+      }
     );
 
-    console.log("💰 PAYMENT CONFIRMED:", email);
-
-    // send confirmation email (non-blocking)
-    sendEmail(
+    await sendEmail(
       email,
       "Application Received",
       "Your FSI application and payment have been received successfully."
-    ).catch(()=>{});
+    );
+
+    console.log("🎉 Application marked as PAID");
 
     res.sendStatus(200);
 
