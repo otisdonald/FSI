@@ -135,44 +135,59 @@ app.get("/api/check-status/:email", async (req,res)=>{
 });
 
 
-// ================= FLUTTERWAVE WEBHOOK (FINAL FIX) =================
+// ================= FLUTTERWAVE WEBHOOK (FINAL) =================
 app.post("/api/flutterwave-webhook", async (req,res)=>{
   try{
+    // ⭐ NEW HEADER NAME (V3 WEBHOOKS)
+    const signature = req.headers["flutterwave-signature"];
 
-    const secretHash = process.env.FLW_SECRET_HASH;
-    const signature = req.headers["verif-hash"];
-
-    if(signature !== secretHash){
-      console.log("❌ Invalid webhook signature");
-      return res.sendStatus(401);
+    if(!signature){
+      console.log("❌ No signature header");
+      return res.sendStatus(200);
     }
+
+    // compare with Render env secret
+    if(signature !== process.env.FLW_WEBHOOK_SECRET){
+      console.log("❌ Invalid webhook signature");
+      return res.sendStatus(200);
+    }
+
+    console.log("✅ Webhook verified");
 
     const payload = req.body;
 
-    if(payload.event !== "charge.completed")
+    if(payload.event !== "charge.completed"){
       return res.sendStatus(200);
+    }
 
     const payment = payload.data;
-    if(payment.status !== "successful")
+    if(payment.status !== "successful"){
       return res.sendStatus(200);
+    }
 
     const email = payment.customer.email;
 
-    console.log("💰 PAYMENT CONFIRMED:", email);
-
-    await Application.updateOne(
+    await Application.findOneAndUpdate(
       { email },
       { paymentStatus:"paid", tx_ref:payment.tx_ref }
     );
 
+    console.log("💰 PAYMENT CONFIRMED:", email);
+
+    // send confirmation email (non-blocking)
+    sendEmail(
+      email,
+      "Application Received",
+      "Your FSI application and payment have been received successfully."
+    ).catch(()=>{});
+
     res.sendStatus(200);
 
   }catch(err){
-    console.log("Webhook error:",err.message);
+    console.log("Webhook error:", err.message);
     res.sendStatus(200);
   }
 });
-
 
 // ================= ADMIN =================
 app.post("/api/admin/login", async (req,res)=>{
