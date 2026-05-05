@@ -101,7 +101,7 @@ app.post("/api/verify-payment", async (req, res) => {
     );
 
     const payment = response.data.data;
-    if (payment.status !== "successful") {
+    if (!payment || payment.status !== "successful") {
       return res.json({ success: false });
     }
 
@@ -111,8 +111,10 @@ app.post("/api/verify-payment", async (req, res) => {
       { upsert: true }
     );
 
-    await sendEmail(email, "Application Received",
-      "Your FSI application has been submitted successfully.");
+    await sendEmail(email,
+      "Application Received",
+      "Your FSI application has been submitted successfully."
+    );
 
     res.json({ success: true });
   } catch (err) {
@@ -128,20 +130,20 @@ app.get("/api/check-status/:email", async (req, res) => {
   res.json({ status: appData.paymentStatus });
 });
 
+
 // =======================================================
-// 🔥🔥 FLUTTERWAVE WEBHOOK — UPDATED 🔥🔥
+// 🔥🔥 FINAL FLUTTERWAVE WEBHOOK (FIXED FOR ALL PAYMENTS) 🔥🔥
 // =======================================================
 app.post("/api/flutterwave-webhook", (req, res) => {
   console.log("🔔 Webhook received");
-  console.log("Headers:", req.headers);
-  console.log("Body:", req.body);
 
-  // Always acknowledge immediately
+  // Always reply immediately (VERY IMPORTANT)
   res.sendStatus(200);
 
   setImmediate(async () => {
     try {
       const signature = req.headers["verif-hash"];
+
       if (!signature) {
         console.log("❌ No signature header");
         return;
@@ -155,10 +157,21 @@ app.post("/api/flutterwave-webhook", (req, res) => {
       console.log("✅ Webhook verified");
 
       const payload = req.body;
-      if (payload.event !== "charge.completed") return;
+
+      // ⭐ FIX: Flutterwave sends different event formats
+      const eventType = payload.event || payload["event.type"];
+
+      if (eventType !== "charge.completed" && eventType !== "BANK_TRANSFER_TRANSACTION") {
+        console.log("Ignored event:", eventType);
+        return;
+      }
 
       const payment = payload.data;
-      if (payment.status !== "successful") return;
+
+      if (!payment || payment.status !== "successful") {
+        console.log("Payment not successful");
+        return;
+      }
 
       const email = payment.customer.email;
 
@@ -170,11 +183,12 @@ app.post("/api/flutterwave-webhook", (req, res) => {
 
       await sendEmail(
         email,
-        "Application Received",
+        "Application Received 🎉",
         "Your FSI application and payment have been received successfully."
       );
 
       console.log("🎉 PAYMENT CONFIRMED:", email);
+
     } catch (err) {
       console.log("Webhook error:", err.message);
     }
