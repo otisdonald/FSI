@@ -1,80 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Confirming Payment</title>
+  <meta charset="UTF-8">
+  <title>Pending – Founders Support Initiative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-50 flex items-center justify-center h-screen">
 
-  <div class="bg-white p-10 rounded-xl shadow text-center max-w-md">
-    <h1 class="text-2xl font-bold text-blue-700 mb-4">
-      Confirming your payment…
-    </h1>
-
-    <p class="text-gray-600 mb-6">
-      Please wait while we confirm your transaction.  
-      This usually takes a few seconds.
-    </p>
-
-    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-700 mx-auto"></div>
-
-    <p id="statusText" class="mt-6 text-sm text-gray-500"></p>
-
-    <!-- Optional: allow user to continue later -->
-    <button id="continueBtn" class="hidden mt-6 bg-gray-200 px-4 py-2 rounded">
-      Continue Later
-    </button>
+  <div class="text-center">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 mx-auto mb-6"></div>
+    <h1 class="text-2xl font-bold text-blue-700 mb-4">Payment Pending</h1>
+    <p class="text-gray-600">We’re waiting for confirmation of your payment. This may take a few seconds…</p>
   </div>
 
-<script>
-// get email from localStorage (saved before payment)
-const appData = JSON.parse(localStorage.getItem("fsi_application"));
-const email = appData?.email;
-
-if (!email) {
-  document.getElementById("statusText").innerText = "Application not found.";
-}
-
-// polling logic
-let attempts = 0;
-const interval = setInterval(async () => {
-  attempts++;
-
-  try {
-    const res = await fetch(`https://fsi.onrender.com/api/check-status/${email}`);
-    const data = await res.json();
-
-    if (data.status === "paid") {
-      clearInterval(interval);
-      window.location.href = "https://fsi.netlify.app/success.html";
-    } else if (data.status === "unpaid") {
-      document.getElementById("statusText").innerText =
-        "Payment not yet confirmed. Please wait…";
-    } else if (data.status === "not_found") {
-      clearInterval(interval);
-      document.getElementById("statusText").innerText =
-        "Application not found. Please contact support.";
+  <script>
+    // Get applicant data from localStorage
+    const appData = JSON.parse(localStorage.getItem("fsi_application"));
+    if (!appData || !appData.email) {
+      window.location.href = "failure.html";
     }
 
-    // timeout fallback after ~1 minute
-    if (attempts > 20) {
-      clearInterval(interval);
-      document.getElementById("statusText").innerText =
-        "Payment is still processing. You’ll get an email confirmation soon.";
-      document.getElementById("continueBtn").classList.remove("hidden");
-      document.getElementById("continueBtn").onclick = () => {
-        window.location.href = "index.html";
-      };
-    }
+    let attempts = 0;
+    const interval = setInterval(async () => {
+      attempts++;
+      try {
+        const res = await fetch(`https://fsi.onrender.com/api/check-status/${appData.email}`);
+        const data = await res.json();
 
-  } catch (err) {
-    console.log(err);
-    document.getElementById("statusText").innerText =
-      "Error checking payment status. Please try again later.";
-    clearInterval(interval);
-  }
-}, 3000);
-</script>
+        if (data.status === "paid") {
+          clearInterval(interval);
+          window.location.href = "success.html";
+        } else if (data.status === "not_found" || data.status === "unpaid") {
+          clearInterval(interval);
+          window.location.href = "failure.html";
+        }
+      } catch (err) {
+        console.error("Error checking status:", err);
+      }
+
+      // Timeout after ~60 seconds
+      if (attempts > 20) {
+        clearInterval(interval);
+        window.location.href = "failure.html";
+      }
+    }, 3000);
+  </script>
+
 </body>
 </html>
