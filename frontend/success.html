@@ -15,16 +15,27 @@
       Payment Confirmed!
     </h1>
 
-    <p class="text-gray-600 mb-6">
-      Thank you for completing your application.  
-      Your payment has been successfully confirmed.
+    <p class="text-gray-600 mb-2">
+      Thank you for completing your application.
     </p>
+
+    <!-- Personalized confirmation -->
+    <p class="text-blue-700 font-semibold mb-6" id="userEmail"></p>
 
     <a href="index.html" 
        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">
       Back to Home
     </a>
   </div>
+
+  <script>
+    // Retrieve applicant data from localStorage
+    const appData = JSON.parse(localStorage.getItem("fsi_application"));
+    if (appData && appData.email) {
+      document.getElementById("userEmail").innerText = 
+        `Confirmation for: ${appData.email}`;
+    }
+  </script>
 
 </body>
 </html>
