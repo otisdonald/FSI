@@ -195,14 +195,13 @@ Submit Application (₦1,000)
 <script>
 let FLW_PUBLIC_KEY="";
 
-// get Flutterwave public key from server
+// fetch Flutterwave public key from server
 fetch("https://fsi.onrender.com/api/config")
 .then(res=>res.json())
-.then(data=>{
-  FLW_PUBLIC_KEY=data.flutterwavePublicKey;
-});
+.then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
 
-// MAIN FUNCTION
+
+// 🚀 SUBMIT + PAY
 async function submitForm(){
 
   const f=document.getElementById("form");
@@ -218,7 +217,9 @@ async function submitForm(){
     phone:f.phone.value,
     startup:f.startup.value,
     problem:f.problem.value,
-    solution:f.solution.value
+    solution:f.solution.value,
+    business_model:f.business_model.value,
+    usage:f.usage.value
   };
 
   try{
@@ -233,7 +234,7 @@ async function submitForm(){
     const saveData = await saveRes.json();
 
     if(!saveData.success){
-      alert("Could not submit application. Try again.");
+      alert("Could not save application. Try again.");
       return;
     }
 
@@ -256,15 +257,10 @@ async function submitForm(){
         description:"Application Fee"
       },
 
-      // ⭐ FIXED SUCCESS CALLBACK ⭐
+      // 🎉 PAYMENT SUCCESS → GO STRAIGHT TO SUCCESS PAGE
       callback:function(response){
-
-        // save email for pending page
-        localStorage.setItem("fsi_email", data.email);
-
-        // redirect WITH email parameter
-        window.location.href =
-          "https://fsi.onrender.com/pending.html?email=" + data.email;
+        localStorage.setItem("fsi_success_email", data.email);
+        window.location.href="https://fsi.netlify.app/success.html";
       },
 
       onclose:function(){
@@ -278,5 +274,6 @@ async function submitForm(){
   }
 }
 </script>
+
 </body>
 </html>
