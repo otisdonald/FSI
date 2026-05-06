@@ -5,28 +5,31 @@
   <title>Payment Failed – Founders Support Initiative</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Shake animation */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+    .shake {
+      animation: shake 0.5s;
+    }
+  </style>
 </head>
-
 <body class="bg-gray-50 flex items-center justify-center h-screen">
 
-  <div class="bg-white p-10 rounded-xl shadow text-center max-w-md">
+  <div class="bg-white p-10 rounded-xl shadow text-center max-w-md shake">
     <div class="text-red-600 text-6xl mb-4">✖</div>
-    <h1 class="text-2xl font-bold text-red-700 mb-4">
-      Payment Failed
-    </h1>
-
-    <p class="text-gray-600 mb-6">
-      Unfortunately, your payment could not be confirmed.  
-      Please try again or contact support if the issue persists.
-    </p>
-
+    <h1 class="text-2xl font-bold text-red-700 mb-4">Payment Failed</h1>
+    <p class="text-gray-600 mb-6">Oops! We couldn’t confirm your payment. Please try again.</p>
     <div class="flex justify-center gap-4">
-      <a href="apply.html" 
-         class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">
+      <a href="apply.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">
         Try Again
       </a>
-      <a href="index.html" 
-         class="inline-block bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-bold">
+      <a href="index.html" class="inline-block bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-bold">
         Back to Home
       </a>
     </div>
