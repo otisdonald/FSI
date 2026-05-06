@@ -195,13 +195,14 @@ Submit Application (₦1,000)
 <script>
 let FLW_PUBLIC_KEY="";
 
-// get Flutterwave public key
+// get Flutterwave public key from server
 fetch("https://fsi.onrender.com/api/config")
 .then(res=>res.json())
-.then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
+.then(data=>{
+  FLW_PUBLIC_KEY=data.flutterwavePublicKey;
+});
 
-
-// 🚀 MAIN FUNCTION
+// MAIN FUNCTION
 async function submitForm(){
 
   const f=document.getElementById("form");
@@ -222,7 +223,7 @@ async function submitForm(){
 
   try{
 
-    // ⭐ STEP 1 — SAVE APPLICATION FIRST
+    // STEP 1 — SAVE APPLICATION FIRST
     const saveRes = await fetch("https://fsi.onrender.com/api/save-application",{
       method:"POST",
       headers:{ "Content-Type":"application/json" },
@@ -236,13 +237,12 @@ async function submitForm(){
       return;
     }
 
-    // ⭐ STEP 2 — OPEN PAYMENT MODAL
+    // STEP 2 — OPEN FLUTTERWAVE PAYMENT
     FlutterwaveCheckout({
       public_key: FLW_PUBLIC_KEY,
       tx_ref: "FSI-"+Date.now(),
       amount: 1000,
       currency: "NGN",
-
       payment_options: "card,banktransfer,ussd,account",
 
       customer:{
@@ -256,10 +256,15 @@ async function submitForm(){
         description:"Application Fee"
       },
 
-      // ⭐ STEP 3 — PAYMENT SUCCESS
+      // ⭐ FIXED SUCCESS CALLBACK ⭐
       callback:function(response){
-        // user ALWAYS lands on pending page
-        window.location.href="https://fsi.onrender.com/pending";
+
+        // save email for pending page
+        localStorage.setItem("fsi_email", data.email);
+
+        // redirect WITH email parameter
+        window.location.href =
+          "https://fsi.onrender.com/pending.html?email=" + data.email;
       },
 
       onclose:function(){
