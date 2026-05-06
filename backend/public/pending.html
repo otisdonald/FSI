@@ -24,26 +24,46 @@
 
 <script>
 
-// get email from localStorage (saved before payment)
-const appData = JSON.parse(localStorage.getItem("fsi_application"));
-const email = appData?.email;
+// ⭐ GET EMAIL FROM URL OR LOCAL STORAGE
+const params = new URLSearchParams(window.location.search);
+let email = params.get("email");
 
+// fallback to localStorage
 if(!email){
-  document.getElementById("statusText").innerText = "Application not found.";
+  email = localStorage.getItem("fsi_email");
 }
 
-// check payment every 3 seconds
-setInterval(async () => {
+const statusText = document.getElementById("statusText");
+
+if(!email){
+  statusText.innerText = "Application not found. Please apply again.";
+}
+
+// ⭐ POLL SERVER EVERY 3 SECONDS
+const interval = setInterval(async () => {
   try {
     const res = await fetch(`https://fsi.onrender.com/api/check-status/${email}`);
     const data = await res.json();
 
+    console.log("Checking payment:", data.status);
+
     if(data.status === "paid"){
-      window.location.href = "https://fsi.netlify.app/success.html";
+      clearInterval(interval);
+
+      statusText.innerText = "Payment confirmed! Redirecting...";
+
+      setTimeout(()=>{
+        window.location.href = "https://fsi.netlify.app/success.html";
+      },1500);
+    }
+
+    if(data.status === "not_found"){
+      statusText.innerText = "Waiting for payment confirmation...";
     }
 
   } catch(err){
     console.log(err);
+    statusText.innerText = "Still confirming payment...";
   }
 }, 3000);
 
