@@ -204,7 +204,6 @@ fetch("https://fsi.onrender.com/api/config")
 .then(res=>res.json())
 .then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
 
-
 // 🚀 SUBMIT + PAY
 async function submitForm(){
 
@@ -227,7 +226,6 @@ async function submitForm(){
   };
 
   try{
-
     // STEP 1 — SAVE APPLICATION FIRST
     const saveRes = await fetch("https://fsi.onrender.com/api/save-application",{
       method:"POST",
@@ -261,10 +259,11 @@ async function submitForm(){
         description:"Application Fee"
       },
 
-      // 🎉 PAYMENT SUCCESS → GO STRAIGHT TO SUCCESS PAGE
+      // 🎉 PAYMENT SUCCESS → REDIRECT TO PENDING PAGE
       callback:function(response){
-        localStorage.setItem("fsi_success_email", data.email);
-        window.location.href="https://fsi.netlify.app/success.html";
+        // store applicant data so pending.html can poll
+        localStorage.setItem("fsi_application", JSON.stringify(data));
+        window.location.href="https://fsi.netlify.app/pending.html";
       },
 
       onclose:function(){
@@ -278,6 +277,5 @@ async function submitForm(){
   }
 }
 </script>
-
 </body>
 </html>
