@@ -46,27 +46,46 @@
 <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Application Form</h2>
 
 <form id="form" class="space-y-6">
-  <!-- PERSONAL -->
-  <div>
-    <h3 class="font-semibold mb-2">Personal Info</h3>
-    <input name="name" placeholder="Full Name" class="w-full border p-3 rounded mb-3" required>
-    <input name="email" type="email" placeholder="Email" class="w-full border p-3 rounded mb-3" required>
-    <input name="phone" placeholder="Phone" class="w-full border p-3 rounded mb-3" required>
-    <input name="dob" type="date" class="w-full border p-3 rounded mb-3" required>
-    <select name="sex" class="w-full border p-3 rounded mb-3" required>
-      <option value="">Select Sex</option><option>Male</option><option>Female</option><option>Other</option>
-    </select>
-    <select name="country" class="w-full border p-3 rounded mb-3" required>
-      <option value="">Select Country</option>
-      <option>Nigeria</option><option>Ghana</option><option>Kenya</option>
-      <option>South Africa</option><option>Rwanda</option><option>Uganda</option>
-      <option>Tanzania</option><option>Egypt</option><option>Morocco</option>
-      <option>Cameroon</option><option>Senegal</option><option>Ivory Coast</option>
-      <option>Ethiopia</option><option>Zambia</option><option>Botswana</option>
-      <option>Namibia</option><option>Zimbabwe</option><option>Mozambique</option>
-      <option>Other African Country</option>
-    </select>
-  </div>
+  !-- PERSONAL -->
+<div>
+<h3 class="font-semibold mb-2">Personal Info</h3>
+<input name="name" placeholder="Full Name" class="w-full border p-3 rounded mb-3" required>
+<input name="email" type="email" placeholder="Email" class="w-full border p-3 rounded mb-3" required>
+<input name="phone" placeholder="Phone" class="w-full border p-3 rounded mb-3" required>
+
+<select name="country" class="w-full border p-3 rounded mb-3" required>
+  <option value="">Select Country</option>
+  <option>Nigeria</option>
+  <option>Ghana</option>
+  <option>Kenya</option>
+  <option>South Africa</option>
+  <option>Rwanda</option>
+  <option>Uganda</option>
+  <option>Tanzania</option>
+  <option>Egypt</option>
+  <option>Morocco</option>
+  <option>Cameroon</option>
+  <option>Senegal</option>
+  <option>Ivory Coast</option>
+  <option>Ethiopia</option>
+  <option>Zambia</option>
+  <option>Botswana</option>
+  <option>Namibia</option>
+  <option>Zimbabwe</option>
+  <option>Mozambique</option>
+  <option>Other African Country</option>
+</select>
+
+<select name="sex" class="w-full border p-3 rounded mb-3" required>
+<option value="">Select Sex</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<label class="text-sm">Date of Birth</label>
+<input type="date" name="dob" class="w-full border p-3 rounded" required>
+</div>
 
   <!-- STARTUP -->
   <div class="border-t pt-6">
@@ -76,13 +95,6 @@
     <textarea name="solution" placeholder="Your solution" class="w-full border p-3 rounded mb-3" required></textarea>
     <textarea name="business_model" placeholder="How you make money" class="w-full border p-3 rounded mb-3" required></textarea>
     <textarea name="usage" placeholder="How you will use funds" class="w-full border p-3 rounded mb-3" required></textarea>
-  </div>
-
-  <!-- TEAM INFO -->
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Team Info</h3>
-    <input name="team_size" type="number" placeholder="Number of team members" class="w-full border p-3 rounded mb-3">
-    <textarea name="roles" placeholder="Key roles in your team" class="w-full border p-3 rounded mb-3"></textarea>
   </div>
 
   <!-- MARKET INFO -->
@@ -105,6 +117,13 @@
     <textarea name="vision" placeholder="What is your long-term vision?" class="w-full border p-3 rounded mb-3"></textarea>
     <textarea name="milestones" placeholder="Key milestones for the next 12 months" class="w-full border p-3 rounded mb-3"></textarea>
   </div>
+
+<!-- SUPPORT DOC -->
+<div class="border-t pt-6">
+<h3 class="font-semibold mb-2">Supporting Doc (optional)</h3>
+<input type="file" class="w-full border p-3 rounded">
+<p class="text-xs text-gray-500 mt-1">Pitch deck or business plan.</p>
+</div>
 
   <!-- AGREEMENT -->
   <div class="flex items-start gap-2">
