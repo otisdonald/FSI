@@ -23,50 +23,49 @@
   </div>
 
 <script>
+// get email from localStorage (saved before payment)
+const appData = JSON.parse(localStorage.getItem("fsi_application"));
+const email = appData?.email;
 
-// ⭐ GET EMAIL FROM URL OR LOCAL STORAGE
-const params = new URLSearchParams(window.location.search);
-let email = params.get("email");
-
-// fallback to localStorage
-if(!email){
-  email = localStorage.getItem("fsi_email");
+if (!email) {
+  document.getElementById("statusText").innerText = "Application not found.";
 }
 
-const statusText = document.getElementById("statusText");
-
-if(!email){
-  statusText.innerText = "Application not found. Please apply again.";
-}
-
-// ⭐ POLL SERVER EVERY 3 SECONDS
+// polling logic
+let attempts = 0;
 const interval = setInterval(async () => {
+  attempts++;
+
   try {
     const res = await fetch(`https://fsi.onrender.com/api/check-status/${email}`);
     const data = await res.json();
 
-    console.log("Checking payment:", data.status);
-
-    if(data.status === "paid"){
+    if (data.status === "paid") {
       clearInterval(interval);
-
-      statusText.innerText = "Payment confirmed! Redirecting...";
-
-      setTimeout(()=>{
-        window.location.href = "https://fsi.netlify.app/success.html";
-      },1500);
+      window.location.href = "https://fsi.netlify.app/success.html";
+    } else if (data.status === "unpaid") {
+      document.getElementById("statusText").innerText =
+        "Payment not yet confirmed. Please wait…";
+    } else if (data.status === "not_found") {
+      clearInterval(interval);
+      document.getElementById("statusText").innerText =
+        "Application not found. Please contact support.";
     }
 
-    if(data.status === "not_found"){
-      statusText.innerText = "Waiting for payment confirmation...";
+    // timeout fallback after ~1 minute
+    if (attempts > 20) {
+      clearInterval(interval);
+      document.getElementById("statusText").innerText =
+        "Payment is still processing. You’ll get an email confirmation soon.";
     }
 
-  } catch(err){
+  } catch (err) {
     console.log(err);
-    statusText.innerText = "Still confirming payment...";
+    document.getElementById("statusText").innerText =
+      "Error checking payment status. Please try again later.";
+    clearInterval(interval);
   }
 }, 3000);
-
 </script>
 </body>
 </html>
