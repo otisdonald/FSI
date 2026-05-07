@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Payment Success – Founders Support Initiative</title>
+  <title>Application Received – Founders Support Initiative</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -12,7 +12,7 @@
       width: 10px;
       height: 10px;
       background-color: red;
-      animation: fall 3s linear infinite;
+      animation: fall linear infinite;
     }
     @keyframes fall {
       0% { transform: translateY(-100vh) rotate(0deg); }
@@ -23,9 +23,20 @@
 <body class="bg-gray-50 flex items-center justify-center h-screen">
 
   <div class="bg-white p-10 rounded-xl shadow text-center max-w-md relative z-10">
+    <!-- Success Icon -->
     <div class="text-green-600 text-6xl mb-4">✔</div>
-    <h1 class="text-2xl font-bold text-green-700 mb-4">Payment Confirmed!</h1>
-    <p class="text-gray-600 mb-6">Your application fee has been received successfully. 🎉</p>
+
+    <!-- Heading -->
+    <h1 class="text-2xl font-bold text-green-700 mb-4">Application Received Successfully</h1>
+
+    <!-- Message -->
+    <p class="text-gray-600 mb-6">
+      Thank you for applying to the Founders Support Initiative.  
+      Your application has been received and is currently being reviewed by our team.  
+      We’ll notify you via email once the evaluation process is complete.
+    </p>
+
+    <!-- CTA -->
     <a href="index.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">
       Back to Home
     </a>
@@ -33,12 +44,13 @@
 
   <script>
     // Generate confetti pieces
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 40; i++) {
       const confetti = document.createElement("div");
       confetti.className = "confetti";
       confetti.style.left = Math.random() * 100 + "vw";
-      confetti.style.backgroundColor = ["#f87171","#34d399","#60a5fa","#fbbf24"][Math.floor(Math.random()*4)];
+      confetti.style.backgroundColor = ["#34d399","#60a5fa","#fbbf24","#f87171"][Math.floor(Math.random()*4)];
       confetti.style.animationDuration = (Math.random()*3+2) + "s";
+      confetti.style.animationDelay = Math.random() * 2 + "s";
       document.body.appendChild(confetti);
     }
   </script>
