@@ -12,10 +12,8 @@
 <!-- ===== NAVBAR ===== -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white shadow z-50">
   <h1 class="font-bold text-blue-700 text-lg">
-  <a href="index.html" class="block">
-    FSI
-  </a>
-</h1>
+    <a href="index.html" class="block">FSI</a>
+  </h1>
 
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html">Home</a>
@@ -35,7 +33,6 @@
 <nav id="mobile-menu"
 class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-full transition duration-300 md:hidden p-6 z-50">
   <button id="close-btn" class="text-2xl mb-6">✕</button>
-
   <div class="flex flex-col gap-5">
     <a href="index.html">Home</a>
     <a href="programs.html">Programs</a>
@@ -50,15 +47,19 @@ class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-
 <!-- HERO -->
 <section class="relative bg-blue-700 text-white py-32 text-center px-6">
   <div class="absolute inset-0">
-    <img src="/images/startupgrant.png"
-         class="w-full h-full object-cover opacity-30 hero-float">
+    <img src="/images/startupgrant.png" class="w-full h-full object-cover opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/60 to-blue-700/80"></div>
   </div>
   <div class="relative z-10">
+    <p class="uppercase tracking-wide text-blue-200 font-semibold">Founder Support Initiative</p>
     <h1 class="text-4xl md:text-5xl font-bold">Startup Grants for African Founders</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
-      Access non-dilutive funding designed to help early and growth-stage startups scale.
+    <p class="mt-6 max-w-2xl mx-auto text-lg text-blue-100">
+      Access non-dilutive funding designed to help early and growth-stage startups scale. 
       Grants are primarily awarded in Naira, with local currency equivalents available for non-Nigerian founders.
     </p>
+    <a href="apply.html" class="mt-8 inline-block bg-white text-blue-700 px-6 py-3 rounded-lg font-bold hover:bg-blue-100 transition">
+      Apply Now →
+    </a>
   </div>
 </section>
 
@@ -67,55 +68,53 @@ class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-
   <h2 class="text-3xl font-bold mb-12 text-center">Grant Categories</h2>
 
   <div class="grid md:grid-cols-2 gap-10">
-
     <!-- General -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
       <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-48 object-cover rounded mb-4">
-      <h3 class="font-bold text-blue-700">General Startup Grant</h3>
+      <h3 class="font-bold text-blue-700 text-lg">💡 General Startup Grant</h3>
       <ul class="list-disc pl-6 mt-2 text-gray-600">
         <li>Funding: ₦750,000 – ₦7,500,000</li>
         <li>All industries</li>
         <li>Product development, marketing & scaling</li>
       </ul>
-      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Apply →</a>
     </div>
 
     <!-- Youth -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
       <img src="/images/youth.png" class="w-full h-48 object-cover rounded mb-4">
-      <h3 class="font-bold text-blue-700">Youth Grant</h3>
+      <h3 class="font-bold text-blue-700 text-lg">🌱 Youth Grant</h3>
       <ul class="list-disc pl-6 mt-2 text-gray-600">
         <li>Age 18 – 35</li>
         <li>₦750,000 – ₦3,000,000</li>
         <li>Early-stage founders</li>
       </ul>
-      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Apply →</a>
     </div>
 
     <!-- Women -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
       <img src="/images/women.png" class="w-full h-48 object-cover rounded mb-4">
-      <h3 class="font-bold text-blue-700">Women in Business Grant</h3>
+      <h3 class="font-bold text-blue-700 text-lg">👩 Women in Business Grant</h3>
       <ul class="list-disc pl-6 mt-2 text-gray-600">
         <li>Female-led startups</li>
         <li>₦1,500,000 – ₦4,500,000</li>
         <li>All sectors</li>
       </ul>
-      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Apply →</a>
     </div>
 
     <!-- Innovation -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
       <img src="/images/programs.png" class="w-full h-48 object-cover rounded mb-4">
-      <h3 class="font-bold text-blue-700">Innovation & Tech Grant</h3>
+      <h3 class="font-bold text-blue-700 text-lg">🚀 Innovation & Tech Grant</h3>
       <ul class="list-disc pl-6 mt-2 text-gray-600">
         <li>Health • EdTech • Agri • Fintech • Climate</li>
         <li>₦3,000,000 – ₦7,500,000</li>
         <li>Impact-driven startups</li>
       </ul>
-      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
+      <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Apply →</a>
     </div>
-
   </div>
 
   <p class="text-center text-gray-500 mt-10 text-sm">
@@ -124,7 +123,6 @@ class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-
 </section>
 
 <!-- SDG -->
-
 <section class="py-20 px-6 max-w-6xl mx-auto">
   <h2 class="text-3xl font-bold text-center mb-12">Aligned With UN Sustainable Development Goals</h2>
   <div class="grid md:grid-cols-3 gap-8">
@@ -132,24 +130,20 @@ class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-
       <h3 class="font-bold text-blue-700">SDG 1 — No Poverty</h3>
       <p class="text-gray-600 mt-2 text-sm">Supporting ventures that reduce poverty through job creation and financial inclusion.</p>
     </div>
-    <!-- Repeat for other SDGs -->
-  </div>
-</section>
-
-
-<section class="py-20 px-6 max-w-6xl mx-auto">
-  <h2 class="text-3xl font-bold text-center mb-12">Aligned With UN Sustainable Development Goals</h2>
-
-  <div class="grid md:grid-cols-3 gap-8">
-    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 1 — No Poverty</div>
-    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 3 — Good Health</div>
-    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 5 — Gender Equality</div>
-    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 8 — Economic Growth</div>
-    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 9 — Innovation</div>
-    <div class="p-6 border rounded-xl shadow bg-gray-50">SDG 13 — Climate Action</div>
-  </div>
-</section>
-
+    <div class="p-6 border rounded-xl shadow bg-gray-50 hover:shadow-md transition">
+      <h3 class="font-bold text-blue-700">SDG 3 — Good Health</h3>
+      <p class="text-gray-600 mt-2 text-sm">Backing startups improving healthcare access and outcomes.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 hover:shadow-md transition">
+      <h3 class="font-bold text-blue-700">SDG 5 — Gender Equality</h3>
+      <p class="text-gray-600 mt-2 text-sm">Empowering female founders to lead and scale ventures.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 hover:shadow-md transition">
+      <h3 class="font-bold text-blue-700">SDG 8 — Economic Growth</h3>
+      <p class="text-gray-600 mt-2 text-sm">Driving entrepreneurship that fuels sustainable growth.</p>
+    </div>
+  
+    
 <!-- CTA -->
 <section class="bg-blue-700 text-white text-center py-20">
   <h2 class="text-3xl md:text-4xl font-bold">2026 Cohort Now Accepting Applications</h2>
