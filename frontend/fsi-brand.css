@@ -1,0 +1,57 @@
+/* FSI Brand Palette */
+:root {
+  --fsi-blue: #123E7A;
+  --fsi-green: #1FA463;
+  --fsi-gold: #F4B942;
+}
+
+body {
+  color: var(--fsi-blue);
+}
+
+header, .bg-blue-700, .bg-blue-600, .bg-blue-800 {
+  background-color: var(--fsi-blue) !important;
+}
+
+.text-blue-700, .text-blue-600, .text-blue-800 {
+  color: var(--fsi-blue) !important;
+}
+
+a, .hover\:text-blue-300:hover {
+  color: var(--fsi-green) !important;
+}
+
+.bg-green, .btn-green, .text-green {
+  background-color: var(--fsi-green) !important;
+  color: #fff !important;
+}
+
+.btn-gold, .text-gold {
+  background-color: var(--fsi-gold) !important;
+  color: #fff !important;
+}
+
+.accent-gold, .highlight-gold {
+  color: var(--fsi-gold) !important;
+}
+
+/* Accent for buttons and CTAs */
+.btn-primary {
+  background: var(--fsi-green);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background: var(--fsi-gold);
+  color: var(--fsi-blue);
+}
+
+/* Accent for important highlights */
+.important {
+  color: var(--fsi-gold);
+  font-weight: bold;
+}
