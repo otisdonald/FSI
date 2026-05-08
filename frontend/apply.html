@@ -390,5 +390,20 @@ async function submitForm(){
   }
 }
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll("header nav a");
+    const currentPath = window.location.pathname.split("/").pop();
+
+    navLinks.forEach(link => {
+      if (link.getAttribute("href") === currentPath) {
+        link.classList.add("text-blue-700", "font-semibold");
+      } else {
+        link.classList.remove("text-blue-700", "font-semibold");
+      }
+    });
+  });
+</script>
 </body>
 </html>
