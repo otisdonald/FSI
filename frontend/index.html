@@ -35,7 +35,7 @@ Loading countdown...
   <!-- Desktop Menu -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html">Home</a>
-    <a href="programs.html">Programs</a>
+    <a href="programs.html" class="text-blue-700 font-semibold">Programs</a>
     <a href="opportunities.html">Opportunities</a>
     <a href="learning.html">Learning Hub</a>
     <a href="community.html">Community</a>
@@ -72,57 +72,28 @@ Loading countdown...
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
+<!-- SCRIPT -->
 <script>
-window.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('overlay');
 
-  // Mobile menu
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const overlay = document.getElementById("overlay");
-  const bars = document.querySelectorAll(".bar");
-  let open = false;
-
-  function closeMenu(){
-    mobileMenu.classList.add("translate-x-full");
-    overlay.classList.add("opacity-0","pointer-events-none");
-    document.body.style.overflow="auto";
-    bars[0].style.transform="none";
-    bars[1].style.opacity="1";
-    bars[2].style.transform="none";
-    open=false;
+  function openMenu() {
+    mobileMenu.classList.remove('translate-x-full');
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
   }
 
-  if(menuBtn){
-    menuBtn.addEventListener("click",()=>{
-      open=!open;
-      if(open){
-        mobileMenu.classList.remove("translate-x-full");
-        overlay.classList.remove("opacity-0","pointer-events-none");
-        overlay.classList.add("opacity-100");
-        document.body.style.overflow="hidden";
-        bars[0].style.transform="rotate(45deg) translateY(6px)";
-        bars[1].style.opacity="0";
-        bars[2].style.transform="rotate(-45deg) translateY(-6px)";
-      } else closeMenu();
-    });
+  function closeMenu() {
+    mobileMenu.classList.add('translate-x-full');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
   }
 
-  if(overlay) overlay.addEventListener("click", closeMenu);
-
-  // AOS animation
-  if (typeof AOS !== "undefined") {
-    AOS.init({ duration: 1000, once: true, offset: 80 });
-  }
-
-  // Sticky header
-  const header = document.querySelector("header");
-  window.addEventListener("scroll", () => {
-    if (!header) return;
-    if (window.scrollY > 20) header.classList.add("scrolled");
-    else header.classList.remove("scrolled");
-  });
-
-});
+  menuBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
 </script>
 
 <!-- HERO -->
