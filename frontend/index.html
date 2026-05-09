@@ -23,72 +23,94 @@ a.bg-white:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.1
 Loading countdown...
 </div>
 <!-- NAVBAR -->
-<header class="sticky top-0 bg-white/80 backdrop-blur-md shadow z-50">
-  <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-    <!-- Logo -->
-    <a href="index.html" class="block">
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto block dark:hidden">
-      <img src="images/logo-white.png" alt="FSI Logo" class="h-10 w-auto hidden dark:block">
-    </a>
+<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+  <!-- Logo -->
+  <a href="index.html" class="block">
+    <!-- Default logo -->
+    <img src="/images/logo.png" alt="FSI Logo" class="h-10 w-auto block dark:hidden">
+    <!-- Alternate logo for dark mode -->
+    <img src="/images/logo-white.png" alt="FSI Logo" class="h-10 w-auto hidden dark:block">
+  </a>
 
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex gap-6 text-sm font-medium">
-      <a href="index.html">Home</a>
-      <a href="programs.html">Programs</a>
-      <a href="opportunities.html">Opportunities</a>
-      <a href="learning.html">Learning Hub</a>
-      <a href="community.html">Community</a>
-      <a href="events.html">Events</a>
-      <a href="grants.html">Grants</a>
-    </nav>
+  <!-- Desktop Menu -->
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html" class="text-blue-700 font-semibold">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+    <a href="grants.html" class="text-blue-700 font-bold">Grants</a>
+  </nav>
 
-    <!-- Mobile Menu Button -->
-    <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
-      ☰
-    </button>
-  </div>
-
-  <!-- Mobile Nav -->
-  <div id="mobile-menu" class="hidden md:hidden px-6 pb-6">
-    <!-- Logo in mobile too -->
-    <a href="index.html" class="block mb-4">
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto block dark:hidden">
-      <img src="images/logo-white.png" alt="FSI Logo" class="h-10 w-auto hidden dark:block">
-    </a>
-    <nav class="flex flex-col gap-4 text-sm font-medium">
-      <a href="index.html">Home</a>
-      <a href="programs.html">Programs</a>
-      <a href="opportunities.html">Opportunities</a>
-      <a href="learning.html">Learning Hub</a>
-      <a href="community.html">Community</a>
-      <a href="events.html">Events</a>
-      <a href="grants.html">Grants</a>
-    </nav>
-  </div>
+  <!-- Mobile Menu Button -->
+  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+  </button>
 </header>
 
-<!-- Script: Toggle mobile menu + highlight active link -->
+<!-- Overlay -->
+<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
+
+<!-- Mobile Menu -->
+<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
+  <div class="flex justify-between items-center">
+    <h2 class="font-bold text-blue-700">Menu</h2>
+    <button id="close-btn" class="text-2xl">✕</button>
+  </div>
+  <div class="flex flex-col gap-5 text-gray-800 font-medium">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+    <a href="grants.html">Grants</a>
+  </div>
+  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
+</nav>
+
+<!-- SCRIPT -->
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const navLinks = document.querySelectorAll("header nav a");
-    const currentPath = window.location.pathname.split("/").pop();
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('overlay');
 
-    navLinks.forEach(link => {
-      if (link.getAttribute("href") === currentPath) {
-        link.classList.add("text-blue-700", "font-semibold");
-      } else {
-        link.classList.remove("text-blue-700", "font-semibold");
-      }
-    });
+  function openMenu() {
+    mobileMenu.classList.remove('translate-x-full');
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+  }
 
-    // Mobile menu toggle
-    const toggleBtn = document.getElementById("menu-toggle");
-    const mobileMenu = document.getElementById("mobile-menu");
-    toggleBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-  });
+  function closeMenu() {
+    mobileMenu.classList.add('translate-x-full');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
 </script>
+
+
+<!-- HERO -->
+<section data-aos="fade" class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
+  <div class="absolute inset-0"><img src="/images/hero.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs"></div>
+  <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
+  <div class="absolute w-72 h-72 bg-red-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+  <div class="relative z-10">
+    <h1 class="text-4xl md:text-5xl font-bold max-w-3xl mx-auto">Backing Africa’s Next Generation of High-Impact Founders</h1>
+    <p class="mt-6 text-lg text-gray-200 max-w-2xl mx-auto">Funding. Mentorship. Training. Global ecosystem access for ambitious entrepreneurs.</p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="grants.html" class="bg-white text-blue-700 px-6 py-3 rounded font-bold">Apply Now</a>
+      <a href="programs.html" class="border border-white px-6 py-3 rounded">Explore Programs</a>
+    </div>
+  </div>
+</section>
 
 <<!-- ABOUT -->
 <section data-aos="fade-up" class="py-20 px-6 bg-white">
