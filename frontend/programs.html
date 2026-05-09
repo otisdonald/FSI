@@ -12,85 +12,80 @@
 </head>
 <body class="bg-white text-gray-900">
 
-<!-- NAVBAR -->
-<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
-  <a href="index.html" class="block">
-    <img src="/images/logo.png" alt="FSI Logo" class="h-10 w-auto block dark:hidden">
-    <img src="/images/logo-white.png" alt="FSI Logo" class="h-10 w-auto hidden dark:block">
-  </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Programs - Founders Support Initiative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900">
 
-  <!-- Desktop Menu -->
-  <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
-    <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
-    <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
-    <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
-  </nav>
+  <!-- NAVBAR -->
+  <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+    <a href="index.html" class="block">
+      <img src="/images/logo.png" alt="FSI Logo" class="h-10 w-auto block dark:hidden">
+      <img src="/images/logo-white.png" alt="FSI Logo" class="h-10 w-auto hidden dark:block">
+    </a>
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+      <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
+      <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
+      <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
+      <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
+      <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
+      <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
+      <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
+    </nav>
+    <button id="menu-btn" class="md:hidden flex flex-col gap-1">
+      <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+      <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+      <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
+    </button>
+  </header>
 
-  <!-- Mobile Menu Button -->
-  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-  </button>
-</header>
+  <!-- HERO -->
+  <section class="py-20 text-center">
+    <h1 class="text-4xl font-bold">Our Programs</h1>
+    <p class="mt-4 text-lg text-gray-600">Explore initiatives designed to empower African founders.</p>
+  </section>
 
-<!-- Overlay -->
-<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
+  <!-- FOOTER -->
+  <footer class="bg-gray-100 py-6 text-center text-sm text-gray-600">
+    © 2026 Founders Support Initiative
+  </footer>
 
-<!-- Mobile Menu -->
-<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
-    <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
-  </div>
-  <div class="flex flex-col gap-5 text-gray-800 font-medium">
-    <a href="index.html" class="hover:text-blue-600">Home</a>
-    <a href="programs.html" class="hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="hover:text-blue-600">Community</a>
-    <a href="events.html" class="hover:text-blue-600">Events</a>
-    <a href="grants.html" class="hover:text-blue-600">Grants</a>
-  </div>
-  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
-</nav>
+  <!-- Navbar Script -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('overlay');
 
-<!-- SCRIPT -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
-
-  function openMenu() {
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    overlay.classList.add('opacity-100', 'pointer-events-auto');
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.add('translate-x-full');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-  }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Highlight active link automatically
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('font-bold', 'underline', 'text-gray-900');
+    function openMenu() {
+      mobileMenu.classList.remove('translate-x-full');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
     }
-  });
-</script>
+
+    function closeMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
+
+    // Highlight active link
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('font-bold', 'underline', 'text-gray-900');
+      }
+    });
+  </script>
 
 <section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
   <div class="absolute inset-0">
