@@ -1,221 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FSI | Programs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .reveal{opacity:0;transform:translateY(40px);transition:all .9s ease}
-    .reveal.show{opacity:1;transform:translateY(0)}
-  </style>
+<meta charset="UTF-8">
+<title>FSI | Programs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s ease}
+.reveal.show{opacity:1;transform:translateY(0)}
+</style>
 </head>
+
 <body class="bg-white text-gray-900">
 
-  <!-- NAVBAR -->
+<!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
-  <a href="index.html" class="block">
-    <!-- Default logo -->
-    <img src="/images/logo.png" alt="FSI Logo" class="h-10 w-auto block dark:hidden">
-    <!-- Alternate logo for dark mode -->
-    <img src="/images/logo-white.png" alt="FSI Logo" class="h-10 w-auto hidden dark:block">
+  <a href="index.html">
+    <img src="/images/logo.png" class="h-10">
   </a>
 
-  <!-- Desktop Menu -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
-    <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
-    <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
-    <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+    <a href="grants.html">Grants</a>
   </nav>
 
-  <!-- Mobile Menu Button -->
-  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-  </button>
+  <button id="menu-btn" class="md:hidden text-2xl">☰</button>
 </header>
 
-<!-- Overlay -->
-<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
+<div id="overlay" class="fixed inset-0 bg-black/40 opacity-0 pointer-events-none transition z-40"></div>
 
-<!-- Mobile Menu -->
-<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
+<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform translate-x-full transition p-6 space-y-6 z-50">
+  <div class="flex justify-between">
     <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
+    <button id="close-btn">✕</button>
   </div>
-  <div class="flex flex-col gap-5 text-gray-800 font-medium">
-    <a href="index.html" class="hover:text-blue-600">Home</a>
-    <a href="programs.html" class="hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="hover:text-blue-600">Community</a>
-    <a href="events.html" class="hover:text-blue-600">Events</a>
-    <a href="grants.html" class="hover:text-blue-600">Grants</a>
-  </div>
-  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
+  <a href="index.html">Home</a>
+  <a href="programs.html">Programs</a>
+  <a href="opportunities.html">Opportunities</a>
+  <a href="learning.html">Learning Hub</a>
+  <a href="community.html">Community</a>
+  <a href="events.html">Events</a>
+  <a href="grants.html" class="bg-blue-600 text-white p-3 rounded-xl text-center">Apply Now</a>
 </nav>
 
-<!-- SCRIPT -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
-
-  function openMenu() {
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    overlay.classList.add('opacity-100', 'pointer-events-auto');
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.add('translate-x-full');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-  }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Highlight active link automatically
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('font-bold', 'underline', 'text-gray-900');
-    }
-  });
-</script>
-
-
+<!-- HERO -->
 <section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
   <div class="absolute inset-0">
     <img src="/images/programs.png" class="w-full h-full object-cover opacity-30">
   </div>
   <div class="relative z-10 reveal">
     <h1 class="text-4xl md:text-5xl font-bold">Our Programs</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">Comprehensive support for founders: funding, mentorship, and training to help you build and scale.</p>
+    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+      Comprehensive support for founders: funding, mentorship, and training.
+    </p>
   </div>
 </section>
 
+<!-- PROGRAMS -->
 <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
+
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
     <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700">Funding</h3>
-    <p class="text-gray-600 mt-2">Access non-dilutive capital in Naira to build and scale your startup.</p>
-    <ul class="list-disc pl-6 text-gray-600 mt-2">
-      <li>Seed grants for early-stage startups</li>
-      <li>Flexible use of funds</li>
-      <li>Open to all industries</li>
+    <h3 class="font-bold text-blue-700 text-xl">Funding</h3>
+    <p class="mt-2 text-gray-600">Access non-dilutive capital to build and scale.</p>
+    <ul class="list-disc pl-6 mt-3 text-gray-600">
+      <li>Seed grants</li>
+      <li>Flexible funding</li>
+      <li>All industries welcome</li>
     </ul>
   </div>
 
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
     <img src="/images/mentorship.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700">Mentorship</h3>
-    <p class="text-gray-600 mt-2">Learn directly from experienced founders and global operators.</p>
-    <ul class="list-disc pl-6 text-gray-600 mt-2">
-      <li>1-on-1 mentorship sessions</li>
-      <li>Access to global experts</li>
-      <li>Peer learning groups</li>
+    <h3 class="font-bold text-blue-700 text-xl">Mentorship</h3>
+    <p class="mt-2 text-gray-600">Guidance from experienced founders.</p>
+    <ul class="list-disc pl-6 mt-3 text-gray-600">
+      <li>1-on-1 sessions</li>
+      <li>Global mentors</li>
+      <li>Peer founder groups</li>
     </ul>
   </div>
 
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
     <img src="/images/training.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700">Training</h3>
-    <p class="text-gray-600 mt-2">Structured startup building and leadership development programs.</p>
-    <ul class="list-disc pl-6 text-gray-600 mt-2">
-      <li>Workshops and bootcamps</li>
-      <li>Online courses and toolkits</li>
-      <li>Leadership development tracks</li>
+    <h3 class="font-bold text-blue-700 text-xl">Training</h3>
+    <p class="mt-2 text-gray-600">Startup building & leadership programs.</p>
+    <ul class="list-disc pl-6 mt-3 text-gray-600">
+      <li>Workshops</li>
+      <li>Online courses</li>
+      <li>Toolkits</li>
     </ul>
   </div>
+
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
-    <div>
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="hover:text-gray-900">Home</a></li>
-        <li><a href="programs.html" class="hover:text-gray-900">Programs</a></li>
-        <li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li>
-        <li><a href="community.html" class="hover:text-gray-900">Community</a></li>
-        <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
-      </ul>
-    </div>
-
-    <!-- Legal -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li>
-        <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
-      </ul>
-    </div>
-
-    <!-- Connect -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
-      <p class="text-sm flex items-center">
-        <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-        <a href="mailto:info@fsi.com" class="hover:text-gray-900">info@fsi.com</a>
-      </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
-  </div>
+<footer class="bg-gray-100 text-center py-10 text-sm text-gray-500">
+  © 2026 Founders Support Initiative. All rights reserved.
 </footer>
 
-
+<!-- ✅ SINGLE FIXED SCRIPT -->
 <script>
-const menuBtn=document.getElementById("menu-btn");
-const mobileMenu=document.getElementById("mobile-menu");
-const overlay=document.getElementById("overlay");
-const bars=document.querySelectorAll(".bar");
-let open=false;
-menuBtn.addEventListener("click",()=>{
-open=!open;
-if(open){mobileMenu.classList.remove("translate-x-full");overlay.classList.remove("opacity-0","pointer-events-none");overlay.classList.add("opacity-100");document.body.style.overflow="hidden";bars[0].style.transform="rotate(45deg) translateY(6px)";bars[1].style.opacity="0";bars[2].style.transform="rotate(-45deg) translateY(-6px)";}else{closeMenu();}});
-function closeMenu(){mobileMenu.classList.add("translate-x-full");overlay.classList.add("opacity-0","pointer-events-none");document.body.style.overflow="auto";bars[0].style.transform="none";bars[1].style.opacity="1";bars[2].style.transform="none";open=false;}
-overlay.addEventListener("click",closeMenu);
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.addEventListener("DOMContentLoaded", function(){
+
+  // mobile menu
+  const menuBtn=document.getElementById("menu-btn");
+  const closeBtn=document.getElementById("close-btn");
+  const mobileMenu=document.getElementById("mobile-menu");
+  const overlay=document.getElementById("overlay");
+
+  function openMenu(){
+    mobileMenu.classList.remove("translate-x-full");
+    overlay.classList.remove("opacity-0","pointer-events-none");
+    overlay.classList.add("opacity-100");
+  }
+  function closeMenu(){
+    mobileMenu.classList.add("translate-x-full");
+    overlay.classList.add("opacity-0","pointer-events-none");
+  }
+
+  menuBtn.onclick=openMenu;
+  closeBtn.onclick=closeMenu;
+  overlay.onclick=closeMenu;
+
+  // reveal animation
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+      }
+    });
+  },{threshold:0.2});
+
+  document.querySelectorAll(".reveal").forEach(el=>{
+    observer.observe(el);
+  });
+
+});
 </script>
 
 </body>
