@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FSI | Opportunities</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>FSI | Opportunities</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
-    .reveal{opacity:0; transform:translateY(40px); transition:all .8s ease}
-    .reveal.active{opacity:1; transform:none}
-  </style>
+<style>
+.reveal{opacity:0; transform:translateY(40px); transition:all .8s ease}
+.reveal.active{opacity:1; transform:none}
+</style>
 </head>
 
 <body class="bg-white text-gray-900">
@@ -95,88 +95,56 @@
 
 <!-- HERO -->
 <section class="relative text-white py-32 text-center px-6 reveal overflow-hidden">
-
-  <!-- HERO IMAGE -->
   <div class="absolute inset-0">
-    <img src="/images/opportunity.jpg"
-         alt="Opportunities hero"
-         class="w-full h-full object-cover">
+    <img src="images/opportunity.jpg" class="w-full h-full object-cover">
   </div>
-
-  <!-- BLUE OVERLAY (this replaces bg-blue-700) -->
   <div class="absolute inset-0 bg-blue-900/70"></div>
 
-  <!-- CONTENT -->
   <div class="relative z-10">
-
     <h1 class="text-4xl md:text-5xl font-bold">Opportunities</h1>
-
     <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
       Explore funding, competitions, and career opportunities designed to support Africa’s founders.
     </p>
   </div>
-
 </section>
 
 <!-- OPPORTUNITIES -->
-<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10 reveal">
 
-  <!-- GRANTS -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/grants.png" alt="Grants"
-         class="w-full h-40 object-cover rounded mb-4">
-
-    <h3 class="font-bold text-blue-700">Grants</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="images/grants.png" class="w-full h-40 object-cover rounded mb-4">
+    <h3 class="font-bold text-blue-700 text-xl">Grants</h3>
     <p class="text-gray-600 mt-2">Access non-dilutive funding for your startup.</p>
-
-    <ul class="list-disc pl-6 text-gray-600 mt-2">
+    <ul class="list-disc pl-6 mt-3 text-gray-600">
       <li>Flexible use of funds</li>
-      <li>Open to all industries</li>
+      <li>All industries welcome</li>
       <li>Early-stage focused</li>
     </ul>
-
-    <a href="grants.html"
-       class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">
-       Apply →
-    </a>
+    <a href="grants.html" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply →</a>
   </div>
 
-  <!-- COMPETITIONS -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/competition.png" alt="Competitions"
-         class="w-full h-40 object-cover rounded mb-4">
-
-    <h3 class="font-bold text-blue-700">Competitions</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="images/competition.png" class="w-full h-40 object-cover rounded mb-4">
+    <h3 class="font-bold text-blue-700 text-xl">Competitions</h3>
     <p class="text-gray-600 mt-2">Pitch competitions and demo days.</p>
-
-    <ul class="list-disc pl-6 text-gray-600 mt-2">
+    <ul class="list-disc pl-6 mt-3 text-gray-600">
       <li>Cash prizes</li>
       <li>Investor exposure</li>
       <li>Networking access</li>
     </ul>
-
-    <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">
-      Coming Soon
-    </a>
+    <button class="mt-4 bg-gray-300 px-4 py-2 rounded">Coming Soon</button>
   </div>
 
-  <!-- JOBS -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/jobs.png" alt="Startup Jobs"
-         class="w-full h-40 object-cover rounded mb-4">
-
-    <h3 class="font-bold text-blue-700">Startup Jobs</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
+    <img src="images/jobs.png" class="w-full h-40 object-cover rounded mb-4">
+    <h3 class="font-bold text-blue-700 text-xl">Startup Jobs</h3>
     <p class="text-gray-600 mt-2">Roles within the FSI ecosystem.</p>
-
-    <ul class="list-disc pl-6 text-gray-600 mt-2">
+    <ul class="list-disc pl-6 mt-3 text-gray-600">
       <li>Remote & onsite</li>
       <li>Startup hiring network</li>
       <li>Talent matching</li>
     </ul>
-
-    <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">
-      Coming Soon
-    </a>
+    <button class="mt-4 bg-gray-300 px-4 py-2 rounded">Coming Soon</button>
   </div>
 
 </section>
@@ -184,13 +152,11 @@
 <!-- CTA -->
 <section class="bg-blue-700 text-white text-center py-20 reveal">
   <h2 class="text-3xl font-bold">Don’t miss your chance to grow.</h2>
-  <a href="grants.html"
-     class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">
-     Apply Now
+  <a href="grants.html" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">
+    Apply Now
   </a>
 </section>
 
-<!-- FOOTER -->
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
   <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
@@ -253,41 +219,45 @@
   </div>
 </footer>
 
-<!-- SCRIPT -->
+
+<!-- ⭐ MASTER SCRIPT -->
 <script>
-const menuBtn=document.getElementById('menu-btn');
-const mobileMenu=document.getElementById('mobile-menu');
-const overlay=document.getElementById('overlay');
-let open=false;
+document.addEventListener("DOMContentLoaded", function(){
 
-menuBtn.onclick=()=>{
-  open=!open;
-  if(open){
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0','pointer-events-none');
-    document.body.style.overflow='hidden';
-  } else closeMenu();
-}
+  const menuBtn=document.getElementById("menu-btn");
+  const closeBtn=document.getElementById("close-btn");
+  const mobileMenu=document.getElementById("mobile-menu");
+  const overlay=document.getElementById("overlay");
 
-function closeMenu(){
-  mobileMenu.classList.add('translate-x-full');
-  overlay.classList.add('opacity-0','pointer-events-none');
-  document.body.style.overflow='auto';
-  open=false;
-}
-overlay.onclick=closeMenu;
+  function openMenu(){
+    mobileMenu.classList.remove("translate-x-full");
+    overlay.classList.remove("opacity-0","pointer-events-none");
+  }
 
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('active');
-    }
-  })
-},{threshold:.15});
+  function closeMenu(){
+    mobileMenu.classList.add("translate-x-full");
+    overlay.classList.add("opacity-0","pointer-events-none");
+  }
 
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  menuBtn.onclick=openMenu;
+  closeBtn.onclick=closeMenu;
+  overlay.onclick=closeMenu;
+
+  // reveal animation
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("active");
+      }
+    });
+  },{threshold:0.15});
+
+  document.querySelectorAll(".reveal").forEach(el=>{
+    observer.observe(el);
+  });
+
+});
 </script>
-
 
 </body>
 </html>
