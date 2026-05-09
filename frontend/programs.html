@@ -24,13 +24,13 @@
 
   <!-- Desktop Menu -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html">Home</a>
-    <a href="programs.html">Programs</a>
-    <a href="opportunities.html">Opportunities</a>
-    <a href="learning.html">Learning Hub</a>
-    <a href="community.html">Community</a>
-    <a href="events.html">Events</a>
-    <a href="grants.html" class="text-blue-700 font-bold">Grants</a>
+    <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
+    <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
+    <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
+    <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
+    <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
+    <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
+    <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
   </nav>
 
   <!-- Mobile Menu Button -->
@@ -51,54 +51,48 @@
     <button id="close-btn" class="text-2xl">✕</button>
   </div>
   <div class="flex flex-col gap-5 text-gray-800 font-medium">
-    <a href="index.html">Home</a>
-    <a href="programs.html">Programs</a>
-    <a href="opportunities.html">Opportunities</a>
-    <a href="learning.html">Learning Hub</a>
-    <a href="community.html">Community</a>
-    <a href="events.html">Events</a>
-    <a href="grants.html">Grants</a>
+    <a href="index.html" class="hover:text-blue-600">Home</a>
+    <a href="programs.html" class="hover:text-blue-600">Programs</a>
+    <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
+    <a href="learning.html" class="hover:text-blue-600">Learning Hub</a>
+    <a href="community.html" class="hover:text-blue-600">Community</a>
+    <a href="events.html" class="hover:text-blue-600">Events</a>
+    <a href="grants.html" class="hover:text-blue-600">Grants</a>
   </div>
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
 <!-- SCRIPT -->
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuBtn = document.getElementById('menu-btn');
-    const closeBtn = document.getElementById('close-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('overlay');
 
-    function openMenu() {
-      mobileMenu.classList.remove('translate-x-full');
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100', 'pointer-events-auto');
+  function openMenu() {
+    mobileMenu.classList.remove('translate-x-full');
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.add('translate-x-full');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Highlight active link automatically
+  const links = document.querySelectorAll('nav a');
+  links.forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('font-bold', 'underline', 'text-gray-900');
     }
-
-    function closeMenu() {
-      mobileMenu.classList.add('translate-x-full');
-      overlay.classList.add('opacity-0', 'pointer-events-none');
-      overlay.classList.remove('opacity-100', 'pointer-events-auto');
-    }
-
-    menuBtn.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-
-    // Reveal animation
-    const reveals = document.querySelectorAll('.reveal');
-    window.addEventListener('scroll', () => {
-      reveals.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          el.classList.add('show');
-        }
-      });
-    });
   });
 </script>
-
 
 <section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
   <div class="absolute inset-0">
