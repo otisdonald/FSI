@@ -5,6 +5,16 @@
   <title>FSI | Learning Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Your existing custom styles */
+    .reveal { opacity:0; transform:translateY(40px); transition:all .9s ease }
+    .reveal.show { opacity:1; transform:translateY(0) }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body class="bg-white text-gray-900">
 
@@ -134,6 +144,7 @@
       <li>Scaling leadership as your startup grows</li>
     </ul>
     <a href="#resource-library" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Leadership →</a>
+</div>
 
   <!-- Fundraising -->
   <div class="card border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
@@ -148,9 +159,8 @@
       <li>Negotiating fair terms</li>
       <li>Managing post‑investment relationships</li>
     </ul>
-    <a href="learning.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Fundraising →</a>
-  </div>
-
+    <a href="#resource-library" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Fundraising →</a>
+</div>
 </section>
 
 <!-- COMING SOON -->
