@@ -6,19 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .reveal{opacity:0;transform:translateY(40px);transition:all .9s ease}
-    .reveal.show{opacity:1;transform:translateY(0)}
+    .reveal { opacity:0; transform:translateY(40px); transition:all .9s ease }
+    .reveal.show { opacity:1; transform:translateY(0) }
   </style>
-</head>
-<body class="bg-white text-gray-900">
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Programs - Founders Support Initiative</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-900">
 
@@ -45,111 +35,52 @@
   </header>
 
   <!-- HERO -->
-  <section class="py-20 text-center">
-    <h1 class="text-4xl font-bold">Our Programs</h1>
-    <p class="mt-4 text-lg text-gray-600">Explore initiatives designed to empower African founders.</p>
+  <section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/programs.png" class="w-full h-full object-cover opacity-30">
+    </div>
+    <div class="relative z-10 reveal">
+      <h1 class="text-4xl md:text-5xl font-bold">Our Programs</h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+        Comprehensive support for founders: funding, mentorship, and training to help you build and scale.
+      </p>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-gray-100 py-6 text-center text-sm text-gray-600">
-    © 2026 Founders Support Initiative
-  </footer>
+  <!-- PROGRAMS GRID -->
+  <section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+    <!-- Funding -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
+      <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700 text-xl">Funding</h3>
+      <p class="text-gray-600 mt-2">Access non-dilutive capital in Naira to build and scale your startup...</p>
+      <ul class="list-disc pl-6 text-gray-600 mt-3 space-y-1">
+        <li>Seed grants for early-stage startups</li>
+        <li>Flexible use of funds</li>
+        <li>Open to all industries</li>
+        <li>Competitive selection</li>
+      </ul>
+      <a href="grants.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
+    </div>
 
-  <!-- Navbar Script -->
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const closeBtn = document.getElementById('close-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('overlay');
+    <!-- Mentorship -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
+      <img src="/images/mentorship.png" class="w-full h-40 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700 text-xl">Mentorship</h3>
+      <p class="text-gray-600 mt-2">Learn directly from experienced founders, industry leaders, and global operators...</p>
+      <a href="community.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
+    </div>
 
-    function openMenu() {
-      mobileMenu.classList.remove('translate-x-full');
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100', 'pointer-events-auto');
-    }
+    <!-- Training -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
+      <img src="/images/training.png" class="w-full h-40 object-cover rounded mb-4">
+      <h3 class="font-bold text-blue-700 text-xl">Training</h3>
+      <p class="text-gray-600 mt-2">Structured startup building and leadership development programs...</p>
+      <a href="learning.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
+    </div>
+  </section>
 
-    function closeMenu() {
-      mobileMenu.classList.add('translate-x-full');
-      overlay.classList.add('opacity-0', 'pointer-events-none');
-      overlay.classList.remove('opacity-100', 'pointer-events-auto');
-    }
-
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-    if (overlay) overlay.addEventListener('click', closeMenu);
-
-    // Highlight active link
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('font-bold', 'underline', 'text-gray-900');
-      }
-    });
-  </script>
-
-<section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
-  <div class="absolute inset-0">
-    <img src="/images/programs.png" class="w-full h-full object-cover opacity-30">
-  </div>
-  <div class="relative z-10 reveal">
-    <h1 class="text-4xl md:text-5xl font-bold">Our Programs</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">Comprehensive support for founders: funding, mentorship, and training to help you build and scale.</p>
-  </div>
-</section>
-
-<!-- PROGRAMS GRID -->
-<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-
-  <!-- Funding -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
-    <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Funding</h3>
-    <p class="text-gray-600 mt-2">
-      Access non-dilutive capital in Naira to build and scale your startup. Our funding programs are designed to give founders the financial runway they need without losing equity.
-    </p>
-    <ul class="list-disc pl-6 text-gray-600 mt-3 space-y-1">
-      <li>Seed grants for early-stage startups</li>
-      <li>Flexible use of funds for product, marketing, or operations</li>
-      <li>Open to all industries and sectors</li>
-      <li>Competitive selection based on clarity and execution potential</li>
-    </ul>
-    <a href="grants.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
-  </div>
-
-  <!-- Mentorship -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
-    <img src="/images/mentorship.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Mentorship</h3>
-    <p class="text-gray-600 mt-2">
-      Learn directly from experienced founders, industry leaders, and global operators. Our mentorship connects you with people who have built, scaled, and exited successful ventures.
-    </p>
-    <ul class="list-disc pl-6 text-gray-600 mt-3 space-y-1">
-      <li>1-on-1 mentorship sessions tailored to your startup stage</li>
-      <li>Access to global experts across industries</li>
-      <li>Peer learning groups for shared growth</li>
-      <li>Guidance on fundraising, product-market fit, and scaling</li>
-    </ul>
-    <a href="community.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
-  </div>
-
-  <!-- Training -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 transition reveal">
-    <img src="/images/training.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Training</h3>
-    <p class="text-gray-600 mt-2">
-      Structured startup building and leadership development programs. We equip founders with the skills, tools, and mindset needed to thrive in competitive markets.
-    </p>
-    <ul class="list-disc pl-6 text-gray-600 mt-3 space-y-1">
-      <li>Workshops and bootcamps on startup fundamentals</li>
-      <li>Online courses and toolkits for continuous learning</li>
-      <li>Leadership development tracks for scaling teams</li>
-      <li>Practical case studies and founder stories</li>
-    </ul>
-    <a href="learning.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
+  
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
   <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
@@ -227,5 +158,40 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 
 
+  <!-- Navbar Script -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu() {
+      if (mobileMenu && overlay) {
+        mobileMenu.classList.remove('translate-x-full');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    }
+
+    function closeMenu() {
+      if (mobileMenu && overlay) {
+        mobileMenu.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
+
+    // Highlight active link
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('font-bold', 'underline', 'text-gray-900');
+      }
+    });
+  </script>
 </body>
 </html>
