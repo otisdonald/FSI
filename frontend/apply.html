@@ -318,22 +318,11 @@ fetch("https://fsi.onrender.com/api/config")
 
 // 🚀 SUBMIT + PAY
 async function submitForm(){
+  const f=document.getElementById("form");
 
-  const form = document.getElementById("form");
-
-  // 🛑 STOP if form fields are empty or invalid
-  if (!form.checkValidity()) {
-      form.reportValidity();   // show browser validation messages
-      return;                  // stop everything here
-  }
-
-  // 🛑 STOP if agreement not checked
-  if (!document.getElementById("agree").checked){
-      alert("Please accept the agreement");
-      return;
-  }
-
-  const f = form;
+  if(!document.getElementById("agree").checked){
+    alert("Please accept the agreement");
+    return;
   }
 
   const data={
