@@ -144,61 +144,78 @@ app.get("/api/check-status/:email", async (req,res)=>{
   res.json({ status:appData.paymentStatus });
 });
 
-
 // =======================================================
 // 🔥🔥 FINAL FLUTTERWAVE WEBHOOK 🔥🔥
 // =======================================================
-app.post("/api/flutterwave-webhook",(req,res)=>{
+app.post("/api/flutterwave-webhook", (req, res) => {
   console.log("🔔 Webhook received");
 
-  // ALWAYS respond immediately (Flutterwave requirement)
+  // Flutterwave requires instant 200 response
   res.sendStatus(200);
 
-  setImmediate(async ()=>{
-    try{
-      const signature=req.headers["verif-hash"];
+  setImmediate(async () => {
+    try {
+      const signature = req.headers["verif-hash"];
 
-      if(!signature){
+      // 🔐 Verify webhook signature
+      if (!signature) {
         console.log("❌ No signature header");
         return;
       }
 
-      if(signature!==process.env.FLW_SECRET_HASH){
+      if (signature !== process.env.FLW_SECRET_HASH) {
         console.log("❌ Invalid webhook signature");
         return;
       }
 
       console.log("✅ Webhook verified");
 
-      const payment=req.body.data;
+      const payment = req.body.data;
 
-      // ⭐ CRITICAL: Only trust successful payments
-      if(!payment || payment.status!=="successful"){
+      // ⭐ Only trust successful payments
+      if (!payment || payment.status !== "successful") {
         console.log("Payment not successful yet");
         return;
       }
 
-      const email=payment.customer?.email;
-      const tx_ref=payment.tx_ref;
+      const email = payment.customer?.email;
+      const tx_ref = payment.tx_ref;
 
-      console.log("💰 PAYMENT DATA:",email,tx_ref);
+      console.log("💰 PAYMENT DATA:", email, tx_ref);
 
+      // ✅ Update application as PAID
       await Application.findOneAndUpdate(
         { email },
-        { paymentStatus:"paid", tx_ref },
-        { upsert:true }
+        { paymentStatus: "paid", tx_ref },
+        { upsert: true }
       );
 
+      // ✉️ PROFESSIONAL EMAIL MESSAGE
+      const message = `
+        Your application and payment have been successfully received.
+
+        Thank you for applying to the Founders Support Initiative (FSI).
+
+        Our review team will carefully evaluate your submission and you will
+        be contacted via email with the next steps.
+
+        If you have any questions, feel free to reply to this email.
+
+        — Founders Support Initiative
+        https://founderssupport.org
+      `;
+
+      // 📧 Send confirmation email
       await sendEmail(
         email,
-        "Application Received 🎉",
-        "Your FSI application and payment have been received successfully."
+        "Application Received — Founders Support Initiative",
+        message
       );
 
-      console.log("🎉 PAYMENT SAVED TO DB");
+      console.log("🎉 PAYMENT SAVED TO DB + EMAIL SENT");
 
-    }catch(err){
-      console.log("Webhook error:",err.message);
+    } catch (err) {
+      console.log("Webhook error:", err.message);
     }
   });
 });
