@@ -58,7 +58,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-aasync function sendEmail(to, subject, message){
+async function sendEmail(to, subject, message){
   try{
     await transporter.sendMail({
       from: `"Founders Support Initiative" <${process.env.EMAIL_USER}>`,
