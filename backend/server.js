@@ -47,23 +47,46 @@ const Application = mongoose.model("Application", new mongoose.Schema({
   createdAt:{ type:Date, default:Date.now }
 }));
 
-// ================= EMAIL =================
+/// ================= EMAIL (ZOHO SMTP) =================
 const transporter = nodemailer.createTransport({
-  service:"gmail",
-  auth:{
-    user:process.env.EMAIL_USER,
-    pass:process.env.EMAIL_PASS
+  host: "smtp.zoho.com",
+  port: 465,
+  secure: true, // SSL
+  auth: {
+    user: process.env.EMAIL_USER, // contact@founderssupport.org
+    pass: process.env.EMAIL_PASS  // Zoho mailbox password
   }
 });
 
-async function sendEmail(to,subject,text){
+aasync function sendEmail(to, subject, message){
   try{
     await transporter.sendMail({
-      from:"FSI <no-reply@fsi.com>",
-      to, subject, text
+      from: `"Founders Support Initiative" <${process.env.EMAIL_USER}>`,
+      to: to,
+      subject: subject,
+      html: `
+        <div style="font-family:Arial;max-width:600px;margin:auto">
+          <h2 style="color:#1e40af">Application Successful 🎉</h2>
+
+          <p>${message}</p>
+
+          <p>
+            Our team will review your application and contact you soon.
+          </p>
+
+          <br>
+          <p>
+            Warm regards,<br>
+            <b>Founders Support Initiative</b><br>
+            https://founderssupport.org
+          </p>
+        </div>
+      `
     });
+
+    console.log("📧 Email sent to", to);
   }catch(err){
-    console.log("Email error:",err.message);
+    console.log("❌ Email error:", err.message);
   }
 }
 
