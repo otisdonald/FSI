@@ -220,6 +220,11 @@ app.post("/api/flutterwave-webhook", (req, res) => {
   });
 });
 
+app.get("/ip", async (req,res)=>{
+  const axios = require("axios");
+  const ip = await axios.get("https://api.ipify.org");
+  res.send(ip.data);
+});
 // ================= START SERVER =================
 const PORT=process.env.PORT || 3000;
 app.listen(PORT,()=>console.log("Server running on port",PORT));
