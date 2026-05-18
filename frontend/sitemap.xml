@@ -26,4 +26,19 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://founderssupport.org/programs.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://founderssupport.org/opportunities.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://founderssupport.org/learning.html</loc>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
