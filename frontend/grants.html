@@ -202,77 +202,47 @@
 
 <section class="px-6 py-12 max-w-6xl mx-auto">
   <h2 class="text-2xl font-bold text-center mb-6">Compare Our Grant Programs</h2>
-
-  <!-- Mobile Layout: Stacked Cards -->
-  <div class="grid gap-6 md:hidden">
-    <div class="border rounded-lg p-4 bg-gray-50">
-      <h3 class="font-bold text-blue-700">General Startup Grant</h3>
-      <p><strong>Funding:</strong> ₦750,000 – ₦7,500,000</p>
-      <p><strong>Eligibility:</strong> Founders with MVP or traction</p>
-      <p><strong>Focus:</strong> All industries • Product development • Marketing • Scaling</p>
-    </div>
-
-    <div class="border rounded-lg p-4 bg-gray-50">
-      <h3 class="font-bold text-blue-700">Youth Grant</h3>
-      <p><strong>Funding:</strong> ₦750,000 – ₦3,000,000</p>
-      <p><strong>Eligibility:</strong> Age 18–35 • Early‑stage founders</p>
-      <p><strong>Focus:</strong> Youth‑driven innovation • Early ideas</p>
-    </div>
-
-    <div class="border rounded-lg p-4 bg-gray-50">
-      <h3 class="font-bold text-blue-700">Women in Business Grant</h3>
-      <p><strong>Funding:</strong> ₦1,500,000 – ₦4,500,000</p>
-      <p><strong>Eligibility:</strong> Female‑led startups</p>
-      <p><strong>Focus:</strong> All sectors • Diversity & inclusion</p>
-    </div>
-
-    <div class="border rounded-lg p-4 bg-gray-50">
-      <h3 class="font-bold text-blue-700">Innovation & Tech Grant</h3>
-      <p><strong>Funding:</strong> ₦3,000,000 – ₦7,500,000</p>
-      <p><strong>Eligibility:</strong> Impact‑driven startups</p>
-      <p><strong>Focus:</strong> Health • EdTech • Agri • Fintech • Climate</p>
-    </div>
-  </div>
-
-  <!-- Desktop Layout: Table -->
-  <div class="hidden md:block overflow-x-auto">
-    <table class="w-full border-collapse border border-gray-300 text-sm md:text-base">
-      <thead class="bg-blue-700 text-white">
+  
+  <div class="overflow-x-auto relative">
+    <table class="min-w-full border-collapse border border-gray-300 text-xs sm:text-sm md:text-base">
+      <thead class="bg-blue-700 text-white sticky top-0 z-10">
         <tr>
-          <th class="border border-gray-300 px-4 py-3 text-left">Grant Type</th>
-          <th class="border border-gray-300 px-4 py-3 text-left">Funding Range</th>
-          <th class="border border-gray-300 px-4 py-3 text-left">Eligibility</th>
-          <th class="border border-gray-300 px-4 py-3 text-left">Focus Areas</th>
+          <th class="border border-gray-300 px-2 py-2 text-left">Grant Type</th>
+          <th class="border border-gray-300 px-2 py-2 text-left">Funding</th>
+          <th class="border border-gray-300 px-2 py-2 text-left">Eligibility</th>
+          <th class="border border-gray-300 px-2 py-2 text-left">Focus</th>
         </tr>
       </thead>
       <tbody class="text-gray-700">
-        <tr>
-          <td class="border border-gray-300 px-4 py-3 font-semibold">General Startup Grant</td>
-          <td class="border border-gray-300 px-4 py-3">₦750,000 – ₦7,500,000</td>
-          <td class="border border-gray-300 px-4 py-3">Founders with MVP or traction</td>
-          <td class="border border-gray-300 px-4 py-3">All industries • Product development • Marketing • Scaling</td>
+        <tr class="hover:bg-blue-50">
+          <td class="border border-gray-300 px-2 py-2 font-semibold">General Startup</td>
+          <td class="border border-gray-300 px-2 py-2">₦750k – ₦7.5m</td>
+          <td class="border border-gray-300 px-2 py-2">MVP or traction</td>
+          <td class="border border-gray-300 px-2 py-2">All industries • Scaling</td>
         </tr>
-        <tr class="bg-gray-50">
-          <td class="border border-gray-300 px-4 py-3 font-semibold">Youth Grant</td>
-          <td class="border border-gray-300 px-4 py-3">₦750,000 – ₦3,000,000</td>
-          <td class="border border-gray-300 px-4 py-3">Age 18–35 • Early‑stage founders</td>
-          <td class="border border-gray-300 px-4 py-3">Youth‑driven innovation • Early ideas</td>
+        <tr class="bg-gray-50 hover:bg-blue-50">
+          <td class="border border-gray-300 px-2 py-2 font-semibold">Youth Grant</td>
+          <td class="border border-gray-300 px-2 py-2">₦750k – ₦3m</td>
+          <td class="border border-gray-300 px-2 py-2">Age 18–35</td>
+          <td class="border border-gray-300 px-2 py-2">Early‑stage ideas</td>
         </tr>
-        <tr>
-          <td class="border border-gray-300 px-4 py-3 font-semibold">Women in Business Grant</td>
-          <td class="border border-gray-300 px-4 py-3">₦1,500,000 – ₦4,500,000</td>
-          <td class="border border-gray-300 px-4 py-3">Female‑led startups</td>
-          <td class="border border-gray-300 px-4 py-3">All sectors • Diversity & inclusion</td>
+        <tr class="hover:bg-blue-50">
+          <td class="border border-gray-300 px-2 py-2 font-semibold">Women in Business</td>
+          <td class="border border-gray-300 px-2 py-2">₦1.5m – ₦4.5m</td>
+          <td class="border border-gray-300 px-2 py-2">Female‑led startups</td>
+          <td class="border border-gray-300 px-2 py-2">All sectors • Inclusion</td>
         </tr>
-        <tr class="bg-gray-50">
-          <td class="border border-gray-300 px-4 py-3 font-semibold">Innovation & Tech Grant</td>
-          <td class="border border-gray-300 px-4 py-3">₦3,000,000 – ₦7,500,000</td>
-          <td class="border border-gray-300 px-4 py-3">Impact‑driven startups</td>
-          <td class="border border-gray-300 px-4 py-3">Health • EdTech • Agri • Fintech • Climate</td>
+        <tr class="bg-gray-50 hover:bg-blue-50">
+          <td class="border border-gray-300 px-2 py-2 font-semibold">Innovation & Tech</td>
+          <td class="border border-gray-300 px-2 py-2">₦3m – ₦7.5m</td>
+          <td class="border border-gray-300 px-2 py-2">Impact‑driven</td>
+          <td class="border border-gray-300 px-2 py-2">Health • EdTech • Agri • Fintech • Climate</td>
         </tr>
       </tbody>
     </table>
   </div>
+</section>
+
 </section>
 
   <p class="text-center text-gray-500 mt-10 text-sm">
