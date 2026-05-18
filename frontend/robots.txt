@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://founderssupport.org/sitemap.xml
