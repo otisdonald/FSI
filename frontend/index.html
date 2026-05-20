@@ -326,5 +326,45 @@ const btn=document.getElementById("waitlistBtn");if(btn){btn.onclick=async()=>{c
   });
 </script>
 
+<script>
+  // Waitlist - add this
+  document.getElementById('waitlistBtn')?.addEventListener('click', async () => {
+    const emailInput = document.getElementById('waitlistEmail');
+    const msg = document.getElementById('waitlistMsg');
+    const btn = document.getElementById('waitlistBtn');
+    const email = emailInput.value.trim();
+    
+    if(!email.includes('@')) {
+      msg.textContent = 'Enter a valid email';
+      msg.className = 'text-sm mt-3 text-red-600';
+      return;
+    }
+    
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+    
+    try {
+      const res = await fetch('/api/waitlist', {   // use relative path if same domain
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({email})
+      });
+      const data = await res.json();
+      
+      if(data.success) {
+        msg.textContent = '✓ You\'re on the list! Check your email.';
+        msg.className = 'text-sm mt-3 text-green-600 font-medium';
+        emailInput.value = '';
+        btn.textContent = 'Joined!';
+      }
+    } catch(e) {
+      msg.textContent = 'Error. Please try again.';
+      msg.className = 'text-sm mt-3 text-red-600';
+      btn.disabled = false;
+      btn.textContent = 'Join Waitlist';
+    }
+  });
+</script>
+
 </body>
 </html>
