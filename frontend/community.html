@@ -27,12 +27,9 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
 
 <!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
 <a href="index.html" class="block">
   <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
 </a>
-
-  <!-- Desktop Menu -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
     <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
@@ -42,8 +39,6 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
     <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
     <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
   </nav>
-
-  <!-- Mobile Menu Button -->
   <button id="menu-btn" class="md:hidden flex flex-col gap-1">
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
@@ -51,10 +46,7 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   </button>
 </header>
 
-<!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-
-<!-- Mobile Menu -->
 <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
   <div class="flex justify-between items-center">
     <h2 class="font-bold text-blue-700">Menu</h2>
@@ -72,9 +64,7 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-
-
-<!-- COMMUNITY HERO -->
+<!-- HERO -->
 <section class="relative bg-blue-700 text-white py-20 md:py-28 text-center px-6 overflow-hidden" data-aos="fade">
   <div class="absolute inset-0">
     <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 right-10"></div>
@@ -83,74 +73,111 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   <div class="relative z-10" data-aos="zoom-in">
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">Community</h1>
     <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">
-      Join a vibrant network of founders, innovators, and industry leaders. 
-      Our community is designed to foster collaboration, peer learning, and meaningful connections across Africa and beyond.
+      We're not launching a community yet. We're earning one — founder by founder.
     </p>
   </div>
 </section>
-<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
 
-  <!-- Member Profiles -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
+<!-- BUILDING IN PUBLIC -->
+<section class="py-16 px-6 max-w-4xl mx-auto text-center" data-aos="fade-up">
+  <p class="text-blue-600 font-semibold uppercase tracking-wide text-sm">Building in public</p>
+  <h2 class="text-2xl md:text-3xl font-bold mt-2">No empty forums. No fake members.</h2>
+  <p class="mt-4 text-gray-600 leading-relaxed">
+    FSI is a startup itself. Instead of opening a Slack with 3 people, we're focusing on our first cohort of 50 founders. The community will emerge from real work together — office hours, build sessions, and honest feedback. If you're here early, you'll help shape the culture.
+  </p>
+</section>
+
+<!-- FOUNDING CIRCLE WAITLIST -->
+<section class="px-6 max-w-5xl mx-auto" data-aos="fade-up">
+  <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 md:p-10 text-center">
+    <h3 class="text-xl md:text-2xl font-bold text-blue-900">Join the Founding Circle</h3>
+    <p class="mt-2 text-gray-700 max-w-2xl mx-auto">Get monthly founder notes from our team, early invites to small group calls, and first access when we open community features in Q4 2026. No spam, just building updates.</p>
+    <form onsubmit="joinWaitlist(event)" class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input id="waitlistEmail" type="email" required placeholder="your@email.com" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      <button class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Join Waitlist</button>
+    </form>
+    <p id="waitlistMsg" class="text-sm text-green-700 mt-3 hidden">Thanks — you're in. We'll email you from team@founderssupport.org</p>
+    <p class="text-xs text-gray-500 mt-3">Currently 147 founders on the waitlist. We cap the first circle at 500.</p>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="py-16 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-2xl md:text-3xl font-bold text-center mb-10">How we'll build this together</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="p-6 border rounded-xl bg-white card-lift">
+      <div class="text-2xl mb-2">1️⃣</div>
+      <h4 class="font-bold text-blue-700">Small by design</h4>
+      <p class="text-sm text-gray-600 mt-2">First 50 members only. We prioritize depth of conversation over vanity metrics. No growth hacks.</p>
+    </div>
+    <div class="p-6 border rounded-xl bg-white card-lift">
+      <div class="text-2xl mb-2">2️⃣</div>
+      <h4 class="font-bold text-blue-700">Builders only</h4>
+      <p class="text-sm text-gray-600 mt-2">You must be actively building or have applied to FSI. No spectators, consultants, or lurkers.</p>
+    </div>
+    <div class="p-6 border rounded-xl bg-white card-lift">
+      <div class="text-2xl mb-2">3️⃣</div>
+      <h4 class="font-bold text-blue-700">Give first</h4>
+      <p class="text-sm text-gray-600 mt-2">Share what you learn, intro who you can, answer one question for every ask. That's the culture.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
     <img loading="lazy" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4" alt="Profiles">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">👤 Member Profiles</h3>
-    <p class="text-gray-600 mt-2">
-      Soon you’ll be able to create a personalized founder profile, showcase your startup journey, and connect with peers across industries and countries.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Highlight your startup’s mission and milestones</li>
-      <li>Discover founders with shared interests</li>
-      <li>Expand your reach across regions</li>
-    </ul>
-    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
+    <p class="text-gray-600 mt-2 text-sm">Launching Q4 2026. Showcase your startup, traction, and what help you need. Searchable by stage, sector, and country.</p>
+    <div class="mt-3 text-xs text-gray-500">Status: Designing with cohort 1</div>
   </div>
 
-  <!-- Networking -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
     <img loading="lazy" src="images/networking.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4" alt="Networking">
-    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🤝 Networking</h3>
-    <p class="text-gray-600 mt-2">
-      We’re building tools to help you search, filter, and connect with collaborators, mentors, and partners. Networking events and curated matches will be available soon.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Find co‑founders and team members</li>
-      <li>Connect with investors and advisors</li>
-      <li>Join curated networking events</li>
-    </ul>
-    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🤝 Curated Intros</h3>
+    <p class="text-gray-600 mt-2 text-sm">Not a directory. We'll manually match you with 2-3 relevant founders monthly based on what you're building.</p>
+    <div class="mt-3 text-xs text-gray-500">Status: Testing with 20 founders</div>
   </div>
 
-  <!-- Forum -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
     <img loading="lazy" src="images/forum.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4" alt="Forum">
-    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💬 Forum</h3>
-    <p class="text-gray-600 mt-2">
-      A space for founders to share insights, ask questions, and learn from peers. Topic‑based discussions and expert Q&A sessions will launch soon.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Funding, marketing, and scaling discussions</li>
-      <li>Peer‑to‑peer advice and shared experiences</li>
-      <li>Expert Q&A sessions</li>
-    </ul>
-    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💬 Founder Forum</h3>
+    <p class="text-gray-600 mt-2 text-sm">Private, async Q&A. No noise. Weekly prompts from operators who've built before. Opens after cohort 1 demo day.</p>
+    <div class="mt-3 text-xs text-gray-500">Status: Q1 2027</div>
   </div>
-
 </section>
 
+<!-- FAQ HONEST -->
+<section class="py-16 bg-gray-50 px-6" data-aos="fade-up">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold text-center mb-8">Why wait to launch?</h2>
+    <div class="space-y-4 text-sm">
+      <div class="bg-white p-5 rounded-lg border">
+        <p class="font-semibold">Q: Can I join now?</p>
+        <p class="text-gray-600 mt-1">A: Join the waitlist above. We're onboarding in small batches from our applicant pool to keep quality high.</p>
+      </div>
+      <div class="bg-white p-5 rounded-lg border">
+        <p class="font-semibold">Q: Is this just another WhatsApp group?</p>
+        <p class="text-gray-600 mt-1">A: No. We tried that. It dies. We're building structured, purpose-driven connections instead.</p>
+      </div>
+      <div class="bg-white p-5 rounded-lg border">
+        <p class="font-semibold">Q: What can I do today?</p>
+        <p class="text-gray-600 mt-1">A: Apply for the grant. The best community starts with the work, not the chat.</p>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <a href="apply.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700">Apply for 2026 Cohort →</a>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
   <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
     <div>
       <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
+      <p class="text-sm leading-relaxed">Empowering African founders with funding, mentorship, and training to build sustainable startups.</p>
     </div>
-
-    <!-- Quick Links -->
     <div>
       <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
       <ul class="space-y-2 text-sm">
@@ -161,8 +188,6 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
         <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
       </ul>
     </div>
-
-    <!-- Legal -->
     <div>
       <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
       <ul class="space-y-2 text-sm">
@@ -171,36 +196,27 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
         <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
       </ul>
     </div>
-
-    <!-- Connect -->
     <div>
       <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
       <p class="text-sm flex items-center">
         <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
         <a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a>
       </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
-      </div>
     </div>
   </div>
-
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
-  </div>
+  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">© 2026 Founders Support Initiative. All rights reserved.</div>
 </footer>
 
 <script>
+function joinWaitlist(e){
+  e.preventDefault();
+  const email = document.getElementById('waitlistEmail').value;
+  localStorage.setItem('fsi_waitlist', email);
+  document.getElementById('waitlistMsg').classList.remove('hidden');
+  // In production, POST to your API
+  // fetch('/api/waitlist', {method:'POST', body:JSON.stringify({email})})
+}
+
 document.addEventListener("DOMContentLoaded", ()=>{
   const menuBtn=document.getElementById('menu-btn');
   const closeBtn=document.getElementById('close-btn');
