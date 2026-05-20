@@ -28,23 +28,11 @@
 header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
 .blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
 </style>
-
-<style>
-/* replaced by AOS */
-</style>
 </head>
-
 <body class="bg-white text-gray-900 overflow-x-hidden">
 
-
-<!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
-<a href="index.html" class="block">
-  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
-</a>
-
-  <!-- Desktop Menu -->
+<a href="index.html" class="block"><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
     <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
@@ -54,8 +42,6 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
     <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
     <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
   </nav>
-
-  <!-- Mobile Menu Button -->
   <button id="menu-btn" class="md:hidden flex flex-col gap-1">
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
@@ -63,10 +49,7 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   </button>
 </header>
 
-<!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-
-<!-- Mobile Menu -->
 <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
   <div class="flex justify-between items-center">
     <h2 class="font-bold text-blue-700">Menu</h2>
@@ -84,9 +67,6 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-
-
-<!-- HERO -->
 <section class="relative bg-blue-700 text-white py-20 md:py-28 lg:py-32 text-center px-6 overflow-hidden">
   <div class="absolute inset-0">
     <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 -left-10"></div>
@@ -96,129 +76,194 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   <div class="relative z-10" data-aos="fade">
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in" data-aos-delay="100">Our Programs</h1>
     <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="250">
-      Comprehensive support for founders: funding, mentorship, and training.
+      Three integrated pillars — funding, mentorship, and training — designed to work together, not in silos.
     </p>
   </div>
 </section>
 
-<!-- PROGRAMS -->
+<!-- HOW IT WORKS -->
+<section class="py-16 px-6 max-w-5xl mx-auto text-center" data-aos="fade-up">
+  <p class="text-blue-600 font-semibold uppercase text-sm tracking-wide">Integrated Support</p>
+  <h2 class="text-2xl md:text-3xl font-bold mt-2">Not just money. Not just advice.</h2>
+  <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Most programs give you one piece. We give you all three, timed to when you actually need them. You get capital to build, a mentor to avoid mistakes, and training to execute — all in a 12-week sprint.</p>
+</section>
+
+<!-- THREE PILLARS -->
 <section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
-
-  <!-- Funding -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
-    <img loading="lazy" src="images/funding.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4 transition duration-500 group-hover:scale-105">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
+    <img loading="lazy" src="images/funding.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2"><span class="icon-bounce">💰</span> Funding</h3>
-    <p class="mt-2 text-gray-600">
-      Access non‑dilutive capital designed to give founders the runway they need to grow without losing equity. 
-      Our funding programs are tailored to support diverse industries and stages of growth.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Seed grants for early‑stage startups</li>
-      <li>Flexible use of funds for product, marketing, or operations</li>
-      <li>Inclusive support across all industries</li>
-      <li>Competitive selection based on clarity and execution potential</li>
+    <p class="mt-2 text-gray-600 text-sm">Non-dilutive grants from ₦750k to ₦7.5m. No equity taken. Use for product, hires, or growth.</p>
+    <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+      <li>Paid in 2 tranches tied to milestones</li>
+      <li>Local currency for non-Nigerian founders</li>
+      <li>Office hours with finance lead</li>
     </ul>
-    <a href="grants.html" class="mt-5 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Learn More →</a>
+    <a href="grants.html" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold text-sm hover:gap-2 transition-all">See grant tiers →</a>
   </div>
 
-  <!-- Mentorship -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
-    <img loading="lazy" src="images/mentorship.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4 transition duration-500 group-hover:scale-105">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
+    <img loading="lazy" src="images/mentorship.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2"><span class="icon-bounce">🤝</span> Mentorship</h3>
-    <p class="mt-2 text-gray-600">
-      Connect with experienced founders, industry leaders, and global operators who have built and scaled successful ventures. 
-      Our mentorship program ensures you receive practical, personalized guidance at every stage of your journey.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>1‑on‑1 mentorship sessions tailored to your startup stage</li>
-      <li>Access to global experts across industries</li>
-      <li>Peer learning groups for shared growth and accountability</li>
-      <li>Guidance on fundraising, product‑market fit, and scaling strategies</li>
+    <p class="mt-2 text-gray-600 text-sm">Matched with an operator who's built in Africa. Not a coach — someone who's shipped.</p>
+    <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+      <li>Bi-weekly 1:1s for 12 weeks</li>
+      <li>Slack access during sprint</li>
+      <li>Intro to 3 relevant experts</li>
     </ul>
-    <a href="community.html" class="mt-5 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Learn More →</a>
+    <a href="community.html" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold text-sm hover:gap-2 transition-all">Meet mentors →</a>
   </div>
 
-  <!-- Training -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
-    <img loading="lazy" src="images/training.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4 transition duration-500 group-hover:scale-105">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
+    <img loading="lazy" src="images/training.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2"><span class="icon-bounce">🎓</span> Training</h3>
-    <p class="mt-2 text-gray-600">
-      Structured startup building and leadership development programs designed to equip founders with the skills, tools, and mindset needed to thrive in competitive markets.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Workshops and bootcamps on startup fundamentals</li>
-      <li>Online courses and toolkits for continuous learning</li>
-      <li>Leadership development tracks for scaling teams</li>
-      <li>Practical case studies and founder success stories</li>
+    <p class="mt-2 text-gray-600 text-sm">Practical, not theoretical. Build in public with weekly deliverables.</p>
+    <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+      <li>6 live workshops (product, GTM, fundraising)</li>
+      <li>Templates: pitch deck, financial model, hiring plan</li>
+      <li>Peer review groups of 5 founders</li>
     </ul>
-    <a href="learning.html" class="mt-5 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Learn More →</a>
+    <a href="learning.html" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold text-sm hover:gap-2 transition-all">View curriculum →</a>
   </div>
-
 </section>
 
-
-<!-- FOOTER -->
-<footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
-    <div>
-      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="hover:text-gray-900">Home</a></li>
-        <li><a href="programs.html" class="hover:text-gray-900">Programs</a></li>
-        <li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li>
-        <li><a href="community.html" class="hover:text-gray-900">Community</a></li>
-        <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
-      </ul>
-    </div>
-
-    <!-- Legal -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li>
-        <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
-      </ul>
-    </div>
-
-    <!-- Connect -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
-      <p class="text-sm flex items-center">
-        <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-        <a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a>
-      </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
+<!-- 12 WEEK JOURNEY -->
+<section class="py-16 bg-gray-50 px-6" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-center">The 12-Week Journey</h2>
+    <p class="text-center text-gray-600 mt-2 max-w-2xl mx-auto">We don't dump everything on day one. Each phase builds on the last.</p>
+    
+    <div class="mt-12 grid md:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-xl border">
+        <div class="text-blue-600 font-bold text-sm">WEEKS 1-3</div>
+        <h4 class="font-semibold mt-1">Foundation</h4>
+        <p class="text-sm text-gray-600 mt-2">Problem validation, customer interviews, refine MVP. First grant tranche released.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border">
+        <div class="text-blue-600 font-bold text-sm">WEEKS 4-6</div>
+        <h4 class="font-semibold mt-1">Build</h4>
+        <p class="text-sm text-gray-600 mt-2">Product sprint, pricing tests, first 10 customers. Mentor deep dives.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border">
+        <div class="text-blue-600 font-bold text-sm">WEEKS 7-9</div>
+        <h4 class="font-semibold mt-1">Grow</h4>
+        <p class="text-sm text-gray-600 mt-2">GTM playbook, hiring first roles, metrics dashboard. Second tranche.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border">
+        <div class="text-blue-600 font-bold text-sm">WEEKS 10-12</div>
+        <h4 class="font-semibold mt-1">Raise</h4>
+        <p class="text-sm text-gray-600 mt-2">Pitch prep, investor intros, demo day. Graduate to alumni network.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
+<!-- WHO IT'S FOR -->
+<section class="py-16 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="text-2xl md:text-3xl font-bold">Who this is for (and not for)</h2>
+      <div class="mt-6 space-y-4">
+        <div class="flex gap-3">
+          <span class="text-green-600 mt-1">✓</span>
+          <div>
+            <p class="font-semibold">You have an MVP or early traction</p>
+            <p class="text-sm text-gray-600">Not just an idea. You've talked to users or built something.</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <span class="text-green-600 mt-1">✓</span>
+          <div>
+            <p class="font-semibold">You're full-time or going full-time</p>
+            <p class="text-sm text-gray-600">This is intense. Side projects rarely make it through.</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <span class="text-green-600 mt-1">✓</span>
+          <div>
+            <p class="font-semibold">You're building in Africa, for Africa</p>
+            <p class="text-sm text-gray-600">Diaspora welcome, but focus must be African markets.</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <span class="text-red-500 mt-1">✗</span>
+          <div>
+            <p class="font-semibold">Not for: agencies, crypto trading, import/export</p>
+            <p class="text-sm text-gray-600">We fund tech-enabled startups solving real problems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-8 rounded-2xl">
+      <h3 class="font-bold text-lg">What you commit</h3>
+      <ul class="mt-4 space-y-3 text-sm text-gray-700">
+        <li class="flex gap-2"><span>•</span> 5 hours/week for workshops & mentor calls</li>
+        <li class="flex gap-2"><span>•</span> Weekly progress updates (public in cohort)</li>
+        <li class="flex gap-2"><span>•</span> Help 2 other founders per month after graduation</li>
+        <li class="flex gap-2"><span>•</span> Share learnings openly (we build in public)</li>
+      </ul>
+      <div class="mt-6 p-4 bg-white rounded-lg border border-blue-200">
+        <p class="text-xs text-gray-600">Time commitment is real. We've had founders drop out because they underestimated it. Be honest with yourself.</p>
+      </div>
+    </div>
   </div>
-</footer>
+</section>
 
+<!-- OUTCOMES -->
+<section class="py-16 bg-gray-900 text-white px-6" data-aos="fade-up">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-2xl md:text-3xl font-bold">What happens after?</h2>
+    <p class="mt-3 text-gray-300 max-w-2xl mx-auto">We're new, so we don't have 100 success stories yet. Here's what we're optimizing for:</p>
+    <div class="grid sm:grid-cols-3 gap-8 mt-10 text-left">
+      <div>
+        <div class="text-3xl font-bold text-blue-400">70%</div>
+        <p class="mt-1 text-sm text-gray-300">Target: founders still operating 12 months later (industry avg is 40%)</p>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-blue-400">3x</div>
+        <p class="mt-1 text-sm text-gray-300">Target: revenue or user growth during program</p>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-blue-400">1</div>
+        <p class="mt-1 text-sm text-gray-300">Warm intro to investors who've backed our mentors</p>
+      </div>
+    </div>
+    <p class="mt-8 text-xs text-gray-400">We're tracking these metrics publicly. First cohort results published December 2026.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 px-6 max-w-4xl mx-auto" data-aos="fade-up">
+  <h2 class="text-2xl font-bold text-center mb-8">Common questions</h2>
+  <div class="space-y-4">
+    <details class="border rounded-lg p-4">
+      <summary class="font-semibold cursor-pointer">Do I have to give up equity?</summary>
+      <p class="mt-2 text-sm text-gray-600">No. Grants are non-dilutive. Mentorship and training are included. We may ask for a small option to invest in your next round at market terms, but it's optional.</p>
+    </details>
+    <details class="border rounded-lg p-4">
+      <summary class="font-semibold cursor-pointer">Can I apply if I'm solo?</summary>
+      <p class="mt-2 text-sm text-gray-600">Yes, but we strongly prefer teams of 2-3. Solo founders have a harder time. We'll help you find a co-founder during the program if needed.</p>
+    </details>
+    <details class="border rounded-lg p-4">
+      <summary class="font-semibold cursor-pointer">What if I don't get the grant?</summary>
+      <p class="mt-2 text-sm text-gray-600">You still get access to training and community. About 40% of applicants get funding, 100% get the program if accepted.</p>
+    </details>
+  </div>
+  <div class="text-center mt-10">
+    <a href="apply.html" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition">Apply for 2026 Cohort</a>
+    <p class="text-xs text-gray-500 mt-2">Applications close July 31 • Decisions by August 15</p>
+  </div>
+</section>
+
+<footer class="bg-gray-100 text-gray-700 mt-16">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4"><p class="text-sm leading-relaxed">Empowering African founders with funding, mentorship, and training to build sustainable startups.</p></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3><ul class="space-y-2 text-sm"><li><a href="index.html" class="hover:text-gray-900">Home</a></li><li><a href="programs.html" class="hover:text-gray-900">Programs</a></li><li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li><li><a href="community.html" class="hover:text-gray-900">Community</a></li><li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3><ul class="space-y-2 text-sm"><li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li><li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li><li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3><p class="text-sm flex items-center"><svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg><a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a></p></div>
+  </div>
+  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">© 2026 Founders Support Initiative. All rights reserved.</div>
+</footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -227,39 +272,13 @@ document.addEventListener("DOMContentLoaded", function(){
   const mobileMenu=document.getElementById("mobile-menu");
   const overlay=document.getElementById("overlay");
   const header=document.querySelector('header');
-
-  function openMenu(){
-    mobileMenu.classList.remove("translate-x-full");
-    overlay.classList.remove("opacity-0","pointer-events-none");
-    overlay.classList.add("opacity-100","pointer-events-auto");
-  }
-  function closeMenu(){
-    mobileMenu.classList.add("translate-x-full");
-    overlay.classList.add("opacity-0","pointer-events-none");
-    overlay.classList.remove("opacity-100","pointer-events-auto");
-  }
-  menuBtn?.addEventListener('click', openMenu);
-  closeBtn?.addEventListener('click', closeMenu);
-  overlay?.addEventListener('click', closeMenu);
-
-  // active link
-  document.querySelectorAll('nav a').forEach(link=>{
-    if(link.href===window.location.href){
-      link.classList.add('text-blue-700','font-bold');
-    }
-  });
-
-  // header scroll
-  window.addEventListener('scroll', ()=>{
-    if(window.scrollY>20) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
-  });
-
-  // AOS
-  if(typeof AOS!=='undefined'){ AOS.init({duration:800, once:true, offset:80}); }
+  function openMenu(){mobileMenu.classList.remove("translate-x-full");overlay.classList.remove("opacity-0","pointer-events-none");overlay.classList.add("opacity-100","pointer-events-auto");}
+  function closeMenu(){mobileMenu.classList.add("translate-x-full");overlay.classList.add("opacity-0","pointer-events-none");overlay.classList.remove("opacity-100","pointer-events-auto");}
+  menuBtn?.addEventListener('click', openMenu);closeBtn?.addEventListener('click', closeMenu);overlay?.addEventListener('click', closeMenu);
+  document.querySelectorAll('nav a').forEach(link=>{if(link.href===window.location.href){link.classList.add('text-blue-700','font-bold');}});
+  window.addEventListener('scroll', ()=>{if(window.scrollY>20) header.classList.add('scrolled');else header.classList.remove('scrolled');});
+  if(typeof AOS!=='undefined'){AOS.init({duration:800, once:true, offset:80});}
 });
 </script>
-
-
 </body>
 </html>
