@@ -26,14 +26,8 @@
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
 
-<!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
-<a href="index.html" class="block">
-  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
-</a>
-
-  <!-- Desktop Menu -->
+<a href="index.html" class="block"><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
     <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
@@ -43,8 +37,6 @@
     <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
     <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
   </nav>
-
-  <!-- Mobile Menu Button -->
   <button id="menu-btn" class="md:hidden flex flex-col gap-1">
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
@@ -52,15 +44,9 @@
   </button>
 </header>
 
-<!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-
-<!-- Mobile Menu -->
 <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
-    <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
-  </div>
+  <div class="flex justify-between items-center"><h2 class="font-bold text-blue-700">Menu</h2><button id="close-btn" class="text-2xl">✕</button></div>
   <div class="flex flex-col gap-5 text-gray-800 font-medium">
     <a href="index.html" class="hover:text-blue-600">Home</a>
     <a href="programs.html" class="hover:text-blue-600">Programs</a>
@@ -73,151 +59,134 @@
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-
-
-<!-- HERO -->
 <section class="relative bg-blue-700 text-white py-20 md:py-28 text-center px-6 overflow-hidden">
-  <div class="absolute inset-0">
-    <img loading="lazy" id="heroImg" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
-    class="w-full h-full object-cover opacity-20 md:opacity-30" alt="">
-  </div>
+  <div class="absolute inset-0"><div class="blob absolute w-72 h-72 bg-white/10 rounded-full -top-10 -left-10"></div><img loading="lazy" id="heroImg" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" class="w-full h-full object-cover opacity-20 md:opacity-30" alt=""></div>
   <div class="relative z-10" data-aos="fade">
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in">Learning Hub</h1>
-    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">
-      Access guides, toolkits, and training resources to strengthen your startup journey.
-    </p>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">Practical guides built by African founders, for African founders. No theory, just what works here.</p>
   </div>
 </section>
 
-<!-- CARDS -->
-<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+<section class="py-16 px-6 max-w-4xl mx-auto text-center" data-aos="fade-up">
+  <p class="text-blue-600 font-semibold uppercase text-sm tracking-wide">Learn by doing</p>
+  <h2 class="text-2xl md:text-3xl font-bold mt-2">Most startup content is written for Silicon Valley</h2>
+  <p class="mt-4 text-gray-600">We're building a library that addresses real African constraints: limited capital, unreliable infrastructure, fragmented markets, and fundraising without warm intros. Every guide is tested with our cohort founders first.</p>
+</section>
 
-  <!-- Startup Basics -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+  <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
     <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🚀 Startup Basics</h3>
-    <p class="text-gray-600 mt-2">
-      Step‑by‑step guides for launching and structuring your business. Learn the fundamentals of entrepreneurship and avoid common pitfalls as you build your foundation.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Business registration and legal setup</li>
-      <li>Defining your value proposition</li>
-      <li>Building a lean business model</li>
-      <li>Understanding market research essentials</li>
+    <p class="text-gray-600 mt-2 text-sm">From idea to first 10 customers. Built for markets where you can't just "run ads."</p>
+    <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+      <li>Registering in Nigeria, Kenya, Ghana</li>
+      <li>Finding first customers offline</li>
+      <li>Building with no-code + WhatsApp</li>
+      <li>Pricing for low-income markets</li>
     </ul>
-   <a href="#resource-library" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Explore Basics →</a>
+   <a href="#guides" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold text-sm hover:gap-2 transition-all">View guides →</a>
   </div>
 
-  <!-- Leadership -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+  <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
     <img loading="lazy" src="images/leadership.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">👥 Leadership</h3>
-    <p class="text-gray-600 mt-2">
-      Develop the skills to lead teams, inspire growth, and create a strong organizational culture. Our leadership resources help founders evolve into confident, effective leaders.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Team management and communication</li>
-      <li>Decision‑making under uncertainty</li>
-      <li>Building inclusive and resilient cultures</li>
-      <li>Scaling leadership as your startup grows</li>
+    <p class="text-gray-600 mt-2 text-sm">Leading teams when you can't pay market rate. Culture that scales across time zones.</p>
+    <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+      <li>Hiring your first 3 people</li>
+      <li>Managing remote African teams</li>
+      <li>Keeping talent without big salaries</li>
+      <li>Founder mental health</li>
     </ul>
-    <a href="#resource-library" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Explore Leadership →</a>
+    <a href="#guides" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold text-sm hover:gap-2 transition-all">View guides →</a>
 </div>
 
-  <!-- Fundraising -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+  <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
     <img loading="lazy" src="images/funding.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
     <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💡 Fundraising</h3>
-    <p class="text-gray-600 mt-2">
-      Learn how to pitch effectively, secure investment, and manage investor relationships. Our fundraising resources prepare you to attract capital and scale sustainably.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Crafting compelling pitch decks</li>
-      <li>Understanding investor expectations</li>
-      <li>Negotiating fair terms</li>
-      <li>Managing post‑investment relationships</li>
+    <p class="text-gray-600 mt-2 text-sm">Raising when you don't have a Stanford network. Practical, not performative.</p>
+    <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+      <li>Angel investors in Africa (list)</li>
+      <li>Pitch decks that work here</li>
+      <li>SAFE notes vs local law</li>
+      <li>Following up without being annoying</li>
     </ul>
-    <a href="#resource-library" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Explore Basics →</a>
+    <a href="#guides" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold text-sm hover:gap-2 transition-all">View guides →</a>
 </div>
 </section>
 
-<!-- COMING SOON -->
-<section id="resource-library" class="py-16 md:py-24 bg-gray-50 text-center px-6" data-aos="fade-up">
-  <h2 class="text-2xl md:text-3xl font-bold">Resource Library Launching Soon</h2>
-  <p class="mt-6 text-gray-600 max-w-2xl mx-auto">
-    We’re building a comprehensive library of startup guides, templates, and playbooks to support founders at every stage.
-  </p>
-  <div class="mt-8 md:mt-10 flex justify-center gap-3 md:gap-4 flex-wrap text-sm text-gray-700 px-4">
-    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Pitch Deck Templates</div>
-    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Financial Models</div>
-    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Legal Guides</div>
-    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Go‑to‑Market Playbooks</div>
-  </div>
-</section>
-
-
-<!-- FOOTER -->
-<footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
-    <div>
-      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="hover:text-gray-900">Home</a></li>
-        <li><a href="programs.html" class="hover:text-gray-900">Programs</a></li>
-        <li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li>
-        <li><a href="community.html" class="hover:text-gray-900">Community</a></li>
-        <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
-      </ul>
-    </div>
-
-    <!-- Legal -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li>
-        <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
-      </ul>
-    </div>
-
-    <!-- Connect -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
-      <p class="text-sm flex items-center">
-        <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-        <a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a>
-      </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
+<section id="guides" class="py-16 bg-gray-50 px-6" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-center">Free guides you can use today</h2>
+    <p class="text-center text-gray-600 mt-2">We're releasing one guide per week. Here are the first three:</p>
+    <div class="grid md:grid-cols-3 gap-6 mt-10">
+      <div class="bg-white p-6 rounded-xl border hover:shadow-lg transition">
+        <div class="text-xs text-blue-600 font-semibold uppercase">Startup Basics</div>
+        <h4 class="font-bold mt-1">The 10-Customer Challenge</h4>
+        <p class="text-sm text-gray-600 mt-2">How to get your first 10 paying customers without ads. Step-by-step script used by 12 FSI founders.</p>
+        <a href="#" class="text-blue-600 text-sm font-semibold mt-3 inline-block">Read guide →</a>
+      </div>
+      <div class="bg-white p-6 rounded-xl border hover:shadow-lg transition">
+        <div class="text-xs text-blue-600 font-semibold uppercase">Fundraising</div>
+        <h4 class="font-bold mt-1">African Angel List 2026</h4>
+        <p class="text-sm text-gray-600 mt-2">47 active angels who write $5k-$50k checks. With email templates and warm intro paths.</p>
+        <a href="#" class="text-blue-600 text-sm font-semibold mt-3 inline-block">Download →</a>
+      </div>
+      <div class="bg-white p-6 rounded-xl border hover:shadow-lg transition">
+        <div class="text-xs text-blue-600 font-semibold uppercase">Leadership</div>
+        <h4 class="font-bold mt-1">Hiring Without Cash</h4>
+        <p class="text-sm text-gray-600 mt-2">Equity, revenue share, and deferred comp structures that work in Lagos, Nairobi, Accra.</p>
+        <a href="#" class="text-blue-600 text-sm font-semibold mt-3 inline-block">Read guide →</a>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
+<section class="py-16 px-6 max-w-5xl mx-auto" data-aos="fade-up">
+  <h2 class="text-2xl font-bold text-center mb-10">Learning paths by stage</h2>
+  <div class="space-y-6">
+    <div class="flex gap-4">
+      <div class="flex-shrink-0 w-24 text-right"><span class="text-sm font-semibold text-blue-600">IDEA</span></div>
+      <div class="flex-1 border-l-2 border-blue-200 pl-6 pb-6">
+        <h4 class="font-semibold">Validate before you build</h4>
+        <p class="text-sm text-gray-600 mt-1">Customer interviews, problem sizing, landing page tests. 4 guides, ~3 hours.</p>
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex-shrink-0 w-24 text-right"><span class="text-sm font-semibold text-blue-600">BUILD</span></div>
+      <div class="flex-1 border-l-2 border-blue-200 pl-6 pb-6">
+        <h4 class="font-semibold">Ship your MVP</h4>
+        <p class="text-sm text-gray-600 mt-1">No-code tools, WhatsApp workflows, payment integration. 6 guides, ~5 hours.</p>
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex-shrink-0 w-24 text-right"><span class="text-sm font-semibold text-blue-600">GROW</span></div>
+      <div class="flex-1 border-l-2 border-blue-200 pl-6">
+        <h4 class="font-semibold">Get to $1k MRR</h4>
+        <p class="text-sm text-gray-600 mt-1">Distribution channels that work here, pricing, retention. 5 guides, ~4 hours.</p>
+      </div>
+    </div>
   </div>
-</footer>
+</section>
 
+<section id="resource-library" class="py-16 md:py-20 bg-blue-700 text-white text-center px-6" data-aos="fade-up">
+  <h2 class="text-2xl md:text-3xl font-bold">Get new guides weekly</h2>
+  <p class="mt-3 text-blue-100 max-w-xl mx-auto">Join 1,200+ founders getting practical guides every Tuesday. No fluff, just tactics.</p>
+  <form onsubmit="event.preventDefault(); alert('Thanks! Check your email.')" class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+    <input type="email" required placeholder="your@email.com" class="flex-1 px-4 py-3 rounded-lg text-gray-900">
+    <button class="bg-white text-blue-700 px-6 py-3 rounded-lg font-bold hover:bg-blue-50">Subscribe</button>
+  </form>
+  <p class="text-xs text-blue-200 mt-3">Free forever. Unsubscribe anytime.</p>
+</section>
+
+<footer class="bg-gray-100 text-gray-700">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4"><p class="text-sm leading-relaxed">Empowering African founders with funding, mentorship, and training to build sustainable startups.</p></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3><ul class="space-y-2 text-sm"><li><a href="index.html" class="hover:text-gray-900">Home</a></li><li><a href="programs.html" class="hover:text-gray-900">Programs</a></li><li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li><li><a href="community.html" class="hover:text-gray-900">Community</a></li><li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3><ul class="space-y-2 text-sm"><li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li><li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li><li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3><p class="text-sm flex items-center"><svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg><a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a></p></div>
+  </div>
+  <div class="border-t border-gray-200 pt-6 text-center text-sm text-gray-500 pb-6">© 2026 Founders Support Initiative. All rights reserved.</div>
+</footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -228,35 +197,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector('header');
   const bars = document.querySelectorAll(".bar");
   let open = false;
-
-  function openMenu() {
-    mobileMenu.classList.remove("translate-x-full");
-    overlay.classList.remove("opacity-0","pointer-events-none");
-    overlay.classList.add("opacity-100","pointer-events-auto");
-    document.body.style.overflow = "hidden";
-    bars[0].style.transform = "rotate(45deg) translateY(6px)";
-    bars[1].style.opacity = "0";
-    bars[2].style.transform = "rotate(-45deg) translateY(-6px)";
-    open = true;
-  }
-  function closeMenu() {
-    mobileMenu.classList.add("translate-x-full");
-    overlay.classList.add("opacity-0","pointer-events-none");
-    overlay.classList.remove("opacity-100","pointer-events-auto");
-    document.body.style.overflow = "auto";
-    bars[0].style.transform = "none"; bars[1].style.opacity = "1"; bars[2].style.transform = "none";
-    open = false;
-  }
+  function openMenu() { mobileMenu.classList.remove("translate-x-full"); overlay.classList.remove("opacity-0","pointer-events-none"); overlay.classList.add("opacity-100","pointer-events-auto"); document.body.style.overflow = "hidden"; bars[0].style.transform = "rotate(45deg) translateY(6px)"; bars[1].style.opacity = "0"; bars[2].style.transform = "rotate(-45deg) translateY(-6px)"; open = true; }
+  function closeMenu() { mobileMenu.classList.add("translate-x-full"); overlay.classList.add("opacity-0","pointer-events-none"); overlay.classList.remove("opacity-100","pointer-events-auto"); document.body.style.overflow = "auto"; bars[0].style.transform = "none"; bars[1].style.opacity = "1"; bars[2].style.transform = "none"; open = false; }
   menuBtn?.addEventListener("click", () => open ? closeMenu() : openMenu());
   closeBtn?.addEventListener("click", closeMenu);
   overlay?.addEventListener("click", closeMenu);
-  
   document.querySelectorAll('nav a').forEach(link=>{ if(link.href===window.location.href){ link.classList.add('text-blue-700','font-bold'); } });
   window.addEventListener('scroll', ()=>{ if(window.scrollY>20) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
   if(typeof AOS!=='undefined'){ AOS.init({duration:800, once:true, offset:80}); }
 });
 </script>
-
-
 </body>
 </html>
