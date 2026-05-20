@@ -5,21 +5,43 @@
 <title>FSI | Programs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.tailwindcss.com"></script>
+<meta name="description" content="FSI Programs: non-dilutive funding, 1-on-1 mentorship, and practical training for African founders at every stage.">
+<meta property="og:title" content="FSI Programs | Funding, Mentorship & Training">
+<meta property="og:description" content="Three pillars to help you build: funding without equity, mentorship from operators, and hands-on training.">
+<meta property="og:image" content="https://founderssupport.org/images/programs.png">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<style>
+@keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.float{animation:float 6s ease-in-out infinite}
+.card-glow{position:relative;overflow:hidden}
+.card-glow::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);opacity:0;transition:.5s;pointer-events:none;z-index:1}
+.card-glow:hover::before{opacity:1}
+.card-glow > *{position:relative;z-index:2}
+.card-lift{transition:all .35s cubic-bezier(.17,.67,.38,1.46)}
+.card-lift:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+.icon-bounce{transition:.3s}
+.card-lift:hover .icon-bounce{transform:scale(1.15) rotate(5deg)}
+.btn-ripple{position:relative;overflow:hidden}
+.btn-ripple:after{content:"";position:absolute;width:20px;height:20px;background:rgba(255,255,255,.5);border-radius:50%;transform:scale(0);opacity:0;transition:.6s}
+.btn-ripple:active:after{transform:scale(12);opacity:0;transition:0s}
+header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
+.blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
+</style>
 
 <style>
-.reveal{opacity:0;transform:translateY(40px);transition:all .9s ease}
-.reveal.show{opacity:1;transform:translateY(0)}
+/* replaced by AOS */
 </style>
 </head>
 
-<body class="bg-white text-gray-900">
+<body class="bg-white text-gray-900 overflow-x-hidden">
 
 
 <!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
   <!-- Logo -->
 <a href="index.html" class="block">
-  <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
+  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
 </a>
 
   <!-- Desktop Menu -->
@@ -62,58 +84,30 @@
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-<!-- SCRIPT -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
 
-  function openMenu() {
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    overlay.classList.add('opacity-100', 'pointer-events-auto');
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.add('translate-x-full');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-  }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Highlight active link automatically
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('font-bold', 'underline', 'text-gray-900');
-    }
-  });
-</script>
 
 <!-- HERO -->
-<section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
+<section class="relative bg-blue-700 text-white py-20 md:py-28 lg:py-32 text-center px-6 overflow-hidden">
   <div class="absolute inset-0">
-    <img src="/images/programs.png" class="w-full h-full object-cover opacity-30">
+    <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 -left-10"></div>
+    <div class="blob absolute w-72 h-72 bg-blue-400/20 rounded-full bottom-10 -right-10"></div>
+    <img loading="lazy" src="images/programs.png" class="w-full h-full object-cover opacity-20 md:opacity-30">
   </div>
-  <div class="relative z-10 reveal">
-    <h1 class="text-4xl md:text-5xl font-bold">Our Programs</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+  <div class="relative z-10" data-aos="fade">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in" data-aos-delay="100">Our Programs</h1>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="250">
       Comprehensive support for founders: funding, mentorship, and training.
     </p>
   </div>
 </section>
 
 <!-- PROGRAMS -->
-<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
 
   <!-- Funding -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Funding</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
+    <img loading="lazy" src="images/funding.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4 transition duration-500 group-hover:scale-105">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2"><span class="icon-bounce">💰</span> Funding</h3>
     <p class="mt-2 text-gray-600">
       Access non‑dilutive capital designed to give founders the runway they need to grow without losing equity. 
       Our funding programs are tailored to support diverse industries and stages of growth.
@@ -124,13 +118,13 @@
       <li>Inclusive support across all industries</li>
       <li>Competitive selection based on clarity and execution potential</li>
     </ul>
-    <a href="grants.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
+    <a href="grants.html" class="mt-5 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Learn More →</a>
   </div>
 
   <!-- Mentorship -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/mentorship.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Mentorship</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+    <img loading="lazy" src="images/mentorship.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4 transition duration-500 group-hover:scale-105">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2"><span class="icon-bounce">🤝</span> Mentorship</h3>
     <p class="mt-2 text-gray-600">
       Connect with experienced founders, industry leaders, and global operators who have built and scaled successful ventures. 
       Our mentorship program ensures you receive practical, personalized guidance at every stage of your journey.
@@ -141,13 +135,13 @@
       <li>Peer learning groups for shared growth and accountability</li>
       <li>Guidance on fundraising, product‑market fit, and scaling strategies</li>
     </ul>
-    <a href="community.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
+    <a href="community.html" class="mt-5 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Learn More →</a>
   </div>
 
   <!-- Training -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/training.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Training</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+    <img loading="lazy" src="images/training.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4 transition duration-500 group-hover:scale-105">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2"><span class="icon-bounce">🎓</span> Training</h3>
     <p class="mt-2 text-gray-600">
       Structured startup building and leadership development programs designed to equip founders with the skills, tools, and mindset needed to thrive in competitive markets.
     </p>
@@ -157,7 +151,7 @@
       <li>Leadership development tracks for scaling teams</li>
       <li>Practical case studies and founder success stories</li>
     </ul>
-    <a href="learning.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
+    <a href="learning.html" class="mt-5 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Learn More →</a>
   </div>
 
 </section>
@@ -165,11 +159,11 @@
 
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
     <!-- Logo / About -->
     <div>
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
+      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
       <p class="text-sm leading-relaxed">
         Empowering African founders with funding, mentorship, and training to build sustainable startups.
       </p>
@@ -225,45 +219,47 @@
   </div>
 </footer>
 
-<!-- ✅ SINGLE FIXED SCRIPT -->
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-
-  // mobile menu
   const menuBtn=document.getElementById("menu-btn");
   const closeBtn=document.getElementById("close-btn");
   const mobileMenu=document.getElementById("mobile-menu");
   const overlay=document.getElementById("overlay");
+  const header=document.querySelector('header');
 
   function openMenu(){
     mobileMenu.classList.remove("translate-x-full");
     overlay.classList.remove("opacity-0","pointer-events-none");
-    overlay.classList.add("opacity-100");
+    overlay.classList.add("opacity-100","pointer-events-auto");
   }
   function closeMenu(){
     mobileMenu.classList.add("translate-x-full");
     overlay.classList.add("opacity-0","pointer-events-none");
+    overlay.classList.remove("opacity-100","pointer-events-auto");
   }
+  menuBtn?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+  overlay?.addEventListener('click', closeMenu);
 
-  menuBtn.onclick=openMenu;
-  closeBtn.onclick=closeMenu;
-  overlay.onclick=closeMenu;
-
-  // reveal animation
-  const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("show");
-      }
-    });
-  },{threshold:0.2});
-
-  document.querySelectorAll(".reveal").forEach(el=>{
-    observer.observe(el);
+  // active link
+  document.querySelectorAll('nav a').forEach(link=>{
+    if(link.href===window.location.href){
+      link.classList.add('text-blue-700','font-bold');
+    }
   });
 
+  // header scroll
+  window.addEventListener('scroll', ()=>{
+    if(window.scrollY>20) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  // AOS
+  if(typeof AOS!=='undefined'){ AOS.init({duration:800, once:true, offset:80}); }
 });
 </script>
+
 
 </body>
 </html>
