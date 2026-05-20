@@ -11,7 +11,10 @@ require("dotenv").config();
 const app = express();
 
 // ================= MIDDLEWARE =================
-app.use(cors());
+app.use(cors({
+  origin: ['https://founderssupport.org', 'https://www.founderssupport.org', 'http://localhost:3000', 'http://localhost:5173'],
+  credentials: true
+}));
 app.use(express.json({
   verify: (req,res,buf)=>{ req.rawBody = buf.toString(); }
 }));
@@ -27,10 +30,10 @@ app.get(["/pending","/pending.html"], (req,res)=>{
 
 // ================= DATABASE =================
 mongoose.connect(process.env.MONGO_URI)
-.then(()=>console.log("MongoDB Connected"))
-.catch(err=>console.log(err));
+.then(()=>console.log("✅ MongoDB Connected"))
+.catch(err=>console.log("❌ Mongo Error:", err));
 
-// ================= MODEL =================
+// ================= MODELS =================
 const Application = mongoose.model("Application", new mongoose.Schema({
   name:String,
   email:String,
@@ -47,43 +50,31 @@ const Application = mongoose.model("Application", new mongoose.Schema({
   createdAt:{ type:Date, default:Date.now }
 }));
 
-/// ================= EMAIL (ZOHO SMTP) =================
+const Waitlist = mongoose.model("Waitlist", new mongoose.Schema({
+  email: { type: String, required: true, unique: true, lowercase: true },
+  source: { type: String, default: "landing-page" },
+  createdAt: { type: Date, default: Date.now }
+}));
+
+// ================= EMAIL (ZOHO SMTP) =================
 const transporter = nodemailer.createTransport({
   host: "smtp.zoho.com",
   port: 465,
-  secure: true, // SSL
+  secure: true,
   auth: {
-    user: process.env.EMAIL_USER, // contact@founderssupport.org
-    pass: process.env.EMAIL_PASS  // Zoho mailbox password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
-async function sendEmail(to, subject, message){
+async function sendEmail(to, subject, htmlContent){
   try{
     await transporter.sendMail({
       from: `"Founders Support Initiative" <${process.env.EMAIL_USER}>`,
-      to: to,
-      subject: subject,
-      html: `
-        <div style="font-family:Arial;max-width:600px;margin:auto">
-          <h2 style="color:#1e40af">Application Successful 🎉</h2>
-
-          <p>${message}</p>
-
-          <p>
-            Our team will review your application and contact you soon.
-          </p>
-
-          <br>
-          <p>
-            Warm regards,<br>
-            <b>Founders Support Initiative</b><br>
-            https://founderssupport.org
-          </p>
-        </div>
-      `
+      to,
+      subject,
+      html: htmlContent
     });
-
     console.log("📧 Email sent to", to);
   }catch(err){
     console.log("❌ Email error:", err.message);
@@ -92,128 +83,136 @@ async function sendEmail(to, subject, message){
 
 // ================= CONFIG =================
 app.get("/api/config",(req,res)=>{
-  res.json({ flutterwavePublicKey:process.env.FLW_PUBLIC_KEY });
+  res.json({ flutterwavePublicKey: process.env.FLW_PUBLIC_KEY });
 });
 
 // ================= SAVE APPLICATION =================
 app.post("/api/save-application", async (req,res)=>{
   try{
-    const data=req.body;
-    await Application.findOneAndDelete({ email:data.email });
-    const appData=await Application.create(data);
-    res.json({ success:true, id:appData._id });
+    const data = req.body;
+    await Application.findOneAndDelete({ email: data.email });
+    const appData = await Application.create(data);
+    res.json({ success: true, id: appData._id });
   }catch(err){
-    res.status(500).json({ success:false });
+    console.log(err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// ================= WAITLIST (NEW) =================
+app.post("/api/waitlist", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ success: false, message: "Invalid email" });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    
+    await Waitlist.findOneAndUpdate(
+      { email: cleanEmail },
+      { email: cleanEmail, source: "landing-page-2026" },
+      { upsert: true, new: true }
+    );
+
+    // Send confirmation to user
+    await sendEmail(
+      cleanEmail,
+      "You're on the FSI Waitlist 🎉",
+      `
+      <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:auto;padding:24px">
+        <h2 style="color:#0a2540;margin:0 0 16px">Welcome to FSI</h2>
+        <p style="color:#374151;line-height:1.6">Thanks for joining the waitlist for the 2026 cohort.</p>
+        <p style="color:#374151;line-height:1.6">We'll email you the moment applications open, plus exclusive founder resources before then.</p>
+        <div style="margin:24px 0;padding:16px;background:#f9fafb;border-radius:12px">
+          <p style="margin:0;color:#6b7280;font-size:14px">You're in good company. Less than 10% will be selected.</p>
+        </div>
+        <p style="color:#6b7280;font-size:13px">— Founders Support Initiative<br><a href="https://founderssupport.org" style="color:#2563eb">founderssupport.org</a></p>
+      </div>
+      `
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.log("Waitlist error:", err.message);
+    res.status(500).json({ success: false });
   }
 });
 
 // ================= VERIFY PAYMENT (FALLBACK) =================
 app.post("/api/verify-payment", async (req,res)=>{
-  const { transaction_id,email }=req.body;
-
+  const { transaction_id, email } = req.body;
   try{
     const response = await axios.get(
       `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
       { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
     );
 
-    const payment=response.data.data;
-    if(payment.status!=="successful") return res.json({ success:false });
+    const payment = response.data.data;
+    if(payment.status !== "successful") return res.json({ success: false });
 
     await Application.findOneAndUpdate(
       { email },
-      { paymentStatus:"paid", tx_ref:payment.tx_ref },
-      { upsert:true }
+      { paymentStatus: "paid", tx_ref: payment.tx_ref },
+      { upsert: true }
     );
 
-    await sendEmail(email,"Application Received 🎉",
-      "Your FSI application has been submitted successfully.");
+    await sendEmail(email, "Application Received 🎉",
+      `<p>Your FSI application has been submitted successfully.</p>`);
 
-    res.json({ success:true });
-
+    res.json({ success: true });
   }catch(err){
     console.log(err.message);
-    res.status(500).json({ success:false });
+    res.status(500).json({ success: false });
   }
 });
 
-// ================= CHECK STATUS (PENDING PAGE) =================
+// ================= CHECK STATUS =================
 app.get("/api/check-status/:email", async (req,res)=>{
-  const appData = await Application.findOne({ email:req.params.email });
-  if(!appData) return res.json({ status:"not_found" });
-  res.json({ status:appData.paymentStatus });
+  const appData = await Application.findOne({ email: req.params.email });
+  if(!appData) return res.json({ status: "not_found" });
+  res.json({ status: appData.paymentStatus });
 });
 
-// =======================================================
-// 🔥🔥 FINAL FLUTTERWAVE WEBHOOK 🔥🔥
-// =======================================================
+// ================= FLUTTERWAVE WEBHOOK =================
 app.post("/api/flutterwave-webhook", (req, res) => {
   console.log("🔔 Webhook received");
-
-  // Flutterwave requires instant 200 response
   res.sendStatus(200);
 
   setImmediate(async () => {
     try {
       const signature = req.headers["verif-hash"];
-
-      // 🔐 Verify webhook signature
-      if (!signature) {
-        console.log("❌ No signature header");
-        return;
-      }
-
-      if (signature !== process.env.FLW_SECRET_HASH) {
+      if (!signature || signature !== process.env.FLW_SECRET_HASH) {
         console.log("❌ Invalid webhook signature");
         return;
       }
 
-      console.log("✅ Webhook verified");
-
       const payment = req.body.data;
-
-      // ⭐ Only trust successful payments
-      if (!payment || payment.status !== "successful") {
-        console.log("Payment not successful yet");
-        return;
-      }
+      if (!payment || payment.status !== "successful") return;
 
       const email = payment.customer?.email;
       const tx_ref = payment.tx_ref;
 
-      console.log("💰 PAYMENT DATA:", email, tx_ref);
-
-      // ✅ Update application as PAID
       await Application.findOneAndUpdate(
         { email },
         { paymentStatus: "paid", tx_ref },
         { upsert: true }
       );
 
-      // ✉️ PROFESSIONAL EMAIL MESSAGE
-      const message = `
-        Your application and payment have been successfully received.
-
-        Thank you for applying to the Founders Support Initiative (FSI).
-
-        Our review team will carefully evaluate your submission and you will
-        be contacted via email with the next steps.
-
-        If you have any questions, feel free to reply to this email.
-
-        — Founders Support Initiative
-        https://founderssupport.org
-      `;
-
-      // 📧 Send confirmation email
       await sendEmail(
         email,
         "Application Received — Founders Support Initiative",
-        message
+        `
+        <div style="font-family:Inter,Arial,sans-serif;max-width:600px;margin:auto;padding:24px">
+          <h2 style="color:#0a2540">Application Confirmed ✅</h2>
+          <p>Your application and payment have been successfully received.</p>
+          <p>Our review team will evaluate your submission and contact you with next steps.</p>
+          <p style="margin-top:24px;color:#6b7280;font-size:14px">— Founders Support Initiative<br>https://founderssupport.org</p>
+        </div>
+        `
       );
 
-      console.log("🎉 PAYMENT SAVED TO DB + EMAIL SENT");
-
+      console.log("🎉 Payment saved + email sent");
     } catch (err) {
       console.log("Webhook error:", err.message);
     }
@@ -221,10 +220,14 @@ app.post("/api/flutterwave-webhook", (req, res) => {
 });
 
 app.get("/ip", async (req,res)=>{
-  const axios = require("axios");
-  const ip = await axios.get("https://api.ipify.org");
-  res.send(ip.data);
+  try {
+    const response = await axios.get("https://api.ipify.org");
+    res.send(response.data);
+  } catch(e) {
+    res.status(500).send("error");
+  }
 });
+
 // ================= START SERVER =================
-const PORT=process.env.PORT || 3000;
-app.listen(PORT,()=>console.log("Server running on port",PORT));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, ()=> console.log(`🚀 Server running on port ${PORT}`));
