@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Apply – Founders Support Initiative</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>FSI | Grants</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="FSI Grants provide non-dilutive funding from ₦750,000 to ₦7,500,000 for African founders across general, youth, women-led, and innovation categories.">
+  <meta property="og:title" content="FSI Grants | Non-Dilutive Funding for African Founders">
+  <meta property="og:description" content="Apply for FSI Startup Grants — funding, mentorship, and training for early and growth-stage African startups.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://founderssupport.org/images/startupgrant.png">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <style>
+  /* Floating animation */
+  @keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+  .float{animation:float 6s ease-in-out infinite}
+  /* Card effects */
+  .card-glow{position:relative;overflow:hidden}
+  .card-glow::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);opacity:0;transition:.5s;pointer-events:none;z-index:1}
+  .card-glow:hover::before{opacity:1}
+  .card-glow > *{position:relative;z-index:2}
+  .card-lift{transition:all .35s cubic-bezier(.17,.67,.38,1.46)}
+  .card-lift:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .icon-bounce{transition:.3s}
+  .card-lift:hover .icon-bounce{transform:scale(1.15) rotate(5deg)}
+  .btn-ripple{position:relative;overflow:hidden}
+  .btn-ripple:after{content:"";position:absolute;width:20px;height:20px;background:rgba(255,255,255,.5);border-radius:50%;transform:scale(0);opacity:0;transition:.6s}
+  .btn-ripple:active:after{transform:scale(12);opacity:0;transition:0s}
+  header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
+  .blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
+  .hero-float{animation:floatBg 18s ease-in-out infinite}
+  @keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+  </style>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-<meta name="description" content="Apply for FSI 2026 Cohort - non-dilutive funding, mentorship, and training for African founders.">
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<style>
-@keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
-.btn-ripple{position:relative;overflow:hidden}
-.btn-ripple:after{content:"";position:absolute;width:20px;height:20px;background:rgba(255,255,255,.5);border-radius:50%;transform:scale(0);opacity:0;transition:.6s}
-.btn-ripple:active:after{transform:scale(12);opacity:0;transition:0s}
-header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
-.blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
-input:focus, select:focus, textarea:focus{outline:none;ring:2px;ring-color:#2563eb;border-color:#2563eb}
-</style>
 </head>
 
-<body class="bg-gray-50 font-sans overflow-x-hidden">
+<body class="bg-white text-gray-900 overflow-x-hidden">
 
 <!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
+   <!-- Logo -->
 <a href="index.html" class="block">
   <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
 </a>
@@ -58,7 +73,7 @@ input:focus, select:focus, textarea:focus{outline:none;ring:2px;ring-color:#2563
     <h2 class="font-bold text-blue-700">Menu</h2>
     <button id="close-btn" class="text-2xl">✕</button>
   </div>
-  <div class="flex flex-col gap-5 text-gray-800 font-medium">
+  <div class="flex flex-col gap-4 text-gray-800 font-medium text-base">
     <a href="index.html" class="hover:text-blue-600">Home</a>
     <a href="programs.html" class="hover:text-blue-600">Programs</a>
     <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
@@ -70,178 +85,381 @@ input:focus, select:focus, textarea:focus{outline:none;ring:2px;ring-color:#2563
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
+<!-- SCRIPT -->
 <script>
-document.addEventListener('DOMContentLoaded', ()=>{
-  const menuBtn=document.getElementById('menu-btn');
-  const closeBtn=document.getElementById('close-btn');
-  const mobileMenu=document.getElementById('mobile-menu');
-  const overlay=document.getElementById('overlay');
-  const header=document.querySelector('header');
-  
-  const open=()=>{ mobileMenu.classList.remove('translate-x-full'); overlay.classList.remove('opacity-0','pointer-events-none'); overlay.classList.add('opacity-100','pointer-events-auto'); };
-  const close=()=>{ mobileMenu.classList.add('translate-x-full'); overlay.classList.add('opacity-0','pointer-events-none'); overlay.classList.remove('opacity-100','pointer-events-auto'); };
-  menuBtn?.addEventListener('click', open); closeBtn?.addEventListener('click', close); overlay?.addEventListener('click', close);
-  
-  document.querySelectorAll('nav a').forEach(a=>{ if(a.href===window.location.href) a.classList.add('text-blue-700','font-bold'); });
-  window.addEventListener('scroll', ()=> window.scrollY>20 ? header.classList.add('scrolled') : header.classList.remove('scrolled'));
-  if(typeof AOS!=='undefined') AOS.init({duration:800, once:true, offset:80});
-});
+  const menuBtn = document.getElementById('menu-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('overlay');
+
+  function openMenu() {
+    mobileMenu.classList.remove('translate-x-full');
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.add('translate-x-full');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Highlight active link automatically
+  const links = document.querySelectorAll('nav a');
+  links.forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('font-bold', 'underline', 'text-gray-900');
+    }
+  });
+
+  // AOS init
+  if (typeof AOS !== 'undefined') { AOS.init({duration:900, once:true, offset:80}); }
+  // Header scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
 </script>
 
+
 <!-- HERO -->
-<section class="relative bg-blue-700 text-white py-20 md:py-24 text-center px-6 overflow-hidden" data-aos="fade">
-
+<section class="relative bg-blue-700 text-white py-20 md:py-28 lg:py-32 text-center px-6 overflow-hidden" data-aos="fade">
   <div class="absolute inset-0">
-    <img loading="lazy" src="images/apply.png"
-         class="w-full h-full object-cover opacity-30" alt="Entrepreneurs">
+    <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10"></div>
+    <div class="blob absolute w-72 h-72 bg-blue-400/20 rounded-full bottom-10 right-10"></div>
+    <img loading="lazy" src="images/startupgrant.png"
+         class="w-full h-full object-cover opacity-20 md:opacity-30 hero-float">
   </div>
-
-  <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10"></div>
-  <div class="blob absolute w-72 h-72 bg-blue-400/20 rounded-full bottom-10 right-10"></div>
-
-  <div class="relative z-10 max-w-3xl mx-auto">
-
-    <p class="uppercase tracking-widest text-sm text-blue-200 mb-4">
-      2026 Cohort — Founder Applications
+  <div class="relative z-10">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in" data-aos-delay="200">Startup Grants for African Founders</h1>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="400">
+      Access non-dilutive funding designed to help early and growth-stage startups scale.
+      Grants are primarily awarded in Naira, with local currency equivalents available for non-Nigerian founders.
     </p>
-
-    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in">
-      Start Your Founder Application
-    </h1>
-
-    <p class="mt-4 md:mt-6 text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="100">
-      This application takes approximately <strong>10–15 minutes</strong> to complete.
-      You will share details about your startup, the problem you are solving,
-      and how funding will accelerate your growth.
-    </p>
-
-    <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 text-sm text-blue-100" data-aos="fade-up" data-aos-delay="200">
-      <div class="bg-white/10 rounded-lg p-4">
-        ✓ Open to founders across Africa
-      </div>
-      <div class="bg-white/10 rounded-lg p-4">
-        ✓ Early-stage & growth-stage startups
-      </div>
-      <div class="bg-white/10 rounded-lg p-4">
-        ✓ Funding + mentorship + training
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- FORM -->
-<div class="max-w-2xl mx-auto px-4 sm:px-6 -mt-8 md:-mt-12 relative z-20" data-aos="fade-up">
-<div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
-<h2 class="text-xl md:text-2xl font-bold text-blue-700 mb-6 text-center">Application Form</h2>
+<section class="px-6 py-12 max-w-4xl mx-auto text-gray-700" data-aos="fade-up">
+  <h2 class="text-2xl font-bold mb-4">Backing Africa’s Next Generation of High‑Impact Founders</h2>
+  <p class="mb-4">
+    Through our grant programs, we provide non‑dilutive funding, mentorship, and training 
+    to help African startups grow sustainably and create measurable impact.
+  </p>
+</section>
 
-<form id="form" class="space-y-6">
 
-  <!-- PERSONAL -->
-<div>
-<h3 class="font-semibold mb-2">Personal Info</h3>
-<input name="name" placeholder="Full Name" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
-<input name="email" type="email" placeholder="Email" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
-<input name="phone" placeholder="Phone" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
 
-<select name="country" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
-  <option value="">Select Country</option>
-  <option>Nigeria</option>
-  <option>Ghana</option>
-  <option>Kenya</option>
-  <option>South Africa</option>
-  <option>Rwanda</option>
-  <option>Uganda</option>
-  <option>Tanzania</option>
-  <option>Egypt</option>
-  <option>Morocco</option>
-  <option>Cameroon</option>
-  <option>Senegal</option>
-  <option>Ivory Coast</option>
-  <option>Ethiopia</option>
-  <option>Zambia</option>
-  <option>Botswana</option>
-  <option>Namibia</option>
-  <option>Zimbabwe</option>
-  <option>Mozambique</option>
-  <option>Other African Country</option>
-</select>
-
-<select name="sex" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
-<option value="">Select Sex</option>
-<option>Male</option>
-<option>Female</option>
-<option>Other</option>
-</select>
-
-<label class="text-sm">Date of Birth</label>
-<input type="date" name="dob" class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
-</div>
-
-  <!-- STARTUP -->
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Startup Info</h3>
-    <input name="startup" placeholder="Startup Name" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
-    <textarea name="problem" placeholder="Problem you're solving" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required></textarea>
-    <textarea name="solution" placeholder="Your solution" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required></textarea>
-    <textarea name="business_model" placeholder="How you make money" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required></textarea>
-    <textarea name="usage" placeholder="How you will use funds" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required></textarea>
-  </div>
-
-  <!-- MARKET INFO -->
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Market Info</h3>
-    <textarea name="target_market" placeholder="Who is your target market?" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
-    <textarea name="competition" placeholder="Who are your competitors?" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
-  </div>
-
-  <!-- FUNDING & TRACTION -->
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Funding & Traction</h3>
-    <input name="funding" placeholder="Have you raised any funding?" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-    <textarea name="traction" placeholder="Any traction (users, revenue, partnerships)?" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
-  </div>
-
-  <!-- VISION & GOALS -->
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Vision & Goals</h3>
-    <textarea name="vision" placeholder="What is your long-term vision?" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
-    <textarea name="milestones" placeholder="Key milestones for the next 12 months" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
-  </div>
-
-<!-- SUPPORT DOC -->
-<div class="border-t pt-6">
-<h3 class="font-semibold mb-2">Supporting Doc (optional)</h3>
-<input type="file" class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-<p class="text-xs text-gray-500 mt-1">Pitch deck or business plan.</p>
-</div>
-
-  <!-- AGREEMENT -->
-  <div class="flex items-start gap-2">
-    <input type="checkbox" id="agree" required>
-    <label for="agree" class="text-sm">I confirm that the information provided is accurate and I agree to the Founder Agreement.</label>
-  </div>
-
-  <!-- APPLICATION FEE -->
-  <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 text-sm">
-    <p><b>Application Fee: ₦1,000</b></p>
-    <ul class="list-disc ml-5 mt-2 text-gray-700">
-      <li>Covers administrative review and processing costs.</li>
-      <li>Helps prevent spam or unserious applications.</li>
-      <li>Ensures only committed founders apply.</li>
-      <li>Supports platform maintenance and community programs.</li>
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-8 text-center">Eligibility Criteria</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 text-gray-700">
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Residency: Must be based in Africa or part of the African diaspora</li>
+      <li>Age: 18 – 45 years (Youth Grant capped at 35)</li>
+      <li>Stage: Early‑stage or growth‑stage startups with clear traction or MVP</li>
+      <li>Sector: Open to all industries, with priority for tech, health, climate, and social impact</li>
     </ul>
-    <p class="mt-2 text-gray-600">
-      For applicants outside Nigeria, Flutterwave will automatically convert this fee to your local currency at checkout.
+    <p class="text-gray-600">
+      These criteria ensure grants reach founders who are ready to build, scale, and create measurable impact. Female‑led and impact‑driven startups are strongly encouraged to apply.
+    </p>
+  </div>
+</section>
+
+
+<!-- GRANT DETAILS -->
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto">
+  <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">Grant Categories</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+
+    <!-- General -->
+   <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="400" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100" data-aos-delay="400" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100"
+  <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+  <h3 class="font-bold text-blue-700">General Startup Grant</h3>
+  <p class="text-gray-600 mt-2">
+    Designed for founders across all industries, this grant supports startups with clear traction or a minimum viable product. 
+    Funding can be used for product development, marketing campaigns, hiring, or scaling operations.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-gray-600">
+    <li>Funding: ₦750,000 – ₦7,500,000</li>
+    <li>Open to all industries</li>
+    <li>Supports product development, marketing & scaling</li>
+  </ul>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+</div>
+
+    <!-- Youth -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up"
+  <img loading="lazy" src="images/youth.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+  <h3 class="font-bold text-blue-700">Youth Grant</h3>
+  <p class="text-gray-600 mt-2">
+    Tailored for young entrepreneurs aged 18–35, this grant empowers early‑stage founders to transform ideas into viable businesses. 
+    It prioritizes innovation, creativity, and the energy of youth‑driven ventures.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-gray-600">
+    <li>Age 18 – 35</li>
+    <li>₦750,000 – ₦3,000,000</li>
+    <li>Focused on early‑stage founders</li>
+  </ul>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+</div>
+
+    <!-- Women -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up"
+  <img loading="lazy" src="images/women.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+  <h3 class="font-bold text-blue-700">Women in Business Grant</h3>
+  <p class="text-gray-600 mt-2">
+    Focused on female‑led startups, this grant provides resources to help women entrepreneurs thrive in competitive markets. 
+    It supports ventures across all sectors, encouraging diversity and inclusion in Africa’s startup ecosystem.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-gray-600">
+    <li>Female‑led startups</li>
+    <li>₦1,500,000 – ₦4,500,000</li>
+    <li>Applicable to all sectors</li>
+  </ul>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+</div>
+
+    <!-- Innovation -->
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up"
+  <img loading="lazy" src="images/programs.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+  <h3 class="font-bold text-blue-700">Innovation & Tech Grant</h3>
+  <p class="text-gray-600 mt-2">
+    Dedicated to impact‑driven startups in sectors like health, EdTech, agriculture, fintech, and climate innovation. 
+    This grant supports founders building solutions with measurable social and economic impact.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-gray-600">
+    <li>Health • EdTech • Agri • Fintech • Climate</li>
+    <li>₦3,000,000 – ₦7,500,000</li>
+    <li>For impact‑driven startups</li>
+  </ul>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+</div>
+
+
+<!-- COMPARE GRANTS - MOBILE FRIENDLY -->
+<section class="px-6 py-12 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Compare Grant Programs</h2>
+  
+  <!-- Mobile cards -->
+  <div class="grid grid-cols-1 gap-4 md:hidden">
+    <div class="border rounded-xl p-5 bg-white shadow-sm">
+      <h3 class="font-bold text-blue-700">General Startup Grant</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦750k – ₦7.5m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> MVP / traction</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> All industries</p>
+    </div>
+    <div class="border rounded-xl p-5 bg-gray-50 shadow-sm">
+      <h3 class="font-bold text-blue-700">Youth Grant</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦750k – ₦3m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> Age 18–35</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> Early-stage ideas</p>
+    </div>
+    <div class="border rounded-xl p-5 bg-white shadow-sm">
+      <h3 class="font-bold text-blue-700">Women in Business</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦1.5m – ₦4.5m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> Female-led</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> All sectors</p>
+    </div>
+    <div class="border rounded-xl p-5 bg-gray-50 shadow-sm">
+      <h3 class="font-bold text-blue-700">Innovation & Tech</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦3m – ₦7.5m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> Impact-driven</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> Health, EdTech, Agri, Fintech, Climate</p>
+    </div>
+  </div>
+
+  <!-- Desktop table -->
+  <div class="hidden md:block overflow-x-auto">
+    <table class="w-full border-collapse border border-gray-200 text-sm">
+      <thead class="bg-blue-700 text-white">
+        <tr>
+          <th class="border border-gray-300 px-4 py-3 text-left">Grant</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Funding</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Eligibility</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Focus</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        <tr class="hover:bg-blue-50">
+          <td class="border px-4 py-3 font-semibold">General</td>
+          <td class="border px-4 py-3">₦750k–₦7.5m</td>
+          <td class="border px-4 py-3">MVP / traction</td>
+          <td class="border px-4 py-3">All industries</td>
+        </tr>
+        <tr class="bg-gray-50 hover:bg-blue-50">
+          <td class="border px-4 py-3 font-semibold">Youth</td>
+          <td class="border px-4 py-3">₦750k–₦3m</td>
+          <td class="border px-4 py-3">Age 18–35</td>
+          <td class="border px-4 py-3">Early-stage</td>
+        </tr>
+        <tr class="hover:bg-blue-50">
+          <td class="border px-4 py-3 font-semibold">Women</td>
+          <td class="border px-4 py-3">₦1.5m–₦4.5m</td>
+          <td class="border px-4 py-3">Female-led</td>
+          <td class="border px-4 py-3">All sectors</td>
+        </tr>
+        <tr class="bg-gray-50 hover:bg-blue-50">
+          <td class="border px-4 py-3 font-semibold">Innovation</td>
+          <td class="border px-4 py-3">₦3m–₦7.5m</td>
+          <td class="border px-4 py-3">Impact-driven</td>
+          <td class="border px-4 py-3">Health • EdTech • Agri • Fintech • Climate</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+</section>
+
+<!-- APPLICATION PROCESS -->
+<section data-aos="fade-up" class="bg-white py-16 md:py-24 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    
+    <!-- Header -->
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">Application Process</h2>
+    <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+      Our structured evaluation process identifies founders with high potential, strong execution ability, and real problem understanding.
+    </p>
+
+    <!-- Steps Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 mt-10 md:mt-14 text-left">
+      
+      <!-- Step 1 -->
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">1</div>
+          <h3 class="ml-3 font-bold text-blue-700 text-lg">Application</h3>
+        </div>
+        <p class="text-gray-600">Submit your startup idea, problem, solution, traction (if any), and founder profile. Clarity matters more than complexity.</p>
+        <p class="text-sm text-gray-500 mt-3">⏱ 10–15 mins • Required</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">2</div>
+          <h3 class="ml-3 font-bold text-blue-700 text-lg">Initial Screening</h3>
+        </div>
+        <p class="text-gray-600">Our system and review team filter applications based on clarity, problem strength, and execution potential.</p>
+        <p class="text-sm text-gray-500 mt-3">📊 Shortlisting stage</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">3</div>
+          <h3 class="ml-3 font-bold text-blue-700 text-lg">Deep Evaluation</h3>
+        </div>
+        <p class="text-gray-600">Shortlisted founders are evaluated on business model strength, market size, and ability to execute.</p>
+        <p class="text-sm text-gray-500 mt-3">⚖ Scored review process</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+        <div class="flex items-center mb-4">
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">4</div>
+          <h3 class="ml-3 font-bold text-blue-700 text-lg">Selection & Funding</h3>
+        </div>
+        <p class="text-gray-600">Selected founders receive funding, mentorship, and entry into the FSI ecosystem.</p>
+        <p class="text-sm text-gray-500 mt-3">🏆 Final decision stage</p>
+      </div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-14 text-sm text-gray-500 max-w-2xl mx-auto">
+      Selection is competitive. We prioritize founders who demonstrate clarity, urgency, and strong understanding of the problem they are solving.
+    </div>
+  </div>
+</section>
+
+
+<!-- IMPORTANT DATES -->
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-8 text-center">Important Dates</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 text-center">
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow" data-aos="zoom-in"
+      <h3 class="font-bold text-blue-700">Applications Open</h3>
+      <p class="text-gray-600 mt-2">May 10, 2026</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow" data-aos="zoom-in"
+      <h3 class="font-bold text-blue-700">Deadline</h3>
+      <p class="text-gray-600 mt-2">July 31, 2026</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow" data-aos="zoom-in"
+      <h3 class="font-bold text-blue-700">Cohort Start</h3>
+      <p class="text-gray-600 mt-2">September 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- SDG -->
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto">
+  <div class="text-center mb-12">
+    <p class="text-blue-600 text-xl uppercase tracking-wide font-bold">Global Impact</p>
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">Aligned With UN Sustainable Development Goals</h2>
+    <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+      Every grant we provide is designed to contribute to Africa’s growth while supporting the UN SDGs. 
+      Here are the key goals we align with:
     </p>
   </div>
 
-  <button type="button" onclick="submitForm()" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-3.5 rounded-xl font-bold btn-ripple transition transform hover:scale-[1.01] shadow-lg">
-    Submit Application (₦1,000)
-  </button>
-</form>
-</div>
-</div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
+      <div class="text-3xl mb-3">🌍</div>
+      <h3 class="font-bold text-blue-700">SDG 1 — No Poverty</h3>
+      <p class="text-gray-600 mt-2 text-sm">Supporting ventures that reduce poverty through job creation and financial inclusion.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
+      <div class="text-3xl mb-3">🏥</div>
+      <h3 class="font-bold text-blue-700">SDG 3 — Good Health</h3>
+      <p class="text-gray-600 mt-2 text-sm">Backing startups improving healthcare access and outcomes for underserved communities.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
+      <div class="text-3xl mb-3">⚖️</div>
+      <h3 class="font-bold text-blue-700">SDG 5 — Gender Equality</h3>
+      <p class="text-gray-600 mt-2 text-sm">Empowering female founders to lead and scale ventures across Africa.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
+      <div class="text-3xl mb-3">📈</div>
+      <h3 class="font-bold text-blue-700">SDG 8 — Economic Growth</h3>
+      <p class="text-gray-600 mt-2 text-sm">Driving entrepreneurship that fuels sustainable growth and job creation.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
+      <div class="text-3xl mb-3">💡</div>
+      <h3 class="font-bold text-blue-700">SDG 9 — Innovation</h3>
+      <p class="text-gray-600 mt-2 text-sm">Backing innovative solutions in fintech, agri-tech, health-tech, and climate.</p>
+    </div>
+    <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
+      <div class="text-3xl mb-3">🌱</div>
+      <h3 class="font-bold text-blue-700">SDG 13 — Climate Action</h3>
+      <p class="text-gray-600 mt-2 text-sm">Supporting startups tackling climate challenges with sustainable solutions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-blue-700 text-white text-center py-20">
+  <div class="max-w-4xl mx-auto">
+    <p class="uppercase tracking-wide text-blue-200 font-semibold text-sm md:text-base">Founder Support Initiative</p>
+    <h2 class="text-3xl md:text-4xl font-bold mt-3">2026 Cohort Now Accepting Applications</h2>
+    <p class="mt-4 text-blue-100 text-lg">
+      Join ambitious founders building the future of Africa through innovation, resilience, and collaboration.
+    </p>
+    <div class="mt-10 flex justify-center">
+      <a href="grants.html" class="bg-white text-blue-700 px-8 py-3 rounded-lg font-bold btn-ripple transition transform hover:scale-105 hover:bg-blue-100">
+        Apply Now →
+      </a>
+    </div>
+  </div>
+</section>
+
 
 <!-- FOOTER -->
 <!-- FOOTER -->
@@ -306,79 +524,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   </div>
 </footer>
 
-<script>
-let FLW_PUBLIC_KEY="";
 
-// fetch Flutterwave public key from server
-fetch("https://fsi.onrender.com/api/config")
-.then(res=>res.json())
-.then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
+<style>
+.hero-float{animation:floatBg 18s ease-in-out infinite;}
+@keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+</style>
 
-// 🚀 SUBMIT + PAY
-async function submitForm(){
-  const f=document.getElementById("form");
-
-  if(!document.getElementById("agree").checked){
-    alert("Please accept the agreement");
-    return;
-  }
-
-  const data={
-    name:f.name.value,
-    email:f.email.value,
-    phone:f.phone.value,
-    startup:f.startup.value,
-    problem:f.problem.value,
-    solution:f.solution.value,
-    business_model:f.business_model.value,
-    usage:f.usage.value
-  };
-
-  try{
-    // STEP 1 — SAVE APPLICATION FIRST
-    const saveRes = await fetch("https://fsi.onrender.com/api/save-application",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify(data)
-    });
-
-    const saveData = await saveRes.json();
-    if(!saveData.success){
-      alert("Could not save application. Try again.");
-      return;
-    }
-
-    // STEP 2 — OPEN FLUTTERWAVE PAYMENT
-    FlutterwaveCheckout({
-      public_key: FLW_PUBLIC_KEY,
-      tx_ref: "FSI-"+Date.now(),
-      amount: 1000,
-      currency: "NGN",
-      payment_options: "card,banktransfer,ussd,account",
-      customer:{
-        email:data.email,
-        name:data.name,
-        phone_number:data.phone
-      },
-      customizations:{
-        title:"Founders Support Initiative",
-        description:"Application Fee"
-      },
-      // 🎉 PAYMENT SUCCESS → REDIRECT TO PENDING PAGE
-      callback:function(response){
-        localStorage.setItem("fsi_application", JSON.stringify(data));
-        window.location.href="pending.html"; // relative path
-      },
-      onclose:function(){
-        alert("Payment window closed.");
-      }
-    });
-
-  }catch(err){
-    alert("Server error. Please try again.");
-    console.log(err);
-  }
-}
-</script>
 </body>
 </html>
