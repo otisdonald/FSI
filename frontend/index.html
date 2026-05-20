@@ -9,10 +9,10 @@
   <meta name="description" content="Empowering African founders with funding, mentorship, and training to build sustainable startups.">
 
   <!-- ===== FAVICONS ===== -->
-  <link rel="icon" href="/favicon.png" type="image/png">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   
 <!-- OPEN GRAPH -->
@@ -97,6 +97,8 @@
   opacity:0;
   transition:0s;
 }
+
+header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.08); background: rgba(255,255,255,.95); }
 
 /* Hero parallax blobs */
 .blob{
@@ -195,15 +197,16 @@ Loading countdown...
 
 <!-- HERO -->
 <section data-aos="fade" class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden">
-  <div class="absolute inset-0"><img src="/images/hero.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs"></div>
-  <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
-  <div class="absolute w-72 h-72 bg-red-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+  <div class="absolute inset-0"><img src="images/hero.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs"></div>
+  <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10"></div>
+  <div class="blob absolute w-72 h-72 bg-red-400/20 rounded-full bottom-10 right-10"></div>
+  <div class="blob absolute w-96 h-96 bg-blue-400/10 rounded-full -bottom-20 left-1/2 -translate-x-1/2"></div>
   <div class="relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold max-w-3xl mx-auto">Backing Africa’s Next Generation of High-Impact Founders</h1>
-    <p class="mt-6 text-lg text-gray-200 max-w-2xl mx-auto">Funding. Mentorship. Training. Global ecosystem access for ambitious entrepreneurs.</p>
-    <div class="mt-8 flex justify-center gap-4">
-      <a href="grants.html" class="bg-white text-blue-700 px-6 py-3 rounded font-bold">Apply Now</a>
-      <a href="programs.html" class="border border-white px-6 py-3 rounded">Explore Programs</a>
+    <h1 data-aos="zoom-in" data-aos-delay="200" class="text-4xl md:text-5xl font-bold max-w-3xl mx-auto">Backing Africa’s Next Generation of High-Impact Founders</h1>
+    <p data-aos="fade-up" data-aos-delay="400" class="mt-6 text-lg text-gray-200 max-w-2xl mx-auto">Funding. Mentorship. Training. Global ecosystem access for ambitious entrepreneurs.</p>
+    <div data-aos="fade-up" data-aos-delay="600" class="mt-8 flex justify-center gap-4">
+      <a href="grants.html" class="bg-white text-blue-700 px-6 py-3 rounded font-bold btn-ripple transition transform hover:scale-105 hover:shadow-lg active:scale-95">Apply Now</a>
+      <a href="programs.html" class="border border-white px-6 py-3 rounded btn-ripple transition transform hover:scale-105 hover:bg-white/10">Explore Programs</a>
     </div>
   </div>
 </section>
@@ -214,8 +217,8 @@ Loading countdown...
 
     <!-- Image at the top -->
     <div>
-      <img src="/images/about.png" 
-           class="rounded-xl shadow-lg w-full object-cover" 
+      <img src="images/about.png" 
+           class="rounded-xl shadow-lg w-full object-cover transition duration-700 hover:scale-[1.02]" data-aos="zoom-in" 
            alt="Entrepreneurs working">
     </div>
 
@@ -223,7 +226,7 @@ Loading countdown...
     <div class="grid md:grid-cols-2 gap-8">
       
       <!-- About FSI -->
-      <div class="p-6 border rounded-xl shadow-sm bg-gray-50">
+      <div class="p-6 border rounded-xl shadow-sm bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="600" data-aos-delay="500" data-aos-delay="400" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100"
         <h2 class="text-2xl font-bold text-blue-700">About FSI</h2>
         <p class="mt-3 text-gray-600 leading-relaxed">
           The Founders Support Initiative (FSI) exists to turn ambitious ideas into impactful, scalable businesses across Africa. 
@@ -232,7 +235,7 @@ Loading countdown...
       </div>
 
       <!-- What We Do -->
-      <div class="p-6 border rounded-xl shadow-sm bg-gray-50">
+      <div class="p-6 border rounded-xl shadow-sm bg-gray-50 card-lift card-glow" data-aos="fade-up"
         <h3 class="text-xl font-semibold text-blue-700">What We Do</h3>
         <ul class="mt-3 text-gray-600 leading-relaxed list-disc pl-6 space-y-2">
           <li><strong>Funding:</strong> Connect founders to early-stage capital.</li>
@@ -242,7 +245,7 @@ Loading countdown...
       </div>
 
       <!-- Mission -->
-      <div class="p-6 border rounded-xl shadow-sm bg-gray-50">
+      <div class="p-6 border rounded-xl shadow-sm bg-gray-50 card-lift card-glow" data-aos="fade-up"
         <h3 class="text-xl font-semibold text-blue-700">Our Mission</h3>
         <p class="mt-3 text-gray-600 leading-relaxed">
           To unlock the next generation of African innovators by bridging the gap between ideas and execution. 
@@ -251,7 +254,7 @@ Loading countdown...
       </div>
 
       <!-- Why FSI Exists -->
-      <div class="p-6 border rounded-xl shadow-sm bg-gray-50">
+      <div class="p-6 border rounded-xl shadow-sm bg-gray-50 card-lift card-glow" data-aos="fade-up"
         <h3 class="text-xl font-semibold text-blue-700">Why FSI Exists</h3>
         <ul class="mt-3 text-gray-600 leading-relaxed list-disc pl-6 space-y-2">
           <li><strong>Validation Gap:</strong> Helping founders test and refine ideas.</li>
@@ -261,7 +264,7 @@ Loading countdown...
       </div>
 
       <!-- Who We Support -->
-      <div class="p-6 border rounded-xl shadow-sm bg-gray-50">
+      <div class="p-6 border rounded-xl shadow-sm bg-gray-50 card-lift card-glow" data-aos="fade-up"
         <h3 class="text-xl font-semibold text-blue-700">Who We Support</h3>
         <p class="mt-3 text-gray-600 leading-relaxed">
           Ambitious founders across Africa at the ideation to early stage. Whether you’re a first-time founder, a student with a bold concept, or a professional ready to go full-time — if you’re committed to building something that matters, FSI is for you.
@@ -269,7 +272,7 @@ Loading countdown...
       </div>
 
       <!-- Promise -->
-      <div class="p-6 border rounded-xl shadow-sm bg-gray-50">
+      <div class="p-6 border rounded-xl shadow-sm bg-gray-50 card-lift card-glow" data-aos="fade-up"
         <h3 class="text-xl font-semibold text-blue-700">The FSI Promise</h3>
         <p class="mt-3 text-gray-600 leading-relaxed">
           We don’t just fund. We build alongside you.<br>
@@ -296,7 +299,7 @@ Loading countdown...
 </section>
 
 <!-- Global Inspiration -->
-<div class="p-6 border rounded-xl shadow-sm bg-gray-50 mt-6">
+<div class="p-6 border rounded-xl shadow-sm bg-gray-50 mt-6 card-lift card-glow" data-aos="fade-up" data-aos-delay="700">
   <h3 class="text-xl font-semibold text-blue-700">Global Inspiration</h3>
   <p class="mt-3 text-gray-600 leading-relaxed">
     Our initiative aligns with global best practices in founder support, 
@@ -309,7 +312,7 @@ Loading countdown...
 
     <!-- CTA -->
     <div class="text-center">
-      <a href="grants.html" class="inline-block mt-6 bg-blue-600 text-white px-8 py-3 rounded font-semibold hover:bg-blue-700 transition">
+      <a href="grants.html" class="inline-block mt-6 bg-blue-600 text-white px-8 py-3 rounded font-semibold hover:bg-blue-700 transition btn-ripple transform hover:scale-105">
         Apply for Support
       </a>
     </div>
@@ -331,20 +334,20 @@ Loading countdown...
 
   <!-- Grid -->
   <div class="grid md:grid-cols-3 gap-10">
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
-      <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4" alt="Funding">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
+      <img src="images/funding.png" class="w-full h-40 object-cover rounded mb-4 transition duration-500 hover:scale-105" alt="Funding">
       <h3 class="font-bold text-blue-700 text-lg">Funding</h3>
       <p class="text-gray-600 mt-2">Access non-dilutive capital in Naira to build and scale your startup.</p>
       <a href="grants.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Learn More →</a>
     </div>
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
-      <img src="/images/mentorship.png" class="w-full h-40 object-cover rounded mb-4" alt="Mentorship">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
+      <img src="images/mentorship.png" class="w-full h-40 object-cover rounded mb-4 transition duration-500 hover:scale-105" alt="Mentorship">
       <h3 class="font-bold text-blue-700 text-lg">Mentorship</h3>
       <p class="text-gray-600 mt-2">Learn directly from experienced founders and global operators.</p>
       <a href="community.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Join Community →</a>
     </div>
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 hover:shadow-xl transition">
-      <img src="/images/training.png" class="w-full h-40 object-cover rounded mb-4" alt="Training">
+    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
+      <img src="images/training.png" class="w-full h-40 object-cover rounded mb-4 transition duration-500 hover:scale-105" alt="Training">
       <h3 class="font-bold text-blue-700 text-lg">Training</h3>
       <p class="text-gray-600 mt-2">Structured startup building and leadership development programs.</p>
       <a href="learning.html" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Hub →</a>
@@ -365,34 +368,34 @@ Loading countdown...
 
     <!-- Highlights Grid -->
     <div class="grid md:grid-cols-4 gap-8 mt-14 text-left">
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="zoom-in" data-aos-delay="100">
         <div class="flex items-center mb-3">
           <!-- Icon -->
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">📅</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">📅</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">2026 Cohort</h3>
         </div>
         <p class="text-gray-600 text-sm">Applications Now Open</p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="zoom-in" data-aos-delay="200">
         <div class="flex items-center mb-3">
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">🌍</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">🌍</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Pan‑African</h3>
         </div>
         <p class="text-gray-600 text-sm">Founder Focus</p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="zoom-in" data-aos-delay="300">
         <div class="flex items-center mb-3">
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">⚖️</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">⚖</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Merit‑Based</h3>
         </div>
         <p class="text-gray-600 text-sm">Selection Process</p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="zoom-in" data-aos-delay="400">
         <div class="flex items-center mb-3">
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">🔗</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">🔗</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Long‑Term</h3>
         </div>
         <p class="text-gray-600 text-sm">Founder Ecosystem</p>
@@ -401,7 +404,7 @@ Loading countdown...
 
     <!-- Call to Action -->
     <div class="mt-14">
-      <a href="grants.html" class="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition">
+      <a href="grants.html" class="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition btn-ripple transform hover:scale-105 hover:shadow-xl">
         Apply for the 2026 Cohort →
       </a>
     </div>
@@ -423,10 +426,10 @@ Loading countdown...
     <div class="grid md:grid-cols-4 gap-6 mt-14 text-left">
       
       <!-- Step 1 -->
-      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-lg hover:-translate-y-2 transition transform">
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
         <div class="flex items-center mb-4">
           <!-- Icon -->
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">1</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">1</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Application</h3>
         </div>
         <p class="text-gray-600">You submit your startup idea, problem, solution, traction (if any), and founder profile. Clarity matters more than complexity.</p>
@@ -434,9 +437,9 @@ Loading countdown...
       </div>
 
       <!-- Step 2 -->
-      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-lg hover:-translate-y-2 transition transform">
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
         <div class="flex items-center mb-4">
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">2</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">2</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Initial Screening</h3>
         </div>
         <p class="text-gray-600">Our system and review team filter applications based on clarity, problem strength, and execution potential.</p>
@@ -444,19 +447,19 @@ Loading countdown...
       </div>
 
       <!-- Step 3 -->
-      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-lg hover:-translate-y-2 transition transform">
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center mb-4">
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">3</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">3</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Deep Evaluation</h3>
         </div>
         <p class="text-gray-600">Shortlisted founders are evaluated on business model strength, market size, and ability to execute.</p>
-        <p class="text-sm text-gray-500 mt-3">⚖️ Scored review process</p>
+        <p class="text-sm text-gray-500 mt-3">⚖ Scored review process</p>
       </div>
 
       <!-- Step 4 -->
-      <div class="border rounded-xl p-6 bg-gray-50 hover:shadow-lg hover:-translate-y-2 transition transform">
+      <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="400">
         <div class="flex items-center mb-4">
-          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">4</div>
+          <div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold icon-bounce">4</div>
           <h3 class="ml-3 font-bold text-blue-700 text-lg">Selection & Funding</h3>
         </div>
         <p class="text-gray-600">Selected founders receive funding, mentorship, and entry into the FSI ecosystem.</p>
@@ -480,22 +483,22 @@ Loading countdown...
     </p>
 
     <div class="grid md:grid-cols-4 gap-6 text-left">
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
         <h3 class="font-bold text-blue-700">Applications Open</h3>
         <p class="mt-2 text-gray-600">May 10</p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
         <h3 class="font-bold text-blue-700">Applications Close</h3>
         <p class="mt-2 text-gray-600">July 31</p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
         <h3 class="font-bold text-blue-700">Review Period</h3>
         <p class="mt-2 text-gray-600">August</p>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <div class="bg-white p-6 rounded-xl shadow card-lift card-glow" data-aos="fade-up" data-aos-delay="400">
         <h3 class="font-bold text-blue-700">Cohort Begins</h3>
         <p class="mt-2 text-gray-600">September</p>
       </div>
@@ -508,10 +511,10 @@ Loading countdown...
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold">What Selected Founders Receive</h2>
     <div class="grid md:grid-cols-4 gap-6 mt-12 text-left">
-      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Non‑Dilutive Funding</h3><p class="text-gray-600 mt-2">Capital provided in Naira to help you build and scale without giving up equity.</p></div>
-      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Structured Training</h3><p class="text-gray-600 mt-2">8–12 week startup execution program covering product, growth, and operations.</p></div>
-      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Mentorship Access</h3><p class="text-gray-600 mt-2">Guidance from experienced founders, operators, and ecosystem leaders.</p></div>
-      <div class="bg-gray-50 p-6 rounded-xl shadow"><h3 class="font-bold text-blue-700">Investor Exposure</h3><p class="text-gray-600 mt-2">Demo opportunities and access to future funding pathways.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow card-lift card-glow" data-aos="fade-up" data-aos-delay="400" data-aos="fade-up" data-aos-delay="300" data-aos="fade-up" data-aos-delay="200" data-aos="fade-up" data-aos-delay="100"<h3 class="font-bold text-blue-700">Non‑Dilutive Funding</h3><p class="text-gray-600 mt-2">Capital provided in Naira to help you build and scale without giving up equity.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow card-lift card-glow"<h3 class="font-bold text-blue-700">Structured Training</h3><p class="text-gray-600 mt-2">8–12 week startup execution program covering product, growth, and operations.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow card-lift card-glow"<h3 class="font-bold text-blue-700">Mentorship Access</h3><p class="text-gray-600 mt-2">Guidance from experienced founders, operators, and ecosystem leaders.</p></div>
+      <div class="bg-gray-50 p-6 rounded-xl shadow card-lift card-glow"<h3 class="font-bold text-blue-700">Investor Exposure</h3><p class="text-gray-600 mt-2">Demo opportunities and access to future funding pathways.</p></div>
     </div>
   </div>
 </section>
@@ -529,7 +532,7 @@ Loading countdown...
     <p class="text-gray-600 mt-4">Get funding alerts, program updates and early access to future cohorts.</p>
     <div class="mt-8 flex flex-col md:flex-row gap-4">
      <input id="waitlistEmail" type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg border">
-<button id="waitlistBtn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">Join Waitlist</button>
+<button id="waitlistBtn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Join Waitlist</button>
 
 <p id="waitlistMsg" class="text-sm mt-3 text-gray-600"></p>
     </div>
@@ -539,7 +542,7 @@ Loading countdown...
 <!-- CTA -->
 <section data-aos="fade-up" class="bg-blue-700 text-white text-center py-20">
   <h2 class="text-3xl font-bold">Build something that matters.</h2>
-  <a href="grants.html" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold">Apply Now</a>
+  <a href="grants.html" class="mt-6 inline-block bg-white text-blue-700 px-6 py-3 rounded font-bold btn-ripple transition transform hover:scale-105">Apply Now</a>
 </section>
 
 <!-- FOOTER -->
