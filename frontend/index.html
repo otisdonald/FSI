@@ -34,6 +34,77 @@
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<style>
+
+/* Floating animation */
+@keyframes float {
+  0% {transform: translateY(0px)}
+  50% {transform: translateY(-10px)}
+  100% {transform: translateY(0px)}
+}
+.float { animation: float 6s ease-in-out infinite; }
+
+/* Gradient glow hover */
+.card-glow {
+  position: relative;
+  overflow: hidden;
+}
+.card-glow::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);
+  opacity:0;
+  transition:.5s;
+}
+.card-glow:hover::before{opacity:1}
+
+/* Lift on hover */
+.card-lift{
+  transition:all .35s cubic-bezier(.17,.67,.38,1.46);
+}
+.card-lift:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
+}
+
+/* Icon bounce */
+.icon-bounce{
+  transition:.3s;
+}
+.card-lift:hover .icon-bounce{
+  transform:scale(1.25) rotate(8deg);
+}
+
+/* Button ripple */
+.btn-ripple{position:relative;overflow:hidden}
+.btn-ripple:after{
+  content:"";
+  position:absolute;
+  width:20px;height:20px;
+  background:rgba(255,255,255,.6);
+  border-radius:50%;
+  transform:scale(0);
+  opacity:0;
+  transition:.6s;
+}
+.btn-ripple:active:after{
+  transform:scale(12);
+  opacity:0;
+  transition:0s;
+}
+
+/* Hero parallax blobs */
+.blob{
+  animation: float 10s infinite ease-in-out;
+  filter: blur(60px);
+}
+
+</style>
 
 </head>
 
