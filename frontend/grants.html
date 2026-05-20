@@ -36,7 +36,7 @@
 
 </head>
 
-<body class="bg-white text-gray-900">
+<body class="bg-white text-gray-900 overflow-x-hidden">
 
 <!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
@@ -73,7 +73,7 @@
     <h2 class="font-bold text-blue-700">Menu</h2>
     <button id="close-btn" class="text-2xl">✕</button>
   </div>
-  <div class="flex flex-col gap-5 text-gray-800 font-medium">
+  <div class="flex flex-col gap-4 text-gray-800 font-medium text-base">
     <a href="index.html" class="hover:text-blue-600">Home</a>
     <a href="programs.html" class="hover:text-blue-600">Programs</a>
     <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
@@ -129,16 +129,16 @@
 
 
 <!-- HERO -->
-<section class="relative bg-blue-700 text-white py-32 text-center px-6 overflow-hidden" data-aos="fade">
+<section class="relative bg-blue-700 text-white py-20 md:py-28 lg:py-32 text-center px-6 overflow-hidden" data-aos="fade">
   <div class="absolute inset-0">
     <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10"></div>
     <div class="blob absolute w-72 h-72 bg-blue-400/20 rounded-full bottom-10 right-10"></div>
     <img loading="lazy" src="images/startupgrant.png"
-         class="w-full h-full object-cover opacity-30 hero-float">
+         class="w-full h-full object-cover opacity-20 md:opacity-30 hero-float">
   </div>
   <div class="relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold" data-aos="zoom-in" data-aos-delay="200">Startup Grants for African Founders</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200" data-aos="fade-up" data-aos-delay="400">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in" data-aos-delay="200">Startup Grants for African Founders</h1>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="400">
       Access non-dilutive funding designed to help early and growth-stage startups scale.
       Grants are primarily awarded in Naira, with local currency equivalents available for non-Nigerian founders.
     </p>
@@ -155,9 +155,9 @@
 
 
 
-<section class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
   <h2 class="text-3xl font-bold mb-8 text-center">Eligibility Criteria</h2>
-  <div class="grid md:grid-cols-2 gap-10 text-gray-700">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 text-gray-700">
     <ul class="list-disc pl-6 space-y-2">
       <li>Residency: Must be based in Africa or part of the African diaspora</li>
       <li>Age: 18 – 45 years (Youth Grant capped at 35)</li>
@@ -172,14 +172,14 @@
 
 
 <!-- GRANT DETAILS -->
-<section class="py-20 px-6 max-w-6xl mx-auto">
-  <h2 class="text-3xl font-bold mb-12 text-center">Grant Categories</h2>
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto">
+  <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">Grant Categories</h2>
 
-  <div class="grid md:grid-cols-2 gap-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
 
     <!-- General -->
    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="400" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100" data-aos-delay="400" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100"
-  <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-48 object-cover rounded mb-4">
+  <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
   <h3 class="font-bold text-blue-700">General Startup Grant</h3>
   <p class="text-gray-600 mt-2">
     Designed for founders across all industries, this grant supports startups with clear traction or a minimum viable product. 
@@ -190,12 +190,12 @@
     <li>Open to all industries</li>
     <li>Supports product development, marketing & scaling</li>
   </ul>
-  <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
 </div>
 
     <!-- Youth -->
     <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up"
-  <img loading="lazy" src="images/youth.png" class="w-full h-48 object-cover rounded mb-4">
+  <img loading="lazy" src="images/youth.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
   <h3 class="font-bold text-blue-700">Youth Grant</h3>
   <p class="text-gray-600 mt-2">
     Tailored for young entrepreneurs aged 18–35, this grant empowers early‑stage founders to transform ideas into viable businesses. 
@@ -206,12 +206,12 @@
     <li>₦750,000 – ₦3,000,000</li>
     <li>Focused on early‑stage founders</li>
   </ul>
-  <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
 </div>
 
     <!-- Women -->
     <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up"
-  <img loading="lazy" src="images/women.png" class="w-full h-48 object-cover rounded mb-4">
+  <img loading="lazy" src="images/women.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
   <h3 class="font-bold text-blue-700">Women in Business Grant</h3>
   <p class="text-gray-600 mt-2">
     Focused on female‑led startups, this grant provides resources to help women entrepreneurs thrive in competitive markets. 
@@ -222,12 +222,12 @@
     <li>₦1,500,000 – ₦4,500,000</li>
     <li>Applicable to all sectors</li>
   </ul>
-  <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
 </div>
 
     <!-- Innovation -->
     <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up"
-  <img loading="lazy" src="images/programs.png" class="w-full h-48 object-cover rounded mb-4">
+  <img loading="lazy" src="images/programs.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
   <h3 class="font-bold text-blue-700">Innovation & Tech Grant</h3>
   <p class="text-gray-600 mt-2">
     Dedicated to impact‑driven startups in sectors like health, EdTech, agriculture, fintech, and climate innovation. 
@@ -238,66 +238,98 @@
     <li>₦3,000,000 – ₦7,500,000</li>
     <li>For impact‑driven startups</li>
   </ul>
-  <a href="apply.html" class="mt-4 inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
+  <a href="apply.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105 hover:shadow-lg">Apply</a>
 </div>
 
-<section class="px-4 py-8 max-w-6xl mx-auto">
-  <h2 class="text-xl sm:text-2xl font-bold text-center mb-4">Compare Our Grant Programs</h2>
+
+<!-- COMPARE GRANTS - MOBILE FRIENDLY -->
+<section class="px-6 py-12 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Compare Grant Programs</h2>
   
-  <div class="overflow-x-auto scroll-smooth relative">
-    <table class="min-w-full max-w-full border-collapse border border-gray-300 text-sm">
-      <thead class="bg-blue-700 text-white sticky top-0 z-10">
+  <!-- Mobile cards -->
+  <div class="grid grid-cols-1 gap-4 md:hidden">
+    <div class="border rounded-xl p-5 bg-white shadow-sm">
+      <h3 class="font-bold text-blue-700">General Startup Grant</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦750k – ₦7.5m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> MVP / traction</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> All industries</p>
+    </div>
+    <div class="border rounded-xl p-5 bg-gray-50 shadow-sm">
+      <h3 class="font-bold text-blue-700">Youth Grant</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦750k – ₦3m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> Age 18–35</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> Early-stage ideas</p>
+    </div>
+    <div class="border rounded-xl p-5 bg-white shadow-sm">
+      <h3 class="font-bold text-blue-700">Women in Business</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦1.5m – ₦4.5m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> Female-led</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> All sectors</p>
+    </div>
+    <div class="border rounded-xl p-5 bg-gray-50 shadow-sm">
+      <h3 class="font-bold text-blue-700">Innovation & Tech</h3>
+      <p class="text-sm mt-2"><span class="font-semibold">Funding:</span> ₦3m – ₦7.5m</p>
+      <p class="text-sm"><span class="font-semibold">Eligibility:</span> Impact-driven</p>
+      <p class="text-sm"><span class="font-semibold">Focus:</span> Health, EdTech, Agri, Fintech, Climate</p>
+    </div>
+  </div>
+
+  <!-- Desktop table -->
+  <div class="hidden md:block overflow-x-auto">
+    <table class="w-full border-collapse border border-gray-200 text-sm">
+      <thead class="bg-blue-700 text-white">
         <tr>
-          <th class="border border-gray-300 px-3 py-2 text-left sticky left-0 bg-blue-700">Grant</th>
-          <th class="border border-gray-300 px-3 py-2 text-left">Funding</th>
-          <th class="border border-gray-300 px-3 py-2 text-left">Eligibility</th>
-          <th class="border border-gray-300 px-3 py-2 text-left">Focus</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Grant</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Funding</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Eligibility</th>
+          <th class="border border-gray-300 px-4 py-3 text-left">Focus</th>
         </tr>
       </thead>
       <tbody class="text-gray-700">
         <tr class="hover:bg-blue-50">
-          <td class="border border-gray-300 px-3 py-2 font-semibold sticky left-0 bg-white shadow-md">General</td>
-          <td class="border border-gray-300 px-3 py-2">₦750k–₦7.5m</td>
-          <td class="border border-gray-300 px-3 py-2">MVP / traction</td>
-          <td class="border border-gray-300 px-3 py-2">All industries • Scaling</td>
+          <td class="border px-4 py-3 font-semibold">General</td>
+          <td class="border px-4 py-3">₦750k–₦7.5m</td>
+          <td class="border px-4 py-3">MVP / traction</td>
+          <td class="border px-4 py-3">All industries</td>
         </tr>
         <tr class="bg-gray-50 hover:bg-blue-50">
-          <td class="border border-gray-300 px-3 py-2 font-semibold sticky left-0 bg-gray-50 shadow-md">Youth</td>
-          <td class="border border-gray-300 px-3 py-2">₦750k–₦3m</td>
-          <td class="border border-gray-300 px-3 py-2">Age 18–35</td>
-          <td class="border border-gray-300 px-3 py-2">Early‑stage ideas</td>
+          <td class="border px-4 py-3 font-semibold">Youth</td>
+          <td class="border px-4 py-3">₦750k–₦3m</td>
+          <td class="border px-4 py-3">Age 18–35</td>
+          <td class="border px-4 py-3">Early-stage</td>
         </tr>
         <tr class="hover:bg-blue-50">
-          <td class="border border-gray-300 px-3 py-2 font-semibold sticky left-0 bg-white shadow-md">Women</td>
-          <td class="border border-gray-300 px-3 py-2">₦1.5m–₦4.5m</td>
-          <td class="border border-gray-300 px-3 py-2">Female‑led</td>
-          <td class="border border-gray-300 px-3 py-2">All sectors • Inclusion</td>
+          <td class="border px-4 py-3 font-semibold">Women</td>
+          <td class="border px-4 py-3">₦1.5m–₦4.5m</td>
+          <td class="border px-4 py-3">Female-led</td>
+          <td class="border px-4 py-3">All sectors</td>
         </tr>
         <tr class="bg-gray-50 hover:bg-blue-50">
-          <td class="border border-gray-300 px-3 py-2 font-semibold sticky left-0 bg-gray-50 shadow-md">Innovation</td>
-          <td class="border border-gray-300 px-3 py-2">₦3m–₦7.5m</td>
-          <td class="border border-gray-300 px-3 py-2">Impact‑driven</td>
-          <td class="border border-gray-300 px-3 py-2">Health • EdTech • Agri • Fintech • Climate</td>
+          <td class="border px-4 py-3 font-semibold">Innovation</td>
+          <td class="border px-4 py-3">₦3m–₦7.5m</td>
+          <td class="border px-4 py-3">Impact-driven</td>
+          <td class="border px-4 py-3">Health • EdTech • Agri • Fintech • Climate</td>
         </tr>
       </tbody>
     </table>
   </div>
 </section>
 
+
 </section>
 
 <!-- APPLICATION PROCESS -->
-<section data-aos="fade-up" class="bg-white py-24 px-6">
+<section data-aos="fade-up" class="bg-white py-16 md:py-24 px-6">
   <div class="max-w-6xl mx-auto text-center">
     
     <!-- Header -->
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Application Process</h2>
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">Application Process</h2>
     <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
       Our structured evaluation process identifies founders with high potential, strong execution ability, and real problem understanding.
     </p>
 
     <!-- Steps Grid -->
-    <div class="grid md:grid-cols-4 gap-6 mt-14 text-left">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 mt-10 md:mt-14 text-left">
       
       <!-- Step 1 -->
       <div class="border rounded-xl p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
@@ -349,9 +381,9 @@
 
 
 <!-- IMPORTANT DATES -->
-<section class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
   <h2 class="text-3xl font-bold mb-8 text-center">Important Dates</h2>
-  <div class="grid md:grid-cols-3 gap-8 text-center">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 text-center">
     <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow" data-aos="zoom-in"
       <h3 class="font-bold text-blue-700">Applications Open</h3>
       <p class="text-gray-600 mt-2">May 10, 2026</p>
@@ -368,17 +400,17 @@
 </section>
 
 <!-- SDG -->
-<section class="py-20 px-6 max-w-6xl mx-auto">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto">
   <div class="text-center mb-12">
     <p class="text-blue-600 text-xl uppercase tracking-wide font-bold">Global Impact</p>
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Aligned With UN Sustainable Development Goals</h2>
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">Aligned With UN Sustainable Development Goals</h2>
     <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
       Every grant we provide is designed to contribute to Africa’s growth while supporting the UN SDGs. 
       Here are the key goals we align with:
     </p>
   </div>
 
-  <div class="grid md:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
     <div class="p-6 border rounded-xl shadow bg-gray-50 card-lift card-glow hover:shadow-lg transition" data-aos="fade-up">
       <div class="text-3xl mb-3">🌍</div>
       <h3 class="font-bold text-blue-700">SDG 1 — No Poverty</h3>
@@ -432,7 +464,7 @@
 <!-- FOOTER -->
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
     <!-- Logo / About -->
     <div>
