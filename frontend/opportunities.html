@@ -23,17 +23,10 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
 .blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
 </style>
 </head>
-
 <body class="bg-white text-gray-900 overflow-x-hidden">
 
-<!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
-<a href="index.html" class="block">
-  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
-</a>
-
-  <!-- Desktop Menu -->
+<a href="index.html" class="block"><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
     <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
@@ -43,8 +36,6 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
     <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
     <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
   </nav>
-
-  <!-- Mobile Menu Button -->
   <button id="menu-btn" class="md:hidden flex flex-col gap-1">
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
@@ -52,15 +43,9 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   </button>
 </header>
 
-<!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-
-<!-- Mobile Menu -->
 <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
-    <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
-  </div>
+  <div class="flex justify-between items-center"><h2 class="font-bold text-blue-700">Menu</h2><button id="close-btn" class="text-2xl">✕</button></div>
   <div class="flex flex-col gap-5 text-gray-800 font-medium">
     <a href="index.html" class="hover:text-blue-600">Home</a>
     <a href="programs.html" class="hover:text-blue-600">Programs</a>
@@ -73,168 +58,163 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-
-
-<!-- HERO -->
 <section class="relative text-white py-20 md:py-28 text-center px-6 overflow-hidden" data-aos="fade">
-  <div class="absolute inset-0">
-    <div class="blob absolute w-64 h-64 bg-white/10 rounded-full top-10 left-10"></div>
-    <img loading="lazy" src="images/opportunity.jpg" class="w-full h-full object-cover scale-105">
-  </div>
+  <div class="absolute inset-0"><div class="blob absolute w-64 h-64 bg-white/10 rounded-full top-10 left-10"></div><img loading="lazy" src="images/opportunity.jpg" class="w-full h-full object-cover scale-105"></div>
   <div class="absolute inset-0 bg-blue-900/70"></div>
-
   <div class="relative z-10">
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in">Opportunities</h1>
-    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">
-      Explore funding, competitions, and career opportunities designed to support Africa’s founders.
-    </p>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">One place to find funding, visibility, and the right role — built for African founders, not copied from Silicon Valley.</p>
   </div>
 </section>
 
-<!-- OPPORTUNITIES -->
+<!-- INTRO -->
+<section class="py-16 px-6 max-w-4xl mx-auto text-center" data-aos="fade-up">
+  <p class="text-blue-600 font-semibold uppercase text-sm tracking-wide">Why we built this</p>
+  <h2 class="text-2xl md:text-3xl font-bold mt-2">Most opportunity boards are noise</h2>
+  <p class="mt-4 text-gray-600">We curate only three types of opportunities that actually move the needle for early-stage African founders: non-dilutive capital, real visibility with investors, and jobs at startups that are hiring from our network. Everything else is a distraction.</p>
+</section>
+
+<!-- THREE OPPORTUNITIES -->
 <section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-
-  <!-- Grants -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
+  <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💰 Grants</h3>
+      <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">OPEN NOW</span>
+    </div>
     <img loading="lazy" src="images/grants.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
-    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💰 Grants</h3>
-    <p class="text-gray-600 mt-2">
-      Access non‑dilutive funding designed to give startups the runway they need to grow without losing equity. 
-      Our grants are open to diverse industries and focus on early‑stage founders with clear execution potential.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Flexible use of funds for product, marketing, or operations</li>
-      <li>Inclusive support across all industries</li>
-      <li>Focused on early‑stage startups</li>
-      <li>Competitive selection process</li>
+    <p class="text-gray-600 text-sm">₦750k–₦7.5m non-dilutive. No pitch deck theater. We fund clear problems and real traction.</p>
+    <ul class="mt-3 text-sm text-gray-600 space-y-1">
+      <li>• 2026 cohort: 50 founders</li>
+      <li>• Decision in 21 days</li>
+      <li>• Paid in Naira or local equivalent</li>
     </ul>
-    <a href="grants.html" class="mt-4 inline-block w-full sm:w-auto text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold btn-ripple transition transform hover:scale-105">Apply →</a>
+    <a href="grants.html" class="mt-4 inline-block w-full text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Apply for Grant →</a>
   </div>
 
-  <!-- Competitions -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift" data-aos="fade-up" data-aos-delay="200">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🏆 Competitions</h3>
+      <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-semibold">Q3 2026</span>
+    </div>
     <img loading="lazy" src="images/competition.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
-    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🏆 Competitions</h3>
-    <p class="text-gray-600 mt-2">
-      Showcase your startup in pitch competitions and demo days. Gain visibility, connect with investors, and 
-      compete for prizes that can accelerate your growth.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Cash prizes for top pitches</li>
-      <li>Exposure to investors and industry leaders</li>
-      <li>Networking opportunities with peers and mentors</li>
-      <li>Platform to validate your ideas</li>
+    <p class="text-gray-600 text-sm">Not pay-to-pitch. We run 2 competitions yearly with actual investors judging, not sponsors.</p>
+    <ul class="mt-3 text-sm text-gray-600 space-y-1">
+      <li>• ₦5m prize pool (no equity)</li>
+      <li>• Top 10 get mentor office hours</li>
+      <li>• Only for FSI applicants</li>
     </ul>
-    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-3 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
+    <button onclick="notifyMe('competitions')" class="mt-4 w-full bg-gray-900 text-white px-5 py-3 rounded-lg font-medium hover:bg-black transition">Notify Me</button>
   </div>
 
-  <!-- Startup Jobs -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift" data-aos="fade-up" data-aos-delay="300">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💼 Startup Jobs</h3>
+      <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-semibold">Q4 2026</span>
+    </div>
     <img loading="lazy" src="images/jobs.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
-    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💼 Startup Jobs</h3>
-    <p class="text-gray-600 mt-2">
-      Explore career opportunities within the FSI ecosystem. We connect talent with startups looking to grow, 
-      offering both remote and onsite roles across industries.
-    </p>
-    <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-      <li>Remote and onsite positions available</li>
-      <li>Access to a growing startup hiring network</li>
-      <li>Talent matching to the right opportunities</li>
-      <li>Pathways to join innovative teams</li>
+    <p class="text-gray-600 text-sm">Hiring board exclusively for startups in our portfolio and partner network. No recruiters.</p>
+    <ul class="mt-3 text-sm text-gray-600 space-y-1">
+      <li>• Roles at vetted startups only</li>
+      <li>• Remote-first, Africa-based</li>
+      <li>• Direct founder contact</li>
     </ul>
-    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-3 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
+    <button onclick="notifyMe('jobs')" class="mt-4 w-full bg-gray-900 text-white px-5 py-3 rounded-lg font-medium hover:bg-black transition">Join Talent Pool</button>
   </div>
-
 </section>
 
-<!-- CTA -->
-<section class="bg-blue-700 text-white text-center py-16 md:py-20 px-6" data-aos="zoom-in">
-  <h2 class="text-2xl md:text-3xl font-bold">Don’t miss your chance to grow.</h2>
-  <a href="grants.html" class="mt-6 inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-bold btn-ripple transition transform hover:scale-105">
-    Apply Now
-  </a>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
-    <div>
-      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="hover:text-gray-900">Home</a></li>
-        <li><a href="programs.html" class="hover:text-gray-900">Programs</a></li>
-        <li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li>
-        <li><a href="community.html" class="hover:text-gray-900">Community</a></li>
-        <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
-      </ul>
-    </div>
-
-    <!-- Legal -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li>
-        <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
-      </ul>
-    </div>
-
-    <!-- Connect -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
-      <p class="text-sm flex items-center">
-        <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-        <a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a>
-      </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
+<!-- HOW WE SELECT -->
+<section class="py-16 bg-gray-50 px-6" data-aos="fade-up">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-center">How opportunities work at FSI</h2>
+    <div class="grid md:grid-cols-3 gap-8 mt-10">
+      <div class="text-center">
+        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto font-bold">1</div>
+        <h4 class="font-semibold mt-3">Apply once</h4>
+        <p class="text-sm text-gray-600 mt-1">One application gives you access to grants, competitions, and jobs. No duplicate forms.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto font-bold">2</div>
+        <h4 class="font-semibold mt-3">Get matched</h4>
+        <p class="text-sm text-gray-600 mt-1">We tag your profile by stage, sector, and needs. You only see relevant opportunities.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto font-bold">3</div>
+        <h4 class="font-semibold mt-3">No spam</h4>
+        <p class="text-sm text-gray-600 mt-1">Maximum 2 emails/month. Only opportunities you qualify for. Unsubscribe anytime.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
+<!-- CURRENTLY AVAILABLE -->
+<section class="py-16 px-6 max-w-4xl mx-auto" data-aos="fade-up">
+  <div class="bg-blue-600 text-white rounded-2xl p-8 md:p-10">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div>
+        <p class="text-blue-200 text-sm uppercase font-semibold tracking-wide">Now Open</p>
+        <h3 class="text-2xl font-bold mt-1">2026 Startup Grants</h3>
+        <p class="mt-2 text-blue-100 text-sm max-w-xl">Applications close July 31. Decisions by August 15. Funding disbursed September.</p>
+      </div>
+      <a href="apply.html" class="bg-white text-blue-700 px-6 py-3 rounded-lg font-bold whitespace-nowrap hover:bg-blue-50 transition">Start Application</a>
+    </div>
+    <div class="mt-6 pt-6 border-t border-blue-500 grid sm:grid-cols-3 gap-4 text-sm">
+      <div><span class="text-blue-200">Amount:</span> ₦750k – ₦7.5m</div>
+      <div><span class="text-blue-200">Fee:</span> ₦1,000 (one-time)</div>
+      <div><span class="text-blue-200">Spots:</span> 50 founders</div>
+    </div>
   </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 px-6 max-w-4xl mx-auto" data-aos="fade-up">
+  <h2 class="text-2xl font-bold text-center mb-8">Opportunities FAQ</h2>
+  <div class="space-y-3">
+    <details class="border rounded-lg p-4 bg-white">
+      <summary class="font-semibold cursor-pointer">Do I need to pay for competitions or jobs?</summary>
+      <p class="mt-2 text-sm text-gray-600">Never. Only the initial grant application has a ₦1,000 fee to prevent spam. Competitions and job access are free for all applicants.</p>
+    </details>
+    <details class="border rounded-lg p-4 bg-white">
+      <summary class="font-semibold cursor-pointer">I'm not in Nigeria, can I still apply?</summary>
+      <p class="mt-2 text-sm text-gray-600">Yes. We fund founders across Africa. Grants are paid in local currency equivalent via Flutterwave.</p>
+    </details>
+    <details class="border rounded-lg p-4 bg-white">
+      <summary class="font-semibold cursor-pointer">When will jobs and competitions launch?</summary>
+      <p class="mt-2 text-sm text-gray-600">Competitions in Q3 2026, Jobs board in Q4. Join the waitlist on each card and we'll email you first.</p>
+    </details>
+  </div>
+</section>
+
+<footer class="bg-gray-100 text-gray-700 mt-16">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4"><p class="text-sm leading-relaxed">Empowering African founders with funding, mentorship, and training to build sustainable startups.</p></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3><ul class="space-y-2 text-sm"><li><a href="index.html" class="hover:text-gray-900">Home</a></li><li><a href="programs.html" class="hover:text-gray-900">Programs</a></li><li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li><li><a href="community.html" class="hover:text-gray-900">Community</a></li><li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3><ul class="space-y-2 text-sm"><li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li><li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li><li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3><p class="text-sm flex items-center"><svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg><a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a></p></div>
+  </div>
+  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">© 2026 Founders Support Initiative. All rights reserved.</div>
 </footer>
 
-
 <script>
+function notifyMe(type){
+  const email = prompt('Enter your email to get notified about ' + type + ':');
+  if(email){
+    localStorage.setItem('fsi_notify_'+type, email);
+    alert('Thanks! We'll email you at ' + email + ' when ' + type + ' open.');
+  }
+}
 document.addEventListener("DOMContentLoaded", function(){
   const menuBtn=document.getElementById("menu-btn");
   const closeBtn=document.getElementById("close-btn");
   const mobileMenu=document.getElementById("mobile-menu");
   const overlay=document.getElementById("overlay");
   const header=document.querySelector('header');
-  
   function openMenu(){ mobileMenu.classList.remove("translate-x-full"); overlay.classList.remove("opacity-0","pointer-events-none"); overlay.classList.add("opacity-100","pointer-events-auto"); }
   function closeMenu(){ mobileMenu.classList.add("translate-x-full"); overlay.classList.add("opacity-0","pointer-events-none"); overlay.classList.remove("opacity-100","pointer-events-auto"); }
   menuBtn?.addEventListener('click', openMenu); closeBtn?.addEventListener('click', closeMenu); overlay?.addEventListener('click', closeMenu);
-  
   document.querySelectorAll('nav a').forEach(link=>{ if(link.href===window.location.href){ link.classList.add('text-blue-700','font-bold'); } });
   window.addEventListener('scroll', ()=>{ if(window.scrollY>20) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
   if(typeof AOS!=='undefined'){ AOS.init({duration:800, once:true, offset:80}); }
 });
 </script>
-
 </body>
-</html>
+</html
