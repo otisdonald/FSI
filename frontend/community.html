@@ -5,14 +5,31 @@
   <title>FSI | Community</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+<meta name="description" content="FSI Community: connect with African founders, find co-founders, join discussions, and grow together.">
+<meta property="og:title" content="FSI Community | Network of African Founders">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<style>
+@keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.card-glow{position:relative;overflow:hidden}
+.card-glow::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);opacity:0;transition:.5s;pointer-events:none;z-index:1}
+.card-glow:hover::before{opacity:1}
+.card-glow > *{position:relative;z-index:2}
+.card-lift{transition:all .35s cubic-bezier(.17,.67,.38,1.46)}
+.card-lift:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
+.blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
+.hero-float{animation:floatBg 18s ease-in-out infinite}
+@keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
 </head>
-<body class="bg-white text-gray-900">
+<body class="bg-white text-gray-900 overflow-x-hidden">
 
 <!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
   <!-- Logo -->
 <a href="index.html" class="block">
-  <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
+  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
 </a>
 
   <!-- Desktop Menu -->
@@ -55,57 +72,28 @@
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-<!-- SCRIPT -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
 
-  function openMenu() {
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    overlay.classList.add('opacity-100', 'pointer-events-auto');
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.add('translate-x-full');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-  }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Highlight active link automatically
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('font-bold', 'underline', 'text-gray-900');
-    }
-  });
-</script>
 
 <!-- COMMUNITY HERO -->
-<section class="relative bg-blue-700 text-white py-32 text-center px-6">
+<section class="relative bg-blue-700 text-white py-20 md:py-28 text-center px-6 overflow-hidden" data-aos="fade">
   <div class="absolute inset-0">
-    <img src="/images/community.png" class="w-full h-full object-cover opacity-30" alt="Networking event">
+    <div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 right-10"></div>
+    <img loading="lazy" src="images/community.png" class="w-full h-full object-cover opacity-20 md:opacity-30 hero-float" alt="Networking event">
   </div>
-  <div class="relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold">Community</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+  <div class="relative z-10" data-aos="zoom-in">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">Community</h1>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">
       Join a vibrant network of founders, innovators, and industry leaders. 
       Our community is designed to foster collaboration, peer learning, and meaningful connections across Africa and beyond.
     </p>
   </div>
 </section>
-<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
 
   <!-- Member Profiles -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
-    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" class="w-full h-40 object-cover rounded mb-4" alt="Profiles">
-    <h3 class="font-bold text-blue-700 text-xl">Member Profiles</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4" alt="Profiles">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">👤 Member Profiles</h3>
     <p class="text-gray-600 mt-2">
       Soon you’ll be able to create a personalized founder profile, showcase your startup journey, and connect with peers across industries and countries.
     </p>
@@ -114,13 +102,13 @@
       <li>Discover founders with shared interests</li>
       <li>Expand your reach across regions</li>
     </ul>
-    <button class="mt-4 bg-gray-300 px-4 py-2 rounded">Coming Soon</button>
+    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
   </div>
 
   <!-- Networking -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
-    <img src="/images/networking.png" class="w-full h-40 object-cover rounded mb-4" alt="Networking">
-    <h3 class="font-bold text-blue-700 text-xl">Networking</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+    <img loading="lazy" src="images/networking.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4" alt="Networking">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🤝 Networking</h3>
     <p class="text-gray-600 mt-2">
       We’re building tools to help you search, filter, and connect with collaborators, mentors, and partners. Networking events and curated matches will be available soon.
     </p>
@@ -129,13 +117,13 @@
       <li>Connect with investors and advisors</li>
       <li>Join curated networking events</li>
     </ul>
-    <button class="mt-4 bg-gray-300 px-4 py-2 rounded">Coming Soon</button>
+    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
   </div>
 
   <!-- Forum -->
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
-    <img src="/images/forum.png" class="w-full h-40 object-cover rounded mb-4" alt="Forum">
-    <h3 class="font-bold text-blue-700 text-xl">Forum</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+    <img loading="lazy" src="images/forum.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4" alt="Forum">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💬 Forum</h3>
     <p class="text-gray-600 mt-2">
       A space for founders to share insights, ask questions, and learn from peers. Topic‑based discussions and expert Q&A sessions will launch soon.
     </p>
@@ -144,7 +132,7 @@
       <li>Peer‑to‑peer advice and shared experiences</li>
       <li>Expert Q&A sessions</li>
     </ul>
-    <button class="mt-4 bg-gray-300 px-4 py-2 rounded">Coming Soon</button>
+    <button class="mt-4 inline-block w-full sm:w-auto text-center bg-gray-200 text-gray-600 px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Coming Soon</button>
   </div>
 
 </section>
@@ -152,11 +140,11 @@
 
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
     <!-- Logo / About -->
     <div>
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
+      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
       <p class="text-sm leading-relaxed">
         Empowering African founders with funding, mentorship, and training to build sustainable startups.
       </p>
@@ -211,42 +199,22 @@
     © 2026 Founders Support Initiative. All rights reserved.
   </div>
 </footer>
-<style>
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:all .8s ease;
-}
-.reveal.show{
-  opacity:1;
-  transform:translateY(0);
-}
-.hero-float{
-  animation:floatBg 18s ease-in-out infinite;
-}
-@keyframes floatBg{
-  0%{transform:scale(1) translateY(0)}
-  50%{transform:scale(1.08) translateY(-12px)}
-  100%{transform:scale(1) translateY(0)}
-}
-</style>
 
 <script>
-// floating hero image
-document.querySelector("section img")?.classList.add("hero-float");
-
-// scroll reveal
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-    }
-  });
-});
-
-document.querySelectorAll("section, .grid > div").forEach(el=>{
-  el.classList.add("reveal");
-  observer.observe(el);
+document.addEventListener("DOMContentLoaded", ()=>{
+  const menuBtn=document.getElementById('menu-btn');
+  const closeBtn=document.getElementById('close-btn');
+  const mobileMenu=document.getElementById('mobile-menu');
+  const overlay=document.getElementById('overlay');
+  const header=document.querySelector('header');
+  
+  const openMenu=()=>{ mobileMenu.classList.remove('translate-x-full'); overlay.classList.remove('opacity-0','pointer-events-none'); overlay.classList.add('opacity-100','pointer-events-auto'); };
+  const closeMenu=()=>{ mobileMenu.classList.add('translate-x-full'); overlay.classList.add('opacity-0','pointer-events-none'); overlay.classList.remove('opacity-100','pointer-events-auto'); };
+  menuBtn?.addEventListener('click', openMenu); closeBtn?.addEventListener('click', closeMenu); overlay?.addEventListener('click', closeMenu);
+  
+  document.querySelectorAll('nav a').forEach(l=>{ if(l.href===window.location.href) l.classList.add('text-blue-700','font-bold'); });
+  window.addEventListener('scroll', ()=> window.scrollY>20 ? header.classList.add('scrolled') : header.classList.remove('scrolled'));
+  if(typeof AOS!=='undefined') AOS.init({duration:800, once:true, offset:80});
 });
 </script>
 </body>
