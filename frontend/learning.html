@@ -5,24 +5,32 @@
   <title>FSI | Learning Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+<meta name="description" content="FSI Learning Hub: practical guides on startup basics, leadership, and fundraising for African founders.">
+<meta property="og:title" content="FSI Learning Hub | Startup Guides & Toolkits">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <style>
-    /* Your existing custom styles */
-    .reveal { opacity:0; transform:translateY(40px); transition:all .9s ease }
-    .reveal.show { opacity:1; transform:translateY(0) }
-
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
+    @keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+    .card-glow{position:relative;overflow:hidden}
+    .card-glow::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);opacity:0;transition:.5s;pointer-events:none;z-index:1}
+    .card-glow:hover::before{opacity:1}
+    .card-glow > *{position:relative;z-index:2}
+    .card-lift{transition:all .35s cubic-bezier(.17,.67,.38,1.46)}
+    .card-lift:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+    header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
+    .blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
+    #heroImg{animation:floatBg 18s infinite ease-in-out}
+    @keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
   </style>
 </head>
-<body class="bg-white text-gray-900">
+<body class="bg-white text-gray-900 overflow-x-hidden">
 
 <!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
   <!-- Logo -->
 <a href="index.html" class="block">
-  <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
+  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
 </a>
 
   <!-- Desktop Menu -->
@@ -65,59 +73,29 @@
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-<!-- SCRIPT -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
 
-  function openMenu() {
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    overlay.classList.add('opacity-100', 'pointer-events-auto');
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.add('translate-x-full');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-  }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Highlight active link automatically
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('font-bold', 'underline', 'text-gray-900');
-    }
-  });
-</script>
 
 <!-- HERO -->
-<section class="relative bg-blue-700 text-white py-32 text-center px-6">
+<section class="relative bg-blue-700 text-white py-20 md:py-28 text-center px-6 overflow-hidden">
   <div class="absolute inset-0">
-    <img id="heroImg" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
-    class="w-full h-full object-cover opacity-30" alt="">
+    <img loading="lazy" id="heroImg" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
+    class="w-full h-full object-cover opacity-20 md:opacity-30" alt="">
   </div>
-  <div class="relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold">Learning Hub</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
+  <div class="relative z-10" data-aos="fade">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in">Learning Hub</h1>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">
       Access guides, toolkits, and training resources to strengthen your startup journey.
     </p>
   </div>
 </section>
 
 <!-- CARDS -->
-<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
 
   <!-- Startup Basics -->
-  <div class="card border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Startup Basics</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🚀 Startup Basics</h3>
     <p class="text-gray-600 mt-2">
       Step‑by‑step guides for launching and structuring your business. Learn the fundamentals of entrepreneurship and avoid common pitfalls as you build your foundation.
     </p>
@@ -127,13 +105,13 @@
       <li>Building a lean business model</li>
       <li>Understanding market research essentials</li>
     </ul>
-   <a href="#resource-library" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Fundraising →</a>
+   <a href="#resource-library" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Explore Basics →</a>
   </div>
 
   <!-- Leadership -->
-  <div class="card border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/leadership.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Leadership</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+    <img loading="lazy" src="images/leadership.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">👥 Leadership</h3>
     <p class="text-gray-600 mt-2">
       Develop the skills to lead teams, inspire growth, and create a strong organizational culture. Our leadership resources help founders evolve into confident, effective leaders.
     </p>
@@ -143,13 +121,13 @@
       <li>Building inclusive and resilient cultures</li>
       <li>Scaling leadership as your startup grows</li>
     </ul>
-    <a href="#resource-library" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Leadership →</a>
+    <a href="#resource-library" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Explore Leadership →</a>
 </div>
 
   <!-- Fundraising -->
-  <div class="card border rounded-xl shadow-lg p-6 bg-gray-50 reveal">
-    <img src="/images/funding.png" class="w-full h-40 object-cover rounded mb-4">
-    <h3 class="font-bold text-blue-700 text-xl">Fundraising</h3>
+  <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
+    <img loading="lazy" src="images/funding.png" class="w-full h-44 sm:h-48 object-cover rounded-lg mb-4">
+    <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💡 Fundraising</h3>
     <p class="text-gray-600 mt-2">
       Learn how to pitch effectively, secure investment, and manage investor relationships. Our fundraising resources prepare you to attract capital and scale sustainably.
     </p>
@@ -159,32 +137,32 @@
       <li>Negotiating fair terms</li>
       <li>Managing post‑investment relationships</li>
     </ul>
-    <a href="#resource-library" class="mt-4 inline-block text-blue-600 font-bold hover:underline">Explore Fundraising →</a>
+    <a href="#resource-library" class="mt-4 inline-flex items-center gap-1 text-blue-600 font-bold hover:gap-2 transition-all">Explore Basics →</a>
 </div>
 </section>
 
 <!-- COMING SOON -->
-<section id="resource-library" class="py-24 bg-gray-50 text-center px-6">
-  <h2 class="text-3xl font-bold">Resource Library Launching Soon</h2>
+<section id="resource-library" class="py-16 md:py-24 bg-gray-50 text-center px-6" data-aos="fade-up">
+  <h2 class="text-2xl md:text-3xl font-bold">Resource Library Launching Soon</h2>
   <p class="mt-6 text-gray-600 max-w-2xl mx-auto">
     We’re building a comprehensive library of startup guides, templates, and playbooks to support founders at every stage.
   </p>
-  <div class="mt-10 flex justify-center gap-6 flex-wrap text-sm text-gray-700">
-    <div class="bg-white px-6 py-3 rounded-full shadow">Pitch Deck Templates</div>
-    <div class="bg-white px-6 py-3 rounded-full shadow">Financial Models</div>
-    <div class="bg-white px-6 py-3 rounded-full shadow">Legal Guides</div>
-    <div class="bg-white px-6 py-3 rounded-full shadow">Go‑to‑Market Playbooks</div>
+  <div class="mt-8 md:mt-10 flex justify-center gap-3 md:gap-4 flex-wrap text-sm text-gray-700 px-4">
+    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Pitch Deck Templates</div>
+    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Financial Models</div>
+    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Legal Guides</div>
+    <div class="bg-white px-5 py-2.5 md:px-6 md:py-3 rounded-full shadow-sm hover:shadow-md transition">Go‑to‑Market Playbooks</div>
   </div>
 </section>
 
 
 <!-- FOOTER -->
 <footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
     <!-- Logo / About -->
     <div>
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
+      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
       <p class="text-sm leading-relaxed">
         Empowering African founders with funding, mentorship, and training to build sustainable startups.
       </p>
@@ -240,61 +218,42 @@
   </div>
 </footer>
 
-<!-- ANIMATIONS -->
-<style>
-.card{opacity:0;transform:translateY(40px);transition:.8s}
-.card.show{opacity:1;transform:translateY(0)}
-#heroImg{animation:float 18s infinite ease-in-out}
-@keyframes float{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-</style>
 
-<script>
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show")});
-});
-document.querySelectorAll(".card").forEach(el=>observer.observe(el));
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
   const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.getElementById("close-btn");
   const mobileMenu = document.getElementById("mobile-menu");
   const overlay = document.getElementById("overlay");
+  const header = document.querySelector('header');
   const bars = document.querySelectorAll(".bar");
-
   let open = false;
 
-  menuBtn.addEventListener("click", () => {
-    open = !open;
-
-    if (open) {
-      mobileMenu.classList.remove("translate-x-full");
-      overlay.classList.remove("opacity-0","pointer-events-none");
-      overlay.classList.add("opacity-100");
-      document.body.style.overflow = "hidden";
-
-      bars[0].style.transform = "rotate(45deg) translateY(6px)";
-      bars[1].style.opacity = "0";
-      bars[2].style.transform = "rotate(-45deg) translateY(-6px)";
-    } else {
-      closeMenu();
-    }
-  });
-
+  function openMenu() {
+    mobileMenu.classList.remove("translate-x-full");
+    overlay.classList.remove("opacity-0","pointer-events-none");
+    overlay.classList.add("opacity-100","pointer-events-auto");
+    document.body.style.overflow = "hidden";
+    bars[0].style.transform = "rotate(45deg) translateY(6px)";
+    bars[1].style.opacity = "0";
+    bars[2].style.transform = "rotate(-45deg) translateY(-6px)";
+    open = true;
+  }
   function closeMenu() {
     mobileMenu.classList.add("translate-x-full");
     overlay.classList.add("opacity-0","pointer-events-none");
+    overlay.classList.remove("opacity-100","pointer-events-auto");
     document.body.style.overflow = "auto";
-
-    bars[0].style.transform = "none";
-    bars[1].style.opacity = "1";
-    bars[2].style.transform = "none";
-
+    bars[0].style.transform = "none"; bars[1].style.opacity = "1"; bars[2].style.transform = "none";
     open = false;
   }
-
-  overlay.addEventListener("click", closeMenu);
-
+  menuBtn?.addEventListener("click", () => open ? closeMenu() : openMenu());
+  closeBtn?.addEventListener("click", closeMenu);
+  overlay?.addEventListener("click", closeMenu);
+  
+  document.querySelectorAll('nav a').forEach(link=>{ if(link.href===window.location.href){ link.classList.add('text-blue-700','font-bold'); } });
+  window.addEventListener('scroll', ()=>{ if(window.scrollY>20) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
+  if(typeof AOS!=='undefined'){ AOS.init({duration:800, once:true, offset:80}); }
 });
 </script>
 
