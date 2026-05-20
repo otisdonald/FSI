@@ -26,14 +26,8 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
 
-<!-- NAVBAR -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <!-- Logo -->
-<a href="index.html" class="block">
-  <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
-</a>
-
-  <!-- Desktop Menu -->
+<a href="index.html" class="block"><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
     <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
@@ -43,8 +37,6 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
     <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
     <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
   </nav>
-
-  <!-- Mobile Menu Button -->
   <button id="menu-btn" class="md:hidden flex flex-col gap-1">
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
     <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
@@ -52,15 +44,9 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   </button>
 </header>
 
-<!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-
-<!-- Mobile Menu -->
 <nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
-    <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
-  </div>
+  <div class="flex justify-between items-center"><h2 class="font-bold text-blue-700">Menu</h2><button id="close-btn" class="text-2xl">✕</button></div>
   <div class="flex flex-col gap-5 text-gray-800 font-medium">
     <a href="index.html" class="hover:text-blue-600">Home</a>
     <a href="programs.html" class="hover:text-blue-600">Programs</a>
@@ -73,161 +59,120 @@ header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,25
   <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
 </nav>
 
-
-
-<!-- HERO -->
 <section class="relative bg-blue-700 text-white py-20 md:py-28 text-center px-6 overflow-hidden" data-aos="fade">
-  <div class="absolute inset-0">
-    <div class="blob absolute w-72 h-72 bg-white/10 rounded-full bottom-0 left-10"></div>
-    <img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
-         class="w-full h-full object-cover opacity-20 md:opacity-30 hero-float" alt="Startup event">
-  </div>
+  <div class="absolute inset-0"><div class="blob absolute w-72 h-72 bg-white/10 rounded-full bottom-0 left-10"></div><img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30" class="w-full h-full object-cover opacity-20 md:opacity-30 hero-float" alt="Startup event"></div>
   <div class="relative z-10" data-aos="zoom-in">
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">Events & Workshops</h1>
-    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">
-      We’re creating spaces where founders can learn, connect, and grow. 
-      From intensive bootcamps to fundraising masterclasses and networking nights, 
-      our events are designed to equip you with practical skills and meaningful relationships.
-    </p>
+    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="150">Small, practical gatherings where you actually build — not just listen to panels.</p>
   </div>
 </section>
 
+<section class="py-16 px-6 max-w-4xl mx-auto text-center" data-aos="fade-up">
+  <p class="text-blue-600 font-semibold uppercase text-sm tracking-wide">Our philosophy</p>
+  <h2 class="text-2xl md:text-3xl font-bold mt-2">No conferences. Just workshops.</h2>
+  <p class="mt-4 text-gray-600">We're not hosting 500-person events with name tags. Every FSI event is under 50 people, hands-on, and ends with something shipped. First events launch with our 2026 cohort.</p>
+</section>
 
-<!-- UPCOMING EVENTS -->
 <section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
   <h2 class="text-2xl md:text-3xl font-bold text-center">Upcoming Events</h2>
-  <p class="text-center text-gray-500 mb-12 mt-3">
-    Event details and registration will be announced soon. Join the waitlist to be notified first.
-  </p>
-
+  <p class="text-center text-gray-500 mb-12 mt-3">Join the waitlist — we open registration 3 weeks before each event.</p>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-
-    <!-- Startup Bootcamp -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up" data-aos-delay="300" data-aos-delay="200" data-aos-delay="100">
-      <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🚀 Startup Bootcamp</h3>
-      <p class="text-sm text-gray-500 mt-1">July 2026 • Virtual</p>
-      <p class="mt-3 text-gray-600">
-        A hands‑on program to help you validate ideas, build MVPs, and launch with confidence. 
-        Learn directly from experienced founders and industry experts.
-      </p>
-      <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-        <li>Idea validation frameworks</li>
-        <li>Lean product development</li>
-        <li>Go‑to‑market strategies</li>
+    <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="100">
+      <div class="flex items-center justify-between">
+        <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🚀 Startup Bootcamp</h3>
+        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Virtual</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">July 15-17, 2026 • 3 days</p>
+      <p class="mt-3 text-gray-600 text-sm">Validate your idea in 72 hours. Customer interviews, landing page, first 10 signups. Limited to 30 founders.</p>
+      <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+        <li>Day 1: Problem validation</li>
+        <li>Day 2: Build MVP</li>
+        <li>Day 3: Get first users</li>
       </ul>
-      <button class="mt-4 w-full sm:w-auto bg-gray-900 text-white px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Get Notified</button>
+      <button onclick="alert('Waitlist opened!')" class="mt-4 w-full bg-gray-900 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition">Join Waitlist</button>
     </div>
 
-    <!-- Fundraising Masterclass -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
-      <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💰 Fundraising Masterclass</h3>
-      <p class="text-sm text-gray-500 mt-1">August 2026 • Virtual</p>
-      <p class="mt-3 text-gray-600">
-        Learn how to craft compelling pitches, approach investors, and secure funding. 
-        This masterclass demystifies the fundraising process for early‑stage startups.
-      </p>
-      <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-        <li>Building investor‑ready pitch decks</li>
-        <li>Understanding term sheets</li>
-        <li>Managing investor relationships</li>
+    <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="200">
+      <div class="flex items-center justify-between">
+        <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">💰 Fundraising Masterclass</h3>
+        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Virtual</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">August 22, 2026 • 4 hours</p>
+      <p class="mt-3 text-gray-600 text-sm">Build a deck that African angels actually read. Live teardown of 5 real decks.</p>
+      <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+        <li>What to include (and cut)</li>
+        <li>Financial model basics</li>
+        <li>Follow-up sequences</li>
       </ul>
-      <button class="mt-4 w-full sm:w-auto bg-gray-900 text-white px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Get Notified</button>
+      <button onclick="alert('Waitlist opened!')" class="mt-4 w-full bg-gray-900 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition">Join Waitlist</button>
     </div>
 
-    <!-- Founder Networking Night -->
-    <div class="border rounded-xl shadow-lg p-6 bg-gray-50 card-lift card-glow" data-aos="fade-up">
-      <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🤝 Founder Networking Night</h3>
-      <p class="text-sm text-gray-500 mt-1">September 2026 • Lagos</p>
-      <p class="mt-3 text-gray-600">
-        An in‑person gathering to connect founders, mentors, and investors. 
-        Build relationships, exchange ideas, and discover collaboration opportunities.
-      </p>
-      <ul class="list-disc pl-6 mt-3 text-gray-600 space-y-1">
-        <li>Meet fellow founders across industries</li>
-        <li>Connect with mentors and advisors</li>
-        <li>Discover potential co‑founders or partners</li>
+    <div class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow" data-aos="fade-up" data-aos-delay="300">
+      <div class="flex items-center justify-between">
+        <h3 class="font-bold text-blue-700 text-xl flex items-center gap-2">🤝 Founder Night Lagos</h3>
+        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">In-person</span>
+      </div>
+      <p class="text-sm text-gray-500 mt-1">September 12, 2026 • 6-9pm</p>
+      <p class="mt-3 text-gray-600 text-sm">No pitches. No panels. Just 40 founders eating suya and solving problems together.</p>
+      <ul class="list-disc pl-5 mt-3 text-gray-600 text-sm space-y-1">
+        <li>Curated intros</li>
+        <li>Co-founder matching</li>
+        <li>Venue: Yaba</li>
       </ul>
-      <button class="mt-4 w-full sm:w-auto bg-gray-900 text-white px-5 py-2.5 rounded-lg font-medium cursor-not-allowed">Get Notified</button>
+      <button onclick="alert('Waitlist opened!')" class="mt-4 w-full bg-gray-900 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition">Join Waitlist</button>
     </div>
-
   </div>
 </section>
 
-
-<!-- CTA --> 
-<section class="bg-blue-700 text-white text-center py-16 md:py-20 px-6" data-aos="zoom-in">
-  <h2 class="text-2xl md:text-3xl font-bold">Want to host an event with FSI?</h2>
-  <p class="mt-4">Partner with us to support founders in your ecosystem.</p>
-
-  <a href="mailto:contact@founderssupport.org?subject=Partnership%20Request%20-%20FSI"
-     class="mt-6 inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-bold btn-ripple transition transform hover:scale-105">
-     Contact Us
-  </a>
-</section>
-
-<!-- FOOTER -->
-<!-- FOOTER -->
-<footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
-    <div>
-      <img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="hover:text-gray-900">Home</a></li>
-        <li><a href="programs.html" class="hover:text-gray-900">Programs</a></li>
-        <li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li>
-        <li><a href="community.html" class="hover:text-gray-900">Community</a></li>
-        <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
-      </ul>
-    </div>
-
-    <!-- Legal -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li>
-        <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
-      </ul>
-    </div>
-
-    <!-- Connect -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
-      <p class="text-sm flex items-center">
-        <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-        <a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a>
-      </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
+<section class="py-16 bg-gray-50 px-6" data-aos="fade-up">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold text-center mb-10">What makes FSI events different</h2>
+    <div class="grid md:grid-cols-3 gap-8 text-center">
+      <div>
+        <div class="text-3xl mb-2">👥</div>
+        <h4 class="font-semibold">Small</h4>
+        <p class="text-sm text-gray-600 mt-1">Max 50 people. You actually meet everyone.</p>
+      </div>
+      <div>
+        <div class="text-3xl mb-2">🛠️</div>
+        <h4 class="font-semibold">Hands-on</h4>
+        <p class="text-sm text-gray-600 mt-1">Bring your laptop. Leave with something built.</p>
+      </div>
+      <div>
+        <div class="text-3xl mb-2">🌍</div>
+        <h4 class="font-semibold">Africa-first</h4>
+        <p class="text-sm text-gray-600 mt-1">Content for our context, not copied from YC.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
+<section class="py-16 px-6 max-w-4xl mx-auto" data-aos="fade-up">
+  <div class="bg-amber-50 border border-amber-200 rounded-2xl p-8 text-center">
+    <h3 class="text-xl font-bold">Get notified first</h3>
+    <p class="text-gray-700 mt-2 text-sm">Events fill up fast (we cap at 50). Join the list and get 48-hour early access.</p>
+    <form onsubmit="event.preventDefault(); alert('Added!')" class="mt-5 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input type="email" required placeholder="your@email.com" class="flex-1 px-4 py-3 rounded-lg border border-gray-300">
+      <button class="bg-amber-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-600">Notify Me</button>
+    </form>
   </div>
-</footer>
+</section>
 
+<section class="bg-blue-700 text-white text-center py-16 md:py-20 px-6" data-aos="zoom-in">
+  <h2 class="text-2xl md:text-3xl font-bold">Want to host with us?</h2>
+  <p class="mt-3 text-blue-100 max-w-xl mx-auto">We partner with hubs, universities, and companies to run events in Accra, Nairobi, Kigali, and Lagos.</p>
+  <a href="mailto:contact@founderssupport.org?subject=Event Partnership" class="mt-6 inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition">Partner With Us</a>
+</section>
+
+<footer class="bg-gray-100 text-gray-700">
+  <div class="max-w-6xl mx-auto px-6 py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <div><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 mb-4"><p class="text-sm leading-relaxed">Empowering African founders with funding, mentorship, and training to build sustainable startups.</p></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3><ul class="space-y-2 text-sm"><li><a href="index.html" class="hover:text-gray-900">Home</a></li><li><a href="programs.html" class="hover:text-gray-900">Programs</a></li><li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li><li><a href="community.html" class="hover:text-gray-900">Community</a></li><li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3><ul class="space-y-2 text-sm"><li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li><li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li><li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li></ul></div>
+    <div><h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3><p class="text-sm flex items-center"><svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg><a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a></p></div>
+  </div>
+  <div class="border-t border-gray-200 pt-6 text-center text-sm text-gray-500 pb-6">© 2026 Founders Support Initiative. All rights reserved.</div>
+</footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -236,11 +181,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const mobileMenu=document.getElementById('mobile-menu');
   const overlay=document.getElementById('overlay');
   const header=document.querySelector('header');
-  
   const open=()=>{ mobileMenu.classList.remove('translate-x-full'); overlay.classList.remove('opacity-0','pointer-events-none'); overlay.classList.add('opacity-100','pointer-events-auto'); };
   const close=()=>{ mobileMenu.classList.add('translate-x-full'); overlay.classList.add('opacity-0','pointer-events-none'); overlay.classList.remove('opacity-100','pointer-events-auto'); };
   menuBtn?.addEventListener('click', open); closeBtn?.addEventListener('click', close); overlay?.addEventListener('click', close);
-  
   document.querySelectorAll('nav a').forEach(a=>{ if(a.href===window.location.href) a.classList.add('text-blue-700','font-bold'); });
   window.addEventListener('scroll', ()=> window.scrollY>20 ? header.classList.add('scrolled') : header.classList.remove('scrolled'));
   if(typeof AOS!=='undefined') AOS.init({duration:800, once:true, offset:80});
