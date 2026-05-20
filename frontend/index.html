@@ -60,7 +60,10 @@
   background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);
   opacity:0;
   transition:.5s;
+  pointer-events:none; /* <-- lets clicks pass through */
+  z-index:1; -->
 }
+.card-glow > * { position:relative; z-index:2; }
 .card-glow:hover::before{opacity:1}
 
 /* Lift on hover */
