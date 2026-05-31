@@ -71,6 +71,7 @@ const JobGrant = mongoose.model("JobGrant", new mongoose.Schema({
   description: String,
   deadline: String,
   link: String,
+  isActive: { type: Boolean, default: true }, // ← ADDED THIS
   createdAt: { type: Date, default: Date.now }
 }));
 
@@ -194,22 +195,43 @@ app.get("/api/axtrivex/check-status/:email", async (req,res)=>{
   res.json({ status: sub.status });
 });
 
-// ================= JOBS & GRANTS LISTINGS =================
+// ================= PUBLIC JOBS & GRANTS - FOR Axtrivex HTML =================
+app.get("/api/axtrivex/jobs", async (req,res)=>{
+  try {
+    const jobs = await JobGrant.find({ isActive: true }).sort({ createdAt: -1 });
+    res.json(jobs);
+  } catch (err) {
+    console.error('Error fetching jobs:', err);
+    res.status(500).json({ error: 'Failed to fetch jobs' });
+  }
+});
+
+// ================= JOBS & GRANTS LISTINGS - PROTECTED =================
 app.get("/api/axtrivex/jobs-grants/:email", async (req,res)=>{
   const sub = await Subscription.findOne({ email: req.params.email });
   if(!sub || sub.status !== "active"){
     return res.status(403).json({ success:false, message:"Subscription inactive" });
   }
-  const listings = await JobGrant.find().sort({ createdAt: -1 });
+  const listings = await JobGrant.find({ isActive: true }).sort({ createdAt: -1 });
   res.json({ success:true, listings });
 });
 
 // ================= ADD JOB/GRANT (Admin) =================
 app.post("/api/axtrivex/add-job-grant", async (req,res)=>{
   try {
-    const { title, type, description, deadline, link } = req.body;
-    const newListing = await JobGrant.create({ title, type, description, deadline, link });
+    const { title, type, description, deadline, link, isActive = true } = req.body;
+    const newListing = await JobGrant.create({ title, type, description, deadline, link, isActive });
     res.json({ success:true, listing:newListing });
+  } catch(err){
+    res.status(500).json({ success:false, message:err.message });
+  }
+});
+
+// ================= DELETE JOB/GRANT (Admin) =================
+app.delete("/api/axtrivex/delete-job-grant/:id", async (req,res)=>{
+  try {
+    await JobGrant.findByIdAndDelete(req.params.id);
+    res.json({ success:true, message:"Deleted successfully" });
   } catch(err){
     res.status(500).json({ success:false, message:err.message });
   }
