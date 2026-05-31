@@ -3,47 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axtrivex Jobs & Grants Dashboard</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
-    header { background:#0a3d62; color:#fff; text-align:center; padding:40px 20px; }
-    header h1 { margin:0; font-size:2.2em; }
-    .container { max-width:900px; margin:auto; padding:20px; }
-    .card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); padding:30px; margin-bottom:20px; }
-    .card h2 { margin-top:0; }
-    .card ul { list-style:none; padding:0; }
-    .card ul li { margin:10px 0; }
-    .subscribe-btn { background:#27ae60; color:#fff; border:none; padding:15px 25px; font-size:1em; border-radius:5px; cursor:pointer; }
-    .subscribe-btn:hover { background:#219150; }
-    footer { text-align:center; padding:20px; font-size:0.9em; color:#555; }
-  </style>
+  <title>Axtrivex Jobs & Grants</title>
 </head>
 <body>
 
-<header>
-  <h1>Axtrivex Jobs & Grants</h1>
-  <p>Exclusive opportunities for active subscribers</p>
-</header>
+<h1>Axtrivex Jobs & Grants</h1>
+<p>Exclusive opportunities for active subscribers</p>
 
-<div class="container">
-  <div class="card" id="jobs-grants">
-    <!-- Jobs & Grants listings or subscription prompt will appear here -->
-  </div>
-</div>
+<div id="jobs-grants"></div>
 
-<footer>
-  © 2026 Axtrivex. All rights reserved.
-</footer>
+<button onclick="subscribeUser()">Subscribe Now – ₦1,000</button>
 
 <!-- Flutterwave Inline Script -->
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 <script>
 let FLW_PUBLIC_KEY = "";
 
-// Fetch Flutterwave public key from server
+// Fetch public key from backend, fallback to hardcoded
 fetch("https://fsi.onrender.com/api/axtrivex/config")
   .then(res => res.json())
-  .then(data => FLW_PUBLIC_KEY = data.flutterwavePublicKey);
+  .then(data => {
+    FLW_PUBLIC_KEY = data.flutterwavePublicKey || "FLWPUBK-xxxxxxxxxxxxxxxxxxxxxx-X"; // replace with your real key
+  });
 
 // 🚀 Subscribe + Pay
 function subscribeUser(){
@@ -63,78 +44,22 @@ function subscribeUser(){
       description:"Jobs & Grants Subscription"
     },
     callback: async function(response){
-      try {
-        const verifyRes = await fetch("https://fsi.onrender.com/api/axtrivex/verify-payment", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify({ transaction_id: response.transaction_id, email })
-        });
-        const verifyData = await verifyRes.json();
-        if(verifyData.success){
-          localStorage.setItem("axtrivex_user", email);
-          alert("Subscription activated! 🎉");
-          checkSubscription();
-        } else {
-          alert("Payment verification failed.");
-        }
-      } catch(err){
-        console.log(err);
-        alert("Server error verifying payment.");
+      const verifyRes = await fetch("https://fsi.onrender.com/api/axtrivex/verify-payment", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ transaction_id: response.transaction_id, email })
+      });
+      const verifyData = await verifyRes.json();
+      if(verifyData.success){
+        localStorage.setItem("axtrivex_user", email);
+        alert("Subscription activated! 🎉");
+      } else {
+        alert("Payment verification failed.");
       }
     },
     onclose:function(){ alert("Payment window closed."); }
   });
 }
-
-// 🚀 Check subscription + load listings
-async function checkSubscription(){
-  const email = localStorage.getItem("axtrivex_user");
-  if(!email){
-    document.getElementById("jobs-grants").innerHTML = `
-      <p>No user found. Please subscribe first.</p>
-      <button class="subscribe-btn" onclick="subscribeUser()">Subscribe Now – ₦1,000</button>
-    `;
-    return;
-  }
-
-  try {
-    const res = await fetch(`https://fsi.onrender.com/api/axtrivex/check-status/${email}`);
-    const data = await res.json();
-
-    if(data.status === "active"){
-      const jobsRes = await fetch(`https://fsi.onrender.com/api/axtrivex/jobs-grants/${email}`);
-      const jobsData = await jobsRes.json();
-
-      if(jobsData.success){
-        let html = "<h2>Exclusive Jobs & Grants</h2><ul>";
-        jobsData.listings.forEach(item=>{
-          html += `
-            <li>
-              <strong>${item.type.toUpperCase()}:</strong> ${item.title} 
-              — Deadline: ${item.deadline} 
-              <br><a href="${item.link}" target="_blank">Apply / Learn More</a>
-            </li>
-          `;
-        });
-        html += "</ul>";
-        document.getElementById("jobs-grants").innerHTML = html;
-      } else {
-        document.getElementById("jobs-grants").innerHTML = "<p>Error loading listings.</p>";
-      }
-    } else {
-      document.getElementById("jobs-grants").innerHTML = `
-        <p>Your subscription is inactive. Please renew to access jobs and grants.</p>
-        <button class="subscribe-btn" onclick="subscribeUser()">Renew Subscription</button>
-      `;
-    }
-  } catch(err){
-    console.log(err);
-    document.getElementById("jobs-grants").innerHTML = "<p>Error checking subscription.</p>";
-  }
-}
-
-// Run on page load
-checkSubscription();
 </script>
 
 </body>
