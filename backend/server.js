@@ -58,7 +58,6 @@ const Waitlist = mongoose.model("Waitlist", new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 }));
 
-// NEW: Axtrivex Subscription Model
 const Subscription = mongoose.model("Subscription", new mongoose.Schema({
   email: { type: String, required: true, lowercase: true },
   status: { type: String, default: "inactive" }, // active/inactive
@@ -66,7 +65,6 @@ const Subscription = mongoose.model("Subscription", new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 }));
 
-// NEW: Jobs & Grants Model
 const JobGrant = mongoose.model("JobGrant", new mongoose.Schema({
   title: String,
   type: { type: String, enum: ["job", "grant"], required: true },
@@ -106,7 +104,6 @@ app.get("/api/config",(req,res)=>{
   res.json({ flutterwavePublicKey: process.env.FLW_PUBLIC_KEY });
 });
 
-// NEW: Axtrivex config
 app.get("/api/axtrivex/config",(req,res)=>{
   res.json({ flutterwavePublicKey: process.env.FLW_PUBLIC_KEY });
 });
@@ -131,21 +128,13 @@ app.post("/api/waitlist", async (req, res) => {
     if (!email || !email.includes('@')) {
       return res.status(400).json({ success: false, message: "Invalid email" });
     }
-
     const cleanEmail = email.toLowerCase().trim();
-    
     await Waitlist.findOneAndUpdate(
       { email: cleanEmail },
       { email: cleanEmail, source: "landing-page-2026" },
       { upsert: true, new: true }
     );
-
-    await sendEmail(
-      cleanEmail,
-      "You're on the FSI Waitlist 🎉",
-      `<p>Thanks for joining the waitlist for the 2026 cohort.</p>`
-    );
-
+    await sendEmail(cleanEmail,"You're on the FSI Waitlist 🎉","<p>Thanks for joining the waitlist.</p>");
     res.json({ success: true });
   } catch (err) {
     console.log("Waitlist error:", err.message);
@@ -161,18 +150,14 @@ app.post("/api/verify-payment", async (req,res)=>{
       `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
       { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
     );
-
     const payment = response.data.data;
     if(payment.status !== "successful") return res.json({ success: false });
-
     await Application.findOneAndUpdate(
       { email },
       { paymentStatus: "paid", tx_ref: payment.tx_ref },
       { upsert: true }
     );
-
     await sendEmail(email, "Application Received 🎉", `<p>Your FSI application has been submitted successfully.</p>`);
-
     res.json({ success: true });
   }catch(err){
     console.log(err.message);
@@ -188,16 +173,13 @@ app.post("/api/axtrivex/verify-payment", async (req,res)=>{
       `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
       { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
     );
-
     const payment = response.data.data;
     if(payment.status !== "successful") return res.json({ success: false });
-
     await Subscription.findOneAndUpdate(
       { email },
       { status: "active", tx_ref: payment.tx_ref },
       { upsert: true }
     );
-
     res.json({ success: true });
   }catch(err){
     console.log(err.message);
@@ -237,7 +219,6 @@ app.post("/api/axtrivex/add-job-grant", async (req,res)=>{
 app.post("/api/flutterwave-webhook", (req, res) => {
   console.log("🔔 Webhook received");
   res.sendStatus(200);
-
   setImmediate(async () => {
     try {
       const signature = req.headers["verif-hash"];
@@ -245,13 +226,27 @@ app.post("/api/flutterwave-webhook", (req, res) => {
         console.log("❌ Invalid webhook signature");
         return;
       }
-
       const payment = req.body.data;
       if (!payment || payment.status !== "successful") return;
-
       const email = payment.customer?.email;
       const tx_ref = payment.tx_ref;
+      await Application.findOneAndUpdate(
+        { email },
+        { paymentStatus: "paid", tx_ref },
+        { upsert: true }
+      );
+      await Subscription.findOneAndUpdate(
+        { email },
+        { status: "active", tx_ref },
+        { upsert: true }
+      );
+      console.log("🎉 Payment saved for FSI/Axtrivex");
+    } catch (err) {
+      console.log("Webhook error:", err.message);
+    }
+  });
+});
 
-      // Update// ================= START SERVER =================
+// ================= START SERVER =================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> console.log(`🚀 Server running on port ${PORT}`));
