@@ -2,178 +2,140 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FSI | Jobs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Axtrivex Jobs & Grants Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
+    header { background:#0a3d62; color:#fff; text-align:center; padding:40px 20px; }
+    header h1 { margin:0; font-size:2.2em; }
+    .container { max-width:900px; margin:auto; padding:20px; }
+    .card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); padding:30px; margin-bottom:20px; }
+    .card h2 { margin-top:0; }
+    .card ul { list-style:none; padding:0; }
+    .card ul li { margin:10px 0; }
+    .subscribe-btn { background:#27ae60; color:#fff; border:none; padding:15px 25px; font-size:1em; border-radius:5px; cursor:pointer; }
+    .subscribe-btn:hover { background:#219150; }
+    footer { text-align:center; padding:20px; font-size:0.9em; color:#555; }
+  </style>
 </head>
-<body class="bg-white text-gray-900">
-<!-- NAVBAR -->
-<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
- <!-- Logo -->
-<a href="index.html" class="block">
-  <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
-</a>
-  <!-- Desktop Menu -->
-  <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
-    <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
-    <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
-    <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
-  </nav>
+<body>
 
-  <!-- Mobile Menu Button -->
-  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-  </button>
+<header>
+  <h1>Axtrivex Jobs & Grants</h1>
+  <p>Exclusive opportunities for active subscribers</p>
 </header>
 
-<!-- Overlay -->
-<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-
-<!-- Mobile Menu -->
-<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
-    <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
+<div class="container">
+  <div class="card" id="jobs-grants">
+    <!-- Jobs & Grants listings or subscription prompt will appear here -->
   </div>
-  <div class="flex flex-col gap-5 text-gray-800 font-medium">
-    <a href="index.html" class="hover:text-blue-600">Home</a>
-    <a href="programs.html" class="hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="hover:text-blue-600">Community</a>
-    <a href="events.html" class="hover:text-blue-600">Events</a>
-    <a href="grants.html" class="hover:text-blue-600">Grants</a>
-  </div>
-  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
-</nav>
+</div>
 
-<!-- SCRIPT -->
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
-
-  function openMenu() {
-    mobileMenu.classList.remove('translate-x-full');
-    overlay.classList.remove('opacity-0', 'pointer-events-none');
-    overlay.classList.add('opacity-100', 'pointer-events-auto');
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.add('translate-x-full');
-    overlay.classList.add('opacity-0', 'pointer-events-none');
-    overlay.classList.remove('opacity-100', 'pointer-events-auto');
-  }
-
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  // Highlight active link automatically
-  const links = document.querySelectorAll('nav a');
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add('font-bold', 'underline', 'text-gray-900');
-    }
-  });
-</script>
-
-<section class="relative bg-blue-700 text-white py-32 text-center px-6">
-  <div class="absolute inset-0">
-    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-full object-cover opacity-30" alt="Team working">
-  </div>
-  <div class="relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold">Jobs</h1>
-    <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-200">
-      Find roles in startups and partner organizations across Africa.
-    </p>
-  </div>
-</section>
-
-<section class="py-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
-    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" class="w-full h-48 object-cover rounded mb-4" alt="Office">
-    <h3 class="font-bold text-blue-700">Product Manager</h3>
-    <p class="text-gray-600 mt-2">Fintech startup in Lagos. Full-time. Salary: ₦350,000/month.</p>
-    <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
-  </div>
-  <div class="border rounded-xl shadow-lg p-6 bg-gray-50">
-    <img src="https://images.unsplash.com/photo-1581090700227-4c4f7a3d3f3b" class="w-full h-48 object-cover rounded mb-4" alt="Developer">
-    <h3 class="font-bold text-blue-700">Software Engineer</h3>
-    <p class="text-gray-600 mt-2">Healthtech company in Nairobi. Remote option. Salary: ₦400,000/month.</p>
-    <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">Apply</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<!-- FOOTER -->
-<footer class="bg-gray-100 text-gray-700 mt-16">
-  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
-
-    <!-- Logo / About -->
-    <div>
-      <img src="images/logo.png" alt="FSI Logo" class="h-10 mb-4">
-      <p class="text-sm leading-relaxed">
-        Empowering African founders with funding, mentorship, and training to build sustainable startups.
-      </p>
-    </div>
-
-    <!-- Quick Links -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="hover:text-gray-900">Home</a></li>
-        <li><a href="programs.html" class="hover:text-gray-900">Programs</a></li>
-        <li><a href="opportunities.html" class="hover:text-gray-900">Opportunities</a></li>
-        <li><a href="community.html" class="hover:text-gray-900">Community</a></li>
-        <li><a href="faq.html" class="hover:text-gray-900">FAQ</a></li>
-      </ul>
-    </div>
-
-    <!-- Legal -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="privacy.html" class="hover:text-gray-900">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gray-900">Terms of Use</a></li>
-        <li><a href="legal.html" class="hover:text-gray-900">Legal Notice</a></li>
-      </ul>
-    </div>
-
-    <!-- Connect -->
-    <div>
-      <h3 class="font-semibold text-lg text-gray-900 mb-3">Connect With Us</h3>
-      <!-- Email -->
-      <p class="text-sm flex items-center">
-        <svg class="w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-        <a href="mailto:contact@founderssupport.org" class="hover:text-gray-900">contact@founderssupport.org</a>
-      </p>
-      <!-- Social Links -->
-      <div class="flex space-x-4 mt-4">
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Facebook -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10..."/></svg>
-        </a>
-        <a href="#" class="text-gray-500 hover:text-gray-900">
-          <!-- Twitter -->
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14..."/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Bar -->
-  <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-    © 2026 Founders Support Initiative. All rights reserved.
-  </div>
+<footer>
+  © 2026 Axtrivex. All rights reserved.
 </footer>
+
+<!-- Flutterwave Inline Script -->
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+let FLW_PUBLIC_KEY = "";
+
+// Fetch Flutterwave public key from server
+fetch("https://fsi.onrender.com/api/axtrivex/config")
+  .then(res => res.json())
+  .then(data => FLW_PUBLIC_KEY = data.flutterwavePublicKey);
+
+// 🚀 Subscribe + Pay
+function subscribeUser(){
+  const email = prompt("Enter your email:");
+  const name = prompt("Enter your name:");
+  if(!email || !name){ alert("Email and name required"); return; }
+
+  FlutterwaveCheckout({
+    public_key: FLW_PUBLIC_KEY,
+    tx_ref: "AXTRIVEX-" + Date.now(),
+    amount: 1000,
+    currency: "NGN",
+    payment_options: "card,banktransfer,ussd,account",
+    customer:{ email, name },
+    customizations:{
+      title:"Axtrivex Technologies",
+      description:"Jobs & Grants Subscription"
+    },
+    callback: async function(response){
+      try {
+        const verifyRes = await fetch("https://fsi.onrender.com/api/axtrivex/verify-payment", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({ transaction_id: response.transaction_id, email })
+        });
+        const verifyData = await verifyRes.json();
+        if(verifyData.success){
+          localStorage.setItem("axtrivex_user", email);
+          alert("Subscription activated! 🎉");
+          checkSubscription();
+        } else {
+          alert("Payment verification failed.");
+        }
+      } catch(err){
+        console.log(err);
+        alert("Server error verifying payment.");
+      }
+    },
+    onclose:function(){ alert("Payment window closed."); }
+  });
+}
+
+// 🚀 Check subscription + load listings
+async function checkSubscription(){
+  const email = localStorage.getItem("axtrivex_user");
+  if(!email){
+    document.getElementById("jobs-grants").innerHTML = `
+      <p>No user found. Please subscribe first.</p>
+      <button class="subscribe-btn" onclick="subscribeUser()">Subscribe Now – ₦1,000</button>
+    `;
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://fsi.onrender.com/api/axtrivex/check-status/${email}`);
+    const data = await res.json();
+
+    if(data.status === "active"){
+      const jobsRes = await fetch(`https://fsi.onrender.com/api/axtrivex/jobs-grants/${email}`);
+      const jobsData = await jobsRes.json();
+
+      if(jobsData.success){
+        let html = "<h2>Exclusive Jobs & Grants</h2><ul>";
+        jobsData.listings.forEach(item=>{
+          html += `
+            <li>
+              <strong>${item.type.toUpperCase()}:</strong> ${item.title} 
+              — Deadline: ${item.deadline} 
+              <br><a href="${item.link}" target="_blank">Apply / Learn More</a>
+            </li>
+          `;
+        });
+        html += "</ul>";
+        document.getElementById("jobs-grants").innerHTML = html;
+      } else {
+        document.getElementById("jobs-grants").innerHTML = "<p>Error loading listings.</p>";
+      }
+    } else {
+      document.getElementById("jobs-grants").innerHTML = `
+        <p>Your subscription is inactive. Please renew to access jobs and grants.</p>
+        <button class="subscribe-btn" onclick="subscribeUser()">Renew Subscription</button>
+      `;
+    }
+  } catch(err){
+    console.log(err);
+    document.getElementById("jobs-grants").innerHTML = "<p>Error checking subscription.</p>";
+  }
+}
+
+// Run on page load
+checkSubscription();
+</script>
 
 </body>
 </html>
