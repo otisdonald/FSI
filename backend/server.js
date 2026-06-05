@@ -60,10 +60,10 @@ app.post("/api/initiate-payment", async (req,res)=>{
     const response = await axios.post(
       "https://api.transactpay.com/v1/payments/initiate",
       {
-        amount: 1000,
+        amount: "1000", // sometimes must be string
         currency: "NGN",
         customer: { email, name, phone_number: phone },
-        callback_url: "https://fsi.onrender.com/pending.html",
+        redirect_url: "https://fsi.onrender.com/pending.html", // some APIs use redirect_url not callback_url
         tx_ref: "FSI-" + Date.now()
       },
       {
@@ -76,8 +76,9 @@ app.post("/api/initiate-payment", async (req,res)=>{
     console.log("✅ Initiate response:", response.data);
     res.json({ checkout_url: response.data.checkout_url });
   }catch(err){
-    console.log("❌ Initiate error:", err.response?.data || err.message);
-    res.status(500).json({ success: false });
+    console.log("❌ Initiate error status:", err.response?.status);
+    console.log("❌ Initiate error body:", err.response?.data);
+    res.status(500).json({ success: false, error: err.response?.data || err.message });
   }
 });
 
