@@ -2,60 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pending – Founders Support Initiative</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gray-50 flex items-center justify-center h-screen">
-
-  <div class="text-center">
-    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600 mx-auto mb-6"></div>
-    <h1 class="text-2xl font-bold text-blue-700 mb-4">Payment Pending</h1>
-    <p class="text-gray-600">We’re waiting for confirmation of your payment. This may take a few seconds…</p>
-  </div>
-
+  <title>FSI Application Pending</title>
   <script>
-    // ✅ Get applicant data from localStorage
-    const appData = JSON.parse(localStorage.getItem("fsi_application"));
-    if (!appData || !appData.email) {
-      window.location.href = "failure.html";
-    }
+    async function verifyPayment() {
+      const appData = JSON.parse(localStorage.getItem("fsi_application"));
+      if (!appData) {
+        document.getElementById("status").innerText = "No application found.";
+        return;
+      }
 
-    let attempts = 0;
-    const interval = setInterval(async () => {
-      attempts++;
       try {
-        // ✅ Call backend verify route directly with transaction_id
+        // Get transaction_id from URL (TransactPay redirects with it)
         const urlParams = new URLSearchParams(window.location.search);
         const transaction_id = urlParams.get("transaction_id");
 
         if (!transaction_id) {
-          clearInterval(interval);
-          window.location.href = "failure.html";
+          document.getElementById("status").innerText = "Missing transaction ID.";
           return;
         }
 
+        // Call backend to verify payment
         const res = await fetch("https://fsi.onrender.com/api/verify-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ transaction_id, email: appData.email })
+          body: JSON.stringify({
+            transaction_id,
+            email: appData.email
+          })
         });
 
         const data = await res.json();
-
         if (data.success) {
-          clearInterval(interval);
-          window.location.href = "success.html";
-        } else if (attempts > 20) {
-          clearInterval(interval);
-          window.location.href = "failure.html";
+          document.getElementById("status").innerText =
+            "🎉 Payment successful! Your application has been submitted.";
+        } else {
+          document.getElementById("status").innerText =
+            "❌ Payment verification failed. Please try again.";
         }
       } catch (err) {
-        console.error("Error verifying payment:", err);
+        document.getElementById("status").innerText =
+          "Server error during verification.";
+        console.error(err);
       }
-    }, 3000);
-  </script>
+    }
 
+    window.onload = verifyPayment;
+  </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="bg-white shadow-md rounded p-6 text-center">
+    <h1 class="text-xl font-bold mb-4">Application Pending</h1>
+    <p id="status" class="text-gray-700">Verifying your payment...</p>
+  </div>
 </body>
 </html>
