@@ -54,30 +54,42 @@ app.post("/api/save-application", async (req,res)=>{
 });
 
 // ================= INITIATE PAYMENT =================
-app.post("/api/initiate-payment", async (req,res)=>{
+app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
-  try{
+
+  try {
     const response = await axios.post(
-      "https://api.transactpay.com/v1/payments/initiate",
+      "https://payment-api-service.transactpay.ai/payment/order/create",
       {
-        amount: "1000", // sometimes must be string
-        currency: "NGN",
-        customer: { email, name, phone_number: phone },
-        redirect_url: "https://fsi.onrender.com/pending.html", // some APIs use redirect_url not callback_url
-        tx_ref: "FSI-" + Date.now()
+        customer: {
+          firstname: name.split(" ")[0] || name,
+          lastname: name.split(" ")[1] || "",
+          mobile: phone,
+          country: "NG",
+          email
+        },
+        order: {
+          amount: 1000,
+          reference: "FSI-" + Date.now(),
+          description: "FSI Application Fee",
+          currency: "NGN"
+        },
+        payment: {
+          RedirectUrl: "https://fsi.onrender.com/pending.html"
+        }
       },
       {
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.TPAY_SECRET_KEY}`
+          "api-key": process.env.TPAY_PUBLIC_KEY, // ✅ use public key here
+          "Content-Type": "application/json"
         }
       }
     );
+
     console.log("✅ Initiate response:", response.data);
-    res.json({ checkout_url: response.data.checkout_url });
-  }catch(err){
-    console.log("❌ Initiate error status:", err.response?.status);
-    console.log("❌ Initiate error body:", err.response?.data);
+    res.json({ checkout_url: response.data?.paymentLink || response.data?.checkout_url });
+  } catch (err) {
+    console.log("❌ Initiate error:", err.response?.data || err.message);
     res.status(500).json({ success: false, error: err.response?.data || err.message });
   }
 });
