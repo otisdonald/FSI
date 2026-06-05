@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const nodemailer = require("nodemailer");
 const axios = require("axios");
 const crypto = require("crypto");
 const path = require("path");
@@ -13,7 +12,7 @@ const app = express();
 
 // ================= MIDDLEWARE =================
 app.use(cors({ origin: "*", credentials: true }));
-app.use(express.json({ verify: (req,res,buf)=>{ req.rawBody = buf.toString(); } }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 
@@ -57,7 +56,7 @@ function encryptPayload(payload, secretKey) {
   encrypted += cipher.final("base64");
   return {
     iv: iv.toString("base64"),
-    data: encrypted
+    payload: encrypted
   };
 }
 
@@ -90,7 +89,7 @@ app.post("/api/initiate-payment", async (req,res)=>{
 
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/order/create",
-      { payload: encryptedPayload },
+      encryptedPayload, // send { iv, payload }
       {
         headers: {
           "api-key": process.env.TPAY_PUBLIC_KEY,
