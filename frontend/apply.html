@@ -342,14 +342,6 @@
 </footer>
 
 <script>
-let TPAY_PUBLIC_KEY = "";
-
-// ✅ Fetch TransactPay public key from server
-fetch("https://fsi.onrender.com/api/config")
-  .then(res => res.json())
-  .then(data => TPAY_PUBLIC_KEY = data.transactpayPublicKey);
-
-// 🚀 SUBMIT + PAY
 async function submitForm() {
   const f = document.getElementById("form");
 
@@ -392,23 +384,14 @@ async function submitForm() {
       return;
     }
 
-    // STEP 2 — Initiate TransactPay payment
-    const initRes = await fetch("https://api.transactpay.com/v1/payments/initiate", {
+    // STEP 2 — Ask backend to initiate TransactPay payment
+    const initRes = await fetch("https://fsi.onrender.com/api/initiate-payment", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${TPAY_PUBLIC_KEY}`
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        amount: 1000,
-        currency: "NGN",
-        customer: {
-          email: data.email,
-          name: data.name,
-          phone_number: data.phone
-        },
-        callback_url: "https://fsi.onrender.com/pending.html",
-        tx_ref: "FSI-" + Date.now()
+        email: data.email,
+        name: data.name,
+        phone: data.phone
       })
     });
 
@@ -424,9 +407,10 @@ async function submitForm() {
 
   } catch (err) {
     alert("Server error. Please try again.");
-    console.log(err);
+    console.error(err);
   }
 }
 </script>
+
 </body>
 </html>
