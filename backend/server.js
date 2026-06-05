@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 const axios = require("axios");
+const crypto = require("crypto");
 const path = require("path");
 require("dotenv").config();
 
@@ -48,33 +49,51 @@ app.post("/api/save-application", async (req,res)=>{
   }
 });
 
+// ================= ENCRYPTION FUNCTION =================
+function encryptPayload(payload, secretKey) {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv("aes-256-cbc", Buffer.from(secretKey, "utf8"), iv);
+  let encrypted = cipher.update(JSON.stringify(payload), "utf8", "base64");
+  encrypted += cipher.final("base64");
+  return {
+    iv: iv.toString("base64"),
+    data: encrypted
+  };
+}
+
 // ================= INITIATE PAYMENT =================
 app.post("/api/initiate-payment", async (req,res)=>{
   const { email, name, phone } = req.body;
+
   try {
+    const payload = {
+      customer: {
+        firstname: name.split(" ")[0] || name,
+        lastname: name.split(" ")[1] || "",
+        mobile: phone,
+        country: "NG",
+        email
+      },
+      order: {
+        amount: 1000,
+        reference: "FSI-" + Date.now(),
+        description: "FSI Application Fee",
+        currency: "NGN"
+      },
+      payment: {
+        RedirectUrl: "https://fsi.onrender.com/pending.html"
+      }
+    };
+
+    // 🔐 Encrypt payload with SECRET key
+    const encryptedPayload = encryptPayload(payload, process.env.TPAY_SECRET_KEY);
+
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/order/create",
-      {
-        customer: {
-          firstname: name.split(" ")[0] || name,
-          lastname: name.split(" ")[1] || "",
-          mobile: phone,
-          country: "NG",
-          email
-        },
-        order: {
-          amount: 1000,
-          reference: "FSI-" + Date.now(),
-          description: "FSI Application Fee",
-          currency: "NGN"
-        },
-        payment: {
-          RedirectUrl: "https://fsi.onrender.com/pending.html"
-        }
-      },
+      { payload: encryptedPayload },
       {
         headers: {
-          "api-key": process.env.TPAY_PUBLIC_KEY, // ✅ use PUBLIC key here
+          "api-key": process.env.TPAY_PUBLIC_KEY,
           "Content-Type": "application/json"
         }
       }
