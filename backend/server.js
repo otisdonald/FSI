@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const axios = require("axios");
-const crypto = require("crypto");
 const path = require("path");
 require("dotenv").config();
 
@@ -36,33 +35,6 @@ const Application = mongoose.model("Application", new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 }));
 
-// ================= ENCRYPTION (FINAL FIX FOR TRANSACTPAY) =================
-function encryptPayload(payload, encryptionKey) {
-  try {
-    // TransactPay gives you a base64-encoded key - decode it first
-    const decodedKey = Buffer.from(encryptionKey, 'base64');
-
-    // Use first 32 bytes for AES-256 (if longer, slice; if shorter, hash)
-    const key = decodedKey.length >= 32
-     ? decodedKey.slice(0, 32)
-      : crypto.createHash('sha256').update(decodedKey).digest();
-
-    console.log("🔑 Using key length:", key.length, "bytes");
-
-    // TransactPay uses AES-256-ECB
-    const cipher = crypto.createCipheriv("aes-256-ecb", key, null);
-    cipher.setAutoPadding(true);
-
-    let encrypted = cipher.update(JSON.stringify(payload), 'utf8', 'base64');
-    encrypted += cipher.final('base64');
-
-    return { data: encrypted };
-  } catch (err) {
-    console.log("❌ Encryption error:", err.message);
-    throw err;
-  }
-}
-
 // ================= SAVE APPLICATION =================
 app.post("/api/save-application", async (req, res) => {
   try {
@@ -76,17 +48,18 @@ app.post("/api/save-application", async (req, res) => {
   }
 });
 
-// ================= INITIATE PAYMENT =================
+// ================= INITIATE PAYMENT (NO ENCRYPTION) =================
 app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
 
   try {
-    if (!process.env.TPAY_PUBLIC_KEY ||!process.env.TPAY_ENCRYPTION_KEY) {
-      throw new Error("Missing keys");
+    if (!process.env.TPAY_PUBLIC_KEY) {
+      throw new Error("Missing TPAY_PUBLIC_KEY");
     }
 
     const reference = "FSI-" + Date.now();
 
+    // Plain payload - TransactPay does NOT require encryption for checkout
     const payload = {
       customer: {
         firstname: name.split(" ")[0] || name,
@@ -106,30 +79,26 @@ app.post("/api/initiate-payment", async (req, res) => {
       }
     };
 
-    const encryptedPayload = encryptPayload(payload, process.env.TPAY_ENCRYPTION_KEY);
-
     console.log("🔐 Initiating payment for:", email);
 
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/order/create",
-      encryptedPayload,
+      payload,
       {
         headers: {
-          "api-key": process.env.TPAY_PUBLIC_KEY,
-          "Content-Type": "application/json"
+          'api-key': process.env.TPAY_PUBLIC_KEY,
+          'Content-Type': 'application/json'
         },
         timeout: 20000
       }
     );
 
-    const checkoutUrl = response.data?.data?.paymentLink || response.data?.paymentLink;
+    console.log("✅ TransactPay:", response.data.message);
 
-    if (!checkoutUrl) {
-      console.log("Response:", response.data);
-      throw new Error("No payment link");
-    }
-
-    console.log("✅ Checkout URL received");
+    // Get payment link
+    const orderRef = response.data?.data?.order?.reference;
+    const paymentLink = response.data?.data?.paymentLink ||
+                       `https://checkout.transactpay.ai/${orderRef}`;
 
     await Application.findOneAndUpdate(
       { email },
@@ -137,7 +106,11 @@ app.post("/api/initiate-payment", async (req, res) => {
       { upsert: true }
     );
 
-    res.json({ success: true, checkout_url: checkoutUrl, reference });
+    res.json({
+      success: true,
+      checkout_url: paymentLink,
+      reference: reference
+    });
 
   } catch (err) {
     const errorData = err.response?.data || err.message;
@@ -153,7 +126,12 @@ app.post("/api/verify-payment", async (req, res) => {
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/order/status",
       { transaction_id },
-      { headers: { "api-key": process.env.TPAY_PUBLIC_KEY, "Content-Type": "application/json" } }
+      {
+        headers: {
+          'api-key': process.env.TPAY_PUBLIC_KEY,
+          'Content-Type': 'application/json'
+        }
+      }
     );
 
     const payment = response.data?.data || response.data;
@@ -178,7 +156,11 @@ app.post("/api/verify-payment", async (req, res) => {
 
 // ================= HEALTH =================
 app.get("/health", (req, res) => {
-  res.json({ status: "ok", mongo: mongoose.connection.readyState === 1 });
+  res.json({
+    status: "ok",
+    mongo: mongoose.connection.readyState === 1,
+    hasKey:!!process.env.TPAY_PUBLIC_KEY
+  });
 });
 
 const PORT = process.env.PORT || 3000;
