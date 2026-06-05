@@ -30,11 +30,6 @@ const Application = mongoose.model("Application", new mongoose.Schema({
   tx_ref:String, createdAt:{ type:Date, default:Date.now }
 }));
 
-const Subscription = mongoose.model("Subscription", new mongoose.Schema({
-  email:String, status:{ type:String, default:"inactive" },
-  tx_ref:String, createdAt:{ type:Date, default:Date.now }
-}));
-
 // ================= CONFIG =================
 app.get("/api/config",(req,res)=>{
   res.json({ transactpayPublicKey: process.env.TPAY_PUBLIC_KEY });
@@ -54,9 +49,8 @@ app.post("/api/save-application", async (req,res)=>{
 });
 
 // ================= INITIATE PAYMENT =================
-app.post("/api/initiate-payment", async (req, res) => {
+app.post("/api/initiate-payment", async (req,res)=>{
   const { email, name, phone } = req.body;
-
   try {
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/order/create",
@@ -80,7 +74,7 @@ app.post("/api/initiate-payment", async (req, res) => {
       },
       {
         headers: {
-          "api-key": process.env.TPAY_PUBLIC_KEY, // ✅ use public key here
+          "api-key": process.env.TPAY_PUBLIC_KEY, // ✅ use PUBLIC key here
           "Content-Type": "application/json"
         }
       }
@@ -97,47 +91,32 @@ app.post("/api/initiate-payment", async (req, res) => {
 // ================= VERIFY PAYMENT =================
 app.post("/api/verify-payment", async (req,res)=>{
   const { transaction_id, email } = req.body;
-  try{
-    const response = await axios.get(
-      `https://api.transactpay.com/v1/payments/${transaction_id}/verify`,
-      { headers:{ Authorization:`Bearer ${process.env.TPAY_SECRET_KEY}` } }
+  try {
+    const response = await axios.post(
+      "https://payment-api-service.transactpay.ai/payment/order/status",
+      { transaction_id },
+      {
+        headers: {
+          "api-key": process.env.TPAY_PUBLIC_KEY,
+          "Content-Type": "application/json"
+        }
+      }
     );
+
     const payment = response.data;
-    if(payment.status !== "success") return res.json({ success: false });
+    if(payment.status !== "SUCCESS") return res.json({ success: false });
+
     await Application.findOneAndUpdate(
       { email },
-      { paymentStatus: "paid", tx_ref: payment.tx_ref },
+      { paymentStatus: "paid", tx_ref: payment.reference },
       { upsert: true }
     );
+
     res.json({ success: true });
-  }catch(err){
+  } catch (err) {
     console.log("❌ Verify error:", err.response?.data || err.message);
     res.status(500).json({ success: false });
   }
-});
-
-// ================= WEBHOOK =================
-app.post("/api/transactpay-webhook", (req,res)=>{
-  console.log("🔔 Webhook received");
-  res.sendStatus(200);
-  setImmediate(async ()=>{
-    try{
-      const signature = req.headers["x-transactpay-signature"];
-      if(signature !== process.env.TPAY_WEBHOOK_SECRET){
-        console.log("❌ Invalid signature");
-        return;
-      }
-      const payment = req.body.data;
-      if(!payment || payment.status !== "success") return;
-      const email = payment.customer?.email;
-      const tx_ref = payment.tx_ref;
-      await Application.findOneAndUpdate({ email }, { paymentStatus:"paid", tx_ref }, { upsert:true });
-      await Subscription.findOneAndUpdate({ email }, { status:"active", tx_ref }, { upsert:true });
-      console.log("🎉 Payment saved via webhook");
-    }catch(err){
-      console.log("Webhook error:", err.message);
-    }
-  });
 });
 
 // ================= START SERVER =================
