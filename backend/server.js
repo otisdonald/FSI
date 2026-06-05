@@ -77,69 +77,26 @@ function encryptPayload(payload, secretKeyBase64) {
 // ================= INITIATE PAYMENT (FIXED) =================
 app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
-
   try {
-    // Validate env vars
-    if (!process.env.TPAY_PUBLIC_KEY || !process.env.TPAY_SECRET_KEY) {
-      throw new Error("Missing TPAY_PUBLIC_KEY or TPAY_SECRET_KEY in environment");
+    if (!process.env.TPAY_PUBLIC_KEY || !process.env.TPAY_ENCRYPTION_KEY) {
+      throw new Error("Missing keys");
     }
 
-    const payload = {
-      customer: {
-        firstname: name.split(" ")[0] || name,
-        lastname: name.split(" ")[1] || "",
-        mobile: phone,
-        country: "NG",
-        email
-      },
-      order: {
-        amount: 1000,
-        reference: "FSI-" + Date.now(),
-        description: "FSI Application Fee",
-        currency: "NGN"
-      },
-      payment: {
-        RedirectUrl: "https://fsi.onrender.com/pending.html"
-      }
-    };
+    const payload = { /* ... your payload ... */ };
 
-    // Encrypt with SECRET key (base64)
-    const encryptedPayload = encryptPayload(payload, process.env.TPAY_SECRET_KEY);
-
-    console.log("🔐 Sending encrypted payload to TransactPay...");
+    const encryptedPayload = encryptPayload(payload, process.env.TPAY_ENCRYPTION_KEY);
 
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/order/create",
       encryptedPayload,
       {
         headers: {
-          "api-key": process.env.TPAY_PUBLIC_KEY,
+          "api-key": process.env.TPAY_PUBLIC_KEY,  // PGW-PUBLICKEY-...
           "Content-Type": "application/json"
-        },
-        timeout: 15000
+        }
       }
     );
-
-    console.log("✅ Initiate response:", response.data);
-    
-    const checkoutUrl = response.data?.data?.paymentLink || response.data?.paymentLink || response.data?.checkout_url;
-    
-    if (!checkoutUrl) {
-      throw new Error("No payment link returned from TransactPay");
-    }
-
-    res.json({ success: true, checkout_url: checkoutUrl });
-    
-  } catch (err) {
-    const errorData = err.response?.data || err.message;
-    console.log("❌ Initiate error:", errorData);
-    res.status(500).json({ 
-      success: false, 
-      error: errorData,
-      hint: "Check TPAY_SECRET_KEY is base64 32-byte key from TransactPay dashboard"
-    });
-  }
-});
+    // ... rest same
 
 // ================= VERIFY PAYMENT =================
 app.post("/api/verify-payment", async (req, res) => {
