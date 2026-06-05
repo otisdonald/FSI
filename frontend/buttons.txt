@@ -1,0 +1,3 @@
+<button type="button" onclick="submitForm()" class="w-full bg-blue-600 text-white p-3 rounded font-bold"> Submit Application (₦1,000) </button> same for this
+
+<a href="apply.html?grant=youth" class="mt-4 inline-block w-full text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Apply Now</a> </div>

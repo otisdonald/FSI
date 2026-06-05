@@ -341,74 +341,87 @@
 </footer>
 
 <script>
-let FLW_PUBLIC_KEY="";
+let TPAY_PUBLIC_KEY = "";
 
-// fetch Flutterwave public key from server
+// ✅ Fetch TransactPay public key from server
 fetch("https://fsi.onrender.com/api/config")
-.then(res=>res.json())
-.then(data=>FLW_PUBLIC_KEY=data.flutterwavePublicKey);
+  .then(res => res.json())
+  .then(data => TPAY_PUBLIC_KEY = data.transactpayPublicKey);
 
 // 🚀 SUBMIT + PAY
-async function submitForm(){
-  const f=document.getElementById("form");
+async function submitForm() {
+  const f = document.getElementById("form");
 
-  if(!document.getElementById("agree").checked){
+  if (!document.getElementById("agree").checked) {
     alert("Please accept the agreement");
     return;
   }
 
-  const data={
-    name:f.name.value,
-    email:f.email.value,
-    phone:f.phone.value,
-    startup:f.startup.value,
-    problem:f.problem.value,
-    solution:f.solution.value,
-    business_model:f.business_model.value,
-    usage:f.usage.value
+  const data = {
+    name: f.name.value,
+    email: f.email.value,
+    phone: f.phone.value,
+    startup: f.startup.value,
+    problem: f.problem.value,
+    solution: f.solution.value,
+    business_model: f.business_model.value,
+    usage: f.usage.value,
+    country: f.country.value,
+    sex: f.sex.value,
+    dob: f.dob.value,
+    target_market: f.target_market?.value || "",
+    competition: f.competition?.value || "",
+    funding: f.funding?.value || "",
+    traction: f.traction?.value || "",
+    vision: f.vision?.value || "",
+    milestones: f.milestones?.value || ""
   };
 
-  try{
-    // STEP 1 — SAVE APPLICATION FIRST
-    const saveRes = await fetch("https://fsi.onrender.com/api/save-application",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify(data)
+  try {
+    // STEP 1 — Save application first
+    const saveRes = await fetch("https://fsi.onrender.com/api/save-application", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     });
 
     const saveData = await saveRes.json();
-    if(!saveData.success){
+    if (!saveData.success) {
       alert("Could not save application. Try again.");
       return;
     }
 
-    // STEP 2 — OPEN FLUTTERWAVE PAYMENT
-    FlutterwaveCheckout({
-      public_key: FLW_PUBLIC_KEY,
-      tx_ref: "FSI-"+Date.now(),
-      amount: 1000,
-      currency: "NGN",
-      payment_options: "card,banktransfer,ussd,account",
-      customer:{
-        email:data.email,
-        name:data.name,
-        phone_number:data.phone
+    // STEP 2 — Initiate TransactPay payment
+    const initRes = await fetch("https://api.transactpay.com/v1/payments/initiate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${TPAY_PUBLIC_KEY}`
       },
-      customizations:{
-        title:"Axtrivex Technologies",
-        description:"Application Fee"
-      },
-      // 🎉 PAYMENT SUCCESS → REDIRECT TO PENDING PAGE
-      callback:function(response){
-        localStorage.setItem("fsi_application", JSON.stringify(data));
-        window.location.href="pending.html"; // relative path
-      },
-      onclose:function(){
-        alert("Payment window closed.");
-      }
+      body: JSON.stringify({
+        amount: 1000,
+        currency: "NGN",
+        customer: {
+          email: data.email,
+          name: data.name,
+          phone_number: data.phone
+        },
+        callback_url: "https://fsi.onrender.com/pending.html",
+        tx_ref: "FSI-" + Date.now()
+      })
     });
 
-  }catch(err){
+    const initData = await initRes.json();
+    if (!initData.checkout_url) {
+      alert("Payment initialization failed.");
+      return;
+    }
+
+    // 🎉 Redirect user to TransactPay checkout page
+    localStorage.setItem("fsi_application", JSON.stringify(data));
+    window.location.href = initData.checkout_url;
+
+  } catch (err) {
     alert("Server error. Please try again.");
     console.log(err);
   }

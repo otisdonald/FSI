@@ -71,7 +71,7 @@ const JobGrant = mongoose.model("JobGrant", new mongoose.Schema({
   description: String,
   deadline: String,
   link: String,
-  isActive: { type: Boolean, default: true }, // ← ADDED THIS
+  isActive: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now }
 }));
 
@@ -102,11 +102,11 @@ async function sendEmail(to, subject, htmlContent){
 
 // ================= CONFIG =================
 app.get("/api/config",(req,res)=>{
-  res.json({ flutterwavePublicKey: process.env.FLW_PUBLIC_KEY });
+  res.json({ transactpayPublicKey: process.env.TPAY_PUBLIC_KEY });
 });
 
 app.get("/api/axtrivex/config",(req,res)=>{
-  res.json({ flutterwavePublicKey: process.env.FLW_PUBLIC_KEY });
+  res.json({ transactpayPublicKey: process.env.TPAY_PUBLIC_KEY });
 });
 
 // ================= SAVE APPLICATION =================
@@ -143,39 +143,39 @@ app.post("/api/waitlist", async (req, res) => {
   }
 });
 
-// ================= VERIFY PAYMENT (FSI) =================
+// ================= VERIFY PAYMENT (FSI with TransactPay) =================
 app.post("/api/verify-payment", async (req,res)=>{
   const { transaction_id, email } = req.body;
   try{
     const response = await axios.get(
-      `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
-      { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
+      `https://api.transactpay.com/v1/payments/${transaction_id}/verify`,
+      { headers:{ Authorization:`Bearer ${process.env.TPAY_SECRET_KEY}` } }
     );
-    const payment = response.data.data;
-    if(payment.status !== "successful") return res.json({ success: false });
+    const payment = response.data;
+    if(payment.status !== "success") return res.json({ success: false });
     await Application.findOneAndUpdate(
       { email },
       { paymentStatus: "paid", tx_ref: payment.tx_ref },
       { upsert: true }
     );
-    await sendEmail(email, "Application Received 🎉", `<p>Your FSI application has been submitted successfully.</p>`);
+    await sendEmail(email, "Application Received 🎉", `<p>Your FSI application has been submitted successfully via TransactPay.</p>`);
     res.json({ success: true });
   }catch(err){
-    console.log(err.message);
+    console.log("❌ TransactPay verify error:", err.message);
     res.status(500).json({ success: false });
   }
 });
 
-// ================= VERIFY PAYMENT (Axtrivex Subscription) =================
+// ================= VERIFY PAYMENT (Axtrivex Subscription with TransactPay) =================
 app.post("/api/axtrivex/verify-payment", async (req,res)=>{
   const { transaction_id, email } = req.body;
   try{
     const response = await axios.get(
-      `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`,
-      { headers:{ Authorization:`Bearer ${process.env.FLW_SECRET_KEY}` } }
+      `https://api.transactpay.com/v1/payments/${transaction_id}/verify`,
+      { headers:{ Authorization:`Bearer ${process.env.TPAY_SECRET_KEY}` } }
     );
-    const payment = response.data.data;
-    if(payment.status !== "successful") return res.json({ success: false });
+    const payment = response.data;
+    if(payment.status !== "success") return res.json({ success: false });
     await Subscription.findOneAndUpdate(
       { email },
       { status: "active", tx_ref: payment.tx_ref },
@@ -183,7 +183,7 @@ app.post("/api/axtrivex/verify-payment", async (req,res)=>{
     );
     res.json({ success: true });
   }catch(err){
-    console.log(err.message);
+    console.log("❌ TransactPay subscription verify error:", err.message);
     res.status(500).json({ success: false });
   }
 });
@@ -195,7 +195,7 @@ app.get("/api/axtrivex/check-status/:email", async (req,res)=>{
   res.json({ status: sub.status });
 });
 
-// ================= PUBLIC JOBS & GRANTS - FOR Axtrivex HTML =================
+// ================= PUBLIC JOBS & GRANTS =================
 app.get("/api/axtrivex/jobs", async (req,res)=>{
   try {
     const jobs = await JobGrant.find({ isActive: true }).sort({ createdAt: -1 });
@@ -237,32 +237,41 @@ app.delete("/api/axtrivex/delete-job-grant/:id", async (req,res)=>{
   }
 });
 
-// ================= FLUTTERWAVE WEBHOOK (Shared) =================
-app.post("/api/flutterwave-webhook", (req, res) => {
-  console.log("🔔 Webhook received");
+// ================= TRANSACTPAY WEBHOOK =================
+app.post("/api/transactpay-webhook", (req, res) => {
+  console.log("🔔 TransactPay webhook received");
   res.sendStatus(200);
+
   setImmediate(async () => {
     try {
-      const signature = req.headers["verif-hash"];
-      if (!signature || signature !== process.env.FLW_SECRET_HASH) {
-        console.log("❌ Invalid webhook signature");
+      // Validate webhook signature
+      const signature = req.headers["x-transactpay-signature"];
+      if (!signature || signature !== process.env.TPAY_WEBHOOK_SECRET) {
+        console.log("❌ Invalid TransactPay webhook signature");
         return;
       }
+
       const payment = req.body.data;
-      if (!payment || payment.status !== "successful") return;
+      if (!payment || payment.status !== "success") return;
+
       const email = payment.customer?.email;
       const tx_ref = payment.tx_ref;
+
+      // Update Application record
       await Application.findOneAndUpdate(
         { email },
         { paymentStatus: "paid", tx_ref },
         { upsert: true }
       );
+
+      // Update Subscription record
       await Subscription.findOneAndUpdate(
         { email },
         { status: "active", tx_ref },
         { upsert: true }
       );
-      console.log("🎉 Payment saved for FSI/Axtrivex");
+
+      console.log("🎉 Payment saved for FSI/Axtrivex via TransactPay");
     } catch (err) {
       console.log("Webhook error:", err.message);
     }

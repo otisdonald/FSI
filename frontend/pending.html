@@ -16,7 +16,7 @@
   </div>
 
   <script>
-    // Get applicant data from localStorage
+    // ✅ Get applicant data from localStorage
     const appData = JSON.parse(localStorage.getItem("fsi_application"));
     if (!appData || !appData.email) {
       window.location.href = "failure.html";
@@ -26,24 +26,33 @@
     const interval = setInterval(async () => {
       attempts++;
       try {
-        const res = await fetch(`https://fsi.onrender.com/api/check-status/${appData.email}`);
+        // ✅ Call backend verify route directly with transaction_id
+        const urlParams = new URLSearchParams(window.location.search);
+        const transaction_id = urlParams.get("transaction_id");
+
+        if (!transaction_id) {
+          clearInterval(interval);
+          window.location.href = "failure.html";
+          return;
+        }
+
+        const res = await fetch("https://fsi.onrender.com/api/verify-payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ transaction_id, email: appData.email })
+        });
+
         const data = await res.json();
 
-        if (data.status === "paid") {
+        if (data.success) {
           clearInterval(interval);
           window.location.href = "success.html";
-        } else if (data.status === "not_found" || data.status === "unpaid") {
+        } else if (attempts > 20) {
           clearInterval(interval);
           window.location.href = "failure.html";
         }
       } catch (err) {
-        console.error("Error checking status:", err);
-      }
-
-      // Timeout after ~60 seconds
-      if (attempts > 20) {
-        clearInterval(interval);
-        window.location.href = "failure.html";
+        console.error("Error verifying payment:", err);
       }
     }, 3000);
   </script>
