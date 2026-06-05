@@ -122,23 +122,29 @@ app.post("/api/save-application", async (req,res)=>{
   }
 });
 
-// ================= WAITLIST =================
-app.post("/api/waitlist", async (req, res) => {
-  try {
-    const { email } = req.body;
-    if (!email || !email.includes('@')) {
-      return res.status(400).json({ success: false, message: "Invalid email" });
-    }
-    const cleanEmail = email.toLowerCase().trim();
-    await Waitlist.findOneAndUpdate(
-      { email: cleanEmail },
-      { email: cleanEmail, source: "landing-page-2026" },
-      { upsert: true, new: true }
+// ================= INITIATE PAYMENT (Server-side) =================
+app.post("/api/initiate-payment", async (req,res)=>{
+  const { email, name, phone } = req.body;
+  try{
+    const response = await axios.post(
+      "https://api.transactpay.com/v1/payments/initiate",
+      {
+        amount: 1000,
+        currency: "NGN",
+        customer: { email, name, phone_number: phone },
+        callback_url: "https://fsi.onrender.com/pending.html",
+        tx_ref: "FSI-" + Date.now()
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.TPAY_SECRET_KEY}`
+        }
+      }
     );
-    await sendEmail(cleanEmail,"You're on the FSI Waitlist 🎉","<p>Thanks for joining the waitlist.</p>");
-    res.json({ success: true });
-  } catch (err) {
-    console.log("Waitlist error:", err.message);
+    res.json({ checkout_url: response.data.checkout_url });
+  }catch(err){
+    console.log("❌ Initiate error:", err.message);
     res.status(500).json({ success: false });
   }
 });
@@ -166,7 +172,7 @@ app.post("/api/verify-payment", async (req,res)=>{
   }
 });
 
-// ================= VERIFY PAYMENT (Axtrivex Subscription with TransactPay) =================
+// ================= VERIFY PAYMENT (Axtrivex Subscription) =================
 app.post("/api/axtrivex/verify-payment", async (req,res)=>{
   const { transaction_id, email } = req.body;
   try{
@@ -188,54 +194,6 @@ app.post("/api/axtrivex/verify-payment", async (req,res)=>{
   }
 });
 
-// ================= CHECK STATUS (Axtrivex) =================
-app.get("/api/axtrivex/check-status/:email", async (req,res)=>{
-  const sub = await Subscription.findOne({ email: req.params.email });
-  if(!sub) return res.json({ status: "inactive" });
-  res.json({ status: sub.status });
-});
-
-// ================= PUBLIC JOBS & GRANTS =================
-app.get("/api/axtrivex/jobs", async (req,res)=>{
-  try {
-    const jobs = await JobGrant.find({ isActive: true }).sort({ createdAt: -1 });
-    res.json(jobs);
-  } catch (err) {
-    console.error('Error fetching jobs:', err);
-    res.status(500).json({ error: 'Failed to fetch jobs' });
-  }
-});
-
-// ================= JOBS & GRANTS LISTINGS - PROTECTED =================
-app.get("/api/axtrivex/jobs-grants/:email", async (req,res)=>{
-  const sub = await Subscription.findOne({ email: req.params.email });
-  if(!sub || sub.status !== "active"){
-    return res.status(403).json({ success:false, message:"Subscription inactive" });
-  }
-  const listings = await JobGrant.find({ isActive: true }).sort({ createdAt: -1 });
-  res.json({ success:true, listings });
-});
-
-// ================= ADD JOB/GRANT (Admin) =================
-app.post("/api/axtrivex/add-job-grant", async (req,res)=>{
-  try {
-    const { title, type, description, deadline, link, isActive = true } = req.body;
-    const newListing = await JobGrant.create({ title, type, description, deadline, link, isActive });
-    res.json({ success:true, listing:newListing });
-  } catch(err){
-    res.status(500).json({ success:false, message:err.message });
-  }
-});
-
-// ================= DELETE JOB/GRANT (Admin) =================
-app.delete("/api/axtrivex/delete-job-grant/:id", async (req,res)=>{
-  try {
-    await JobGrant.findByIdAndDelete(req.params.id);
-    res.json({ success:true, message:"Deleted successfully" });
-  } catch(err){
-    res.status(500).json({ success:false, message:err.message });
-  }
-});
 // ================= TRANSACTPAY WEBHOOK =================
 app.post("/api/transactpay-webhook", (req, res) => {
   console.log("🔔 TransactPay webhook received");
@@ -243,27 +201,24 @@ app.post("/api/transactpay-webhook", (req, res) => {
 
   setImmediate(async () => {
     try {
-      // Validate webhook signature
       const signature = req.headers["x-transactpay-signature"];
       if (!signature || signature !== process.env.TPAY_WEBHOOK_SECRET) {
         console.log("❌ Invalid TransactPay webhook signature");
         return;
       }
 
-      const payment = req.body.data; // adjust if payload differs
+      const payment = req.body.data;
       if (!payment || payment.status !== "success") return;
 
       const email = payment.customer?.email;
       const tx_ref = payment.tx_ref;
 
-      // Update Application record
       await Application.findOneAndUpdate(
         { email },
         { paymentStatus: "paid", tx_ref },
         { upsert: true }
       );
 
-      // Update Subscription record
       await Subscription.findOneAndUpdate(
         { email },
         { status: "active", tx_ref },
