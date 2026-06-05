@@ -236,7 +236,6 @@ app.delete("/api/axtrivex/delete-job-grant/:id", async (req,res)=>{
     res.status(500).json({ success:false, message:err.message });
   }
 });
-
 // ================= TRANSACTPAY WEBHOOK =================
 app.post("/api/transactpay-webhook", (req, res) => {
   console.log("🔔 TransactPay webhook received");
@@ -251,7 +250,7 @@ app.post("/api/transactpay-webhook", (req, res) => {
         return;
       }
 
-      const payment = req.body.data;
+      const payment = req.body.data; // adjust if payload differs
       if (!payment || payment.status !== "success") return;
 
       const email = payment.customer?.email;
