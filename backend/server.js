@@ -54,22 +54,21 @@ app.post("/api/save-application", async (req, res) => {
   }
 });
 
-// ================= ENCRYPTION FUNCTION (FIXED FOR TRANSACTPAY) =================
+// ================= ENCRYPTION FUNCTION (TRANSACTPAY FINAL) =================
 function encryptPayload(payload, encryptionKey) {
   try {
-    const iv = crypto.randomBytes(16);
-
-    // TransactPay gives a long key - derive 32-byte AES key via SHA256
+    // TransactPay requires SHA256 hash of your encryption key -> 32 bytes
     const key = crypto.createHash('sha256').update(encryptionKey).digest();
 
-    const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
-    let encrypted = cipher.update(JSON.stringify(payload), "utf8", "base64");
-    encrypted += cipher.final("base64");
+    // Use AES-256-ECB (no IV)
+    const cipher = crypto.createCipheriv("aes-256-ecb", key, null);
+    cipher.setAutoPadding(true);
 
-    return {
-      iv: iv.toString("base64"),
-      payload: encrypted
-    };
+    let encrypted = cipher.update(JSON.stringify(payload), 'utf8', 'base64');
+    encrypted += cipher.final('base64');
+
+    // TransactPay expects { data: "encrypted_string" }
+    return { data: encrypted };
   } catch (err) {
     console.log("❌ Encryption error:", err.message);
     throw err;
@@ -82,8 +81,10 @@ app.post("/api/initiate-payment", async (req, res) => {
 
   try {
     if (!process.env.TPAY_PUBLIC_KEY ||!process.env.TPAY_ENCRYPTION_KEY) {
-      throw new Error("Missing TPAY_PUBLIC_KEY or TPAY_ENCRYPTION_KEY");
+      throw new Error("Missing TPAY_PUBLIC_KEY or TPAY_ENCRYPTION_KEY in environment");
     }
+
+    const reference = "FSI-" + Date.now();
 
     const payload = {
       customer: {
@@ -91,11 +92,11 @@ app.post("/api/initiate-payment", async (req, res) => {
         lastname: name.split(" ")[1] || "",
         mobile: phone,
         country: "NG",
-        email
+        email: email
       },
       order: {
         amount: 1000,
-        reference: "FSI-" + Date.now(),
+        reference: reference,
         description: "FSI Application Fee",
         currency: "NGN"
       },
@@ -104,7 +105,6 @@ app.post("/api/initiate-payment", async (req, res) => {
       }
     };
 
-    // Use ENCRYPTION_KEY (not SECRET_KEY)
     const encryptedPayload = encryptPayload(payload, process.env.TPAY_ENCRYPTION_KEY);
 
     console.log("🔐 Initiating payment for:", email);
@@ -117,28 +117,33 @@ app.post("/api/initiate-payment", async (req, res) => {
           "api-key": process.env.TPAY_PUBLIC_KEY,
           "Content-Type": "application/json"
         },
-        timeout: 15000
+        timeout: 20000
       }
     );
 
-    console.log("✅ TransactPay response:", JSON.stringify(response.data).substring(0, 200));
+    console.log("✅ TransactPay response received");
 
     const checkoutUrl = response.data?.data?.paymentLink ||
                        response.data?.paymentLink ||
-                       response.data?.checkout_url;
+                       response.data?.data?.checkoutUrl;
 
     if (!checkoutUrl) {
-      throw new Error("No payment link in response: " + JSON.stringify(response.data));
+      console.log("Full response:", response.data);
+      throw new Error("No payment link returned");
     }
 
-    // Save tx_ref
+    // Save reference
     await Application.findOneAndUpdate(
       { email },
-      { tx_ref: payload.order.reference },
+      { tx_ref: reference },
       { upsert: true }
     );
 
-    res.json({ success: true, checkout_url: checkoutUrl, reference: payload.order.reference });
+    res.json({
+      success: true,
+      checkout_url: checkoutUrl,
+      reference: reference
+    });
 
   } catch (err) {
     const errorData = err.response?.data || err.message;
@@ -166,7 +171,7 @@ app.post("/api/verify-payment", async (req, res) => {
     );
 
     const payment = response.data?.data || response.data;
-    const status = (payment.status || "").toUpperCase();
+    const status = String(payment.status || "").toUpperCase();
 
     if (status!== "SUCCESS" && status!== "SUCCESSFUL") {
       return res.json({ success: false, status: payment.status });
@@ -190,8 +195,7 @@ app.get("/health", (req, res) => {
   res.json({
     status: "ok",
     mongo: mongoose.connection.readyState === 1,
-    has_public_key:!!process.env.TPAY_PUBLIC_KEY,
-    has_encryption_key:!!process.env.TPAY_ENCRYPTION_KEY
+    has_keys:!!process.env.TPAY_PUBLIC_KEY &&!!process.env.TPAY_ENCRYPTION_KEY
   });
 });
 
