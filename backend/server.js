@@ -11,8 +11,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 mongoose.connect(process.env.MONGO_URI)
- .then(() => console.log("✅ MongoDB Connected"))
- .catch(err => console.log("❌ Mongo Error:", err));
+.then(() => console.log("✅ MongoDB Connected"))
+.catch(err => console.log("❌ Mongo Error:", err));
 
 const Application = mongoose.model("Application", new mongoose.Schema({
   name: String, email: String, phone: String, startup: String,
@@ -31,34 +31,27 @@ app.post("/api/save-application", async (req, res) => {
   }
 });
 
+// --- NON-PCI PAYMENT LINK ---
 app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
 
   const payload = {
-    customer: {
-      firstname: name.split(" ")[0] || name,
-      lastname: name.split(" ")[1] || "",
-      mobile: phone,
-      country: "NG",
-      email
-    },
-    order: {
-      amount: 1000,
-      reference,
-      description: "FSI Application Fee",
-      currency: "NGN"
-    },
-    payment: {
-      RedirectUrl: "https://fsi.onrender.com/pending.html"
-    }
+    amount: 1000,
+    email: email,
+    name: name,
+    phone: phone,
+    reference: reference,
+    currency: "NGN",
+    description: "FSI Application Fee",
+    redirectUrl: "https://fsi.onrender.com/pending.html"
   };
 
   try {
-    console.log("🔐 Initiating payment for:", email);
+    console.log("🔐 Creating payment link for:", email);
 
     const response = await axios.post(
-      "https://payment-api-service.transactpay.ai/payment/order/create",
+      "https://payment-api-service.transactpay.ai/payment/create",
       payload,
       {
         headers: {
@@ -68,17 +61,30 @@ app.post("/api/initiate-payment", async (req, res) => {
       }
     );
 
-    const order = response.data?.data?.order;
-    const checkoutUrl = `https://checkout.transactpay.ai/${order.reference}`;
+    const paymentLink = response.data?.data?.link
+                     || response.data?.data?.paymentLink
+                     || response.data?.data?.url;
 
-    console.log("✅ Order created:", order.reference);
+    console.log("✅ Link created:", reference, paymentLink);
 
-    await Application.findOneAndUpdate({ email }, { tx_ref: reference }, { upsert: true });
+    await Application.findOneAndUpdate(
+      { email },
+      { tx_ref: reference },
+      { upsert: true }
+    );
 
-    res.json({ success: true, checkout_url: checkoutUrl, reference });
+    res.json({
+      success: true,
+      checkout_url: paymentLink,
+      reference
+    });
+
   } catch (err) {
     console.log("❌ Error:", err.response?.data || err.message);
-    res.status(500).json({ success: false, error: err.response?.data });
+    res.status(500).json({
+      success: false,
+      error: err.response?.data || err.message
+    });
   }
 });
 
