@@ -3,12 +3,32 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const axios = require("axios");
 const path = require("path");
+const forge = require("node-forge");
+const { DOMParser } = require("xmldom");
 require("dotenv").config();
 
 const app = express();
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+// --- ENCRYPTION FUNCTION (from TransactPay docs) ---
+function encryptPayload(data, rsaPubKey) {
+  let rsaKeyValue = Buffer.from(rsaPubKey, 'base64').toString('utf-8');
+  rsaKeyValue = rsaKeyValue.replace('4096!', '');
+
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(rsaKeyValue, 'text/xml');
+  const modulus = xmlDoc.getElementsByTagName('Modulus')[0].textContent;
+  const exponent = xmlDoc.getElementsByTagName('Exponent')[0].textContent;
+
+  const modulusBI = new forge.jsbn.BigInteger(Buffer.from(modulus, 'base64').toString('hex'), 16);
+  const exponentBI = new forge.jsbn.BigInteger(Buffer.from(exponent, 'base64').toString('hex'), 16);
+
+  const pubKey = forge.pki.setRsaPublicKey(modulusBI, exponentBI);
+  const encryptedBytes = pubKey.encrypt(forge.util.encodeUtf8(JSON.stringify(data)));
+  return Buffer.from(encryptedBytes, 'binary').toString('base64');
+}
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("✅ MongoDB Connected"))
@@ -31,12 +51,11 @@ app.post("/api/save-application", async (req, res) => {
   }
 });
 
-// --- NON-PCI PAYMENT LINK ---
 app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
 
-  const payload = {
+  const rawPayload = {
     amount: 1000,
     email: email,
     name: name,
@@ -48,11 +67,13 @@ app.post("/api/initiate-payment", async (req, res) => {
   };
 
   try {
-    console.log("🔐 Creating payment link for:", email);
+    console.log("🔐 Encrypting payload for:", email);
+
+    const encryptedData = encryptPayload(rawPayload, process.env.TPAY_ENCRYPTION_KEY);
 
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/create",
-      payload,
+      { data: encryptedData }, // <-- ENCRYPTED
       {
         headers: {
           "api-key": process.env.TPAY_PUBLIC_KEY,
@@ -61,30 +82,16 @@ app.post("/api/initiate-payment", async (req, res) => {
       }
     );
 
-    const paymentLink = response.data?.data?.link
-                     || response.data?.data?.paymentLink
-                     || response.data?.data?.url;
+    const paymentLink = response.data?.data?.link || response.data?.data?.paymentLink || response.data?.data?.url;
+    console.log("✅ Link created:", reference);
 
-    console.log("✅ Link created:", reference, paymentLink);
+    await Application.findOneAndUpdate({ email }, { tx_ref: reference }, { upsert: true });
 
-    await Application.findOneAndUpdate(
-      { email },
-      { tx_ref: reference },
-      { upsert: true }
-    );
-
-    res.json({
-      success: true,
-      checkout_url: paymentLink,
-      reference
-    });
+    res.json({ success: true, checkout_url: paymentLink, reference });
 
   } catch (err) {
     console.log("❌ Error:", err.response?.data || err.message);
-    res.status(500).json({
-      success: false,
-      error: err.response?.data || err.message
-    });
+    res.status(500).json({ success: false, error: err.response?.data || err.message });
   }
 });
 
