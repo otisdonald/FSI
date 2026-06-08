@@ -10,7 +10,14 @@ const app = express();
 // Middleware
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+
+// Serve frontend files (frontend folder is one level up from backend)
+app.use(express.static(path.join(__dirname, "..", "frontend")));
+
+// Root route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+});
 
 // MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -43,7 +50,7 @@ app.post("/api/save-application", async (req, res) => {
   }
 });
 
-// Initiate payment - SIMPLE TEST VERSION (no encryption)
+// Initiate payment - TEST MODE (no encryption)
 app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
