@@ -34,66 +34,42 @@ app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
 
-  try {
-    const [firstName,...lastNameParts] = (name || "Test User").split(" ");
-    const lastName = lastNameParts.join(" ") || "User";
+  await Application.findOneAndUpdate(
+    { email },
+    { tx_ref: reference },
+    { upsert: true }
+  );
 
-    const payload = {
-      customer: {
-        firstname: firstName,
-        lastname: lastName,
-        email: email,
-        mobile: phone || "+2348000000000",
-        country: "NG"
-      },
-      order: {
-        amount: 1000,
-        reference: reference,
-        description: "FSI Application Fee",
-        currency: "NGN"
-      },
-      payment: {
-        RedirectUrl: "https://fsi.onrender.com/pending.html"
-      }
-    };
+  const publicKey = process.env.TPAY_PUBLIC_KEY;
+  const amount = 1000;
+  const redirectUrl = "https://fsi.onrender.com/pending.html";
 
-    const response = await axios.post(
-      "https://payment-api-service.transactpay.ai/payment/order/create",
-      payload,
-      {
-        headers: {
-          "api-key": process.env.TPAY_PUBLIC_KEY,
-          "Content-Type": "application/json"
-        }
-      }
-    );
+  const checkoutUrl = `https://checkout.transactpay.ai/?publicKey=${encodeURIComponent(publicKey)}&amount=${amount}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name || '')}&phone=${encodeURIComponent(phone || '')}&reference=${reference}&currency=NGN&redirectUrl=${encodeURIComponent(redirectUrl)}`;
 
-    const paymentLink = response.data?.data?.order?.paymentLink ||
-                       `https://checkout.transactpay.ai/?ref=${reference}`;
-
-    await Application.findOneAndUpdate({ email }, { tx_ref: reference }, { upsert: true });
-
-    res.json({ success: true, checkout_url: paymentLink, reference });
-
-  } catch (err) {
-    console.log("ERROR:", err.response?.data);
-    res.status(500).json({ success: false, error: err.response?.data || err.message });
-  }
+  res.json({
+    success: true,
+    checkout_url: checkoutUrl,
+    reference: reference
+  });
 });
 
 app.post("/api/verify-payment", async (req, res) => {
   try {
+    const { reference, email } = req.body;
     const response = await axios.get(
-      `https://payment-api-service.transactpay.ai/payment/order/${req.body.reference}`,
+      `https://payment-api-service.transactpay.ai/payment/orders/${reference}`,
       { headers: { "api-key": process.env.TPAY_PUBLIC_KEY } }
     );
-    const status = response.data?.data?.order?.status;
-    if (status === "Successful" || status === "Paid") {
-      await Application.findOneAndUpdate({ email: req.body.email }, { paymentStatus: "paid" });
+    
+    const status = response.data?.data?.status || "";
+    if (status.toLowerCase().includes("success") || status.toLowerCase() === "paid") {
+      await Application.findOneAndUpdate({ email }, { paymentStatus: "paid" });
       return res.json({ success: true });
     }
     res.json({ success: false, status });
-  } catch { res.status(500).json({ success: false }); }
+  } catch (err) {
+    res.json({ success: false });
+  }
 });
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
