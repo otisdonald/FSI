@@ -87,9 +87,28 @@
   </div>
 
   <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm">
-    <p class="font-bold">Application Fee: ₦1,000</p>
-    <p class="text-gray-600 mt-1">Non-refundable • Secured by Paystack</p>
-  </div>
+    
+    <!-- APPLICATION FEE -->
+<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm rounded-lg">
+  <p class="font-bold text-lg">Application Fee: ₦1,000</p>
+
+  <ul class="list-disc ml-5 mt-3 text-gray-700 space-y-1">
+    <li>Covers administrative review and application processing costs.</li>
+    <li>Helps prevent spam, duplicate, and unserious submissions.</li>
+    <li>Ensures only committed founders participate in the selection process.</li>
+    <li>Supports platform maintenance, founder resources, and community programs.</li>
+  </ul>
+
+  <p class="mt-3 text-gray-600">
+    <strong>Secure Payment:</strong> Payments are processed through
+    <strong>Paystack</strong>.
+  </p>
+
+  <p class="mt-2 text-gray-600">
+    Applicants outside Nigeria may be charged in their local currency depending
+    on their bank and Paystack-supported payment methods.
+  </p>
+</div>
 
   <button type="button" id="submitBtn" onclick="submitForm()" class="w-full bg-blue-600 text-white p-4 rounded-lg font-bold hover:bg-blue-700">Continue to Payment</button>
   <p id="errorMsg" class="text-red-600 text-sm text-center hidden mt-2"></p>
