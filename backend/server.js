@@ -45,7 +45,8 @@ app.post("/api/save-application", async (req, res) => {
 });
 
 function encryptPayload(payload) {
-  const key = Buffer.from(process.env.TPAY_ENCRYPTION_KEY, 'base64');
+  const encryptionKey = process.env.TPAY_ENCRYPTION_KEY;
+  const key = crypto.createHash('sha256').update(encryptionKey).digest();
   const iv = key.slice(0, 16);
   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
   let encrypted = cipher.update(JSON.stringify(payload), 'utf8', 'base64');
@@ -54,16 +55,8 @@ function encryptPayload(payload) {
 }
 
 app.post("/api/initiate-payment", async (req, res) => {
-  console.log("=== PAYMENT START ===");
-  console.log("Body:", req.body);
-  
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
-
-  if (!process.env.TPAY_PUBLIC_KEY || !process.env.TPAY_ENCRYPTION_KEY) {
-    console.log("❌ MISSING KEYS");
-    return res.status(500).json({ success: false, error: "Keys not set" });
-  }
 
   try {
     const payload = {
@@ -79,23 +72,19 @@ app.post("/api/initiate-payment", async (req, res) => {
     };
 
     const encryptedData = encryptPayload(payload);
-    
-    console.log("Public Key:", process.env.TPAY_PUBLIC_KEY.substring(0, 15) + "...");
-    console.log("Sending request...");
 
-    const response = await axios({
-      method: 'post',
-      url: 'https://payment-api-service.transactpay.ai/payment/create',
-      data: { data: encryptedData },
-      headers: {
-        'api-key': process.env.TPAY_PUBLIC_KEY,
-        'Content-Type': 'application/json'
-      },
-      timeout: 15000
-    });
+    const response = await axios.post(
+      'https://payment-api-service.transactpay.ai/payment/create',
+      { data: encryptedData },
+      {
+        headers: {
+          'api-key': process.env.TPAY_PUBLIC_KEY,
+          'Content-Type': 'application/json'
+        },
+        timeout: 15000
+      }
+    );
 
-    console.log("✅ SUCCESS:", JSON.stringify(response.data));
-    
     await Application.findOneAndUpdate(
       { email },
       { tx_ref: reference },
@@ -111,17 +100,11 @@ app.post("/api/initiate-payment", async (req, res) => {
     });
 
   } catch (err) {
-    console.log("=== ERROR DETAILS ===");
-    console.log("Message:", err.message);
-    console.log("Code:", err.code);
-    console.log("Status:", err.response?.status);
-    console.log("Data:", JSON.stringify(err.response?.data));
-    console.log("=== END ERROR ===");
-    
+    console.log("ERROR:", err.message);
+    console.log("RESPONSE:", err.response?.data);
     res.status(500).json({
       success: false,
-      error: err.message,
-      details: err.response?.data
+      error: err.response?.data || err.message
     });
   }
 });
