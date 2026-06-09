@@ -34,42 +34,63 @@ app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
 
-  await Application.findOneAndUpdate(
-    { email },
-    { tx_ref: reference },
-    { upsert: true }
-  );
+  try {
+    const response = await axios.post(
+      "https://api.paystack.co/transaction/initialize",
+      {
+        email: email,
+        amount: 100000, // ₦1,000 in kobo
+        reference: reference,
+        callback_url: "https://fsi.onrender.com/pending.html",
+        metadata: {
+          custom_fields: [
+            { display_name: "Applicant Name", variable_name: "name", value: name },
+            { display_name: "Phone", variable_name: "phone", value: phone }
+          ]
+        }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
-  const publicKey = process.env.TPAY_PUBLIC_KEY;
-  const amount = 1000;
-  const redirectUrl = "https://fsi.onrender.com/pending.html";
+    await Application.findOneAndUpdate(
+      { email },
+      { tx_ref: reference },
+      { upsert: true }
+    );
 
-  const checkoutUrl = `https://checkout.transactpay.ai/?publicKey=${encodeURIComponent(publicKey)}&amount=${amount}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name || '')}&phone=${encodeURIComponent(phone || '')}&reference=${reference}&currency=NGN&redirectUrl=${encodeURIComponent(redirectUrl)}`;
+    res.json({
+      success: true,
+      checkout_url: response.data.data.authorization_url,
+      reference: reference
+    });
 
-  res.json({
-    success: true,
-    checkout_url: checkoutUrl,
-    reference: reference
-  });
+  } catch (err) {
+    console.log("PAYSTACK ERROR:", err.response?.data);
+    res.status(500).json({ success: false, error: err.response?.data?.message });
+  }
 });
 
 app.post("/api/verify-payment", async (req, res) => {
   try {
-    const { reference, email } = req.body;
     const response = await axios.get(
-      `https://payment-api-service.transactpay.ai/payment/orders/${reference}`,
-      { headers: { "api-key": process.env.TPAY_PUBLIC_KEY } }
+      `https://api.paystack.co/transaction/verify/${req.body.reference}`,
+      { headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` } }
     );
     
-    const status = response.data?.data?.status || "";
-    if (status.toLowerCase().includes("success") || status.toLowerCase() === "paid") {
-      await Application.findOneAndUpdate({ email }, { paymentStatus: "paid" });
+    if (response.data.data.status === "success") {
+      await Application.findOneAndUpdate(
+        { email: req.body.email },
+        { paymentStatus: "paid" }
+      );
       return res.json({ success: true });
     }
-    res.json({ success: false, status });
-  } catch (err) {
     res.json({ success: false });
-  }
+  } catch { res.status(500).json({ success: false }); }
 });
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
