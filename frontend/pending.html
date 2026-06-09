@@ -1,58 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FSI Application Pending</title>
-  <script>
-    async function verifyPayment() {
-      const appData = JSON.parse(localStorage.getItem("fsi_application"));
-      if (!appData) {
-        document.getElementById("status").innerText = "No application found.";
-        return;
-      }
-
-      try {
-        // Get transaction_id from URL (TransactPay redirects with it)
-        const urlParams = new URLSearchParams(window.location.search);
-        const transaction_id = urlParams.get("transaction_id");
-
-        if (!transaction_id) {
-          document.getElementById("status").innerText = "Missing transaction ID.";
-          return;
-        }
-
-        // Call backend to verify payment
-        const res = await fetch("https://fsi.onrender.com/api/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            transaction_id,
-            email: appData.email
-          })
-        });
-
-        const data = await res.json();
-        if (data.success) {
-          document.getElementById("status").innerText =
-            "🎉 Payment successful! Your application has been submitted.";
-        } else {
-          document.getElementById("status").innerText =
-            "❌ Payment verification failed. Please try again.";
-        }
-      } catch (err) {
-        document.getElementById("status").innerText =
-          "Server error during verification.";
-        console.error(err);
-      }
-    }
-
-    window.onload = verifyPayment;
-  </script>
+<meta charset="UTF-8">
+<title>Verifying Payment – FSI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="images/favicon-32.png">
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-  <div class="bg-white shadow-md rounded p-6 text-center">
-    <h1 class="text-xl font-bold mb-4">Application Pending</h1>
-    <p id="status" class="text-gray-700">Verifying your payment...</p>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full text-center">
+  <div id="loading">
+    <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-6"></div>
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Verifying Payment</h2>
+    <p class="text-gray-600">Please wait while we confirm your ₦1,000 payment...</p>
+    <p class="text-sm text-gray-500 mt-4">Do not close this page</p>
   </div>
+
+  <div id="success" class="hidden">
+    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <h2 class="text-2xl font-bold text-green-600 mb-2">Payment Successful!</h2>
+    <p class="text-gray-600 mb-6">Your application has been submitted and is now under review.</p>
+    <div class="bg-blue-50 p-4 rounded-lg text-left text-sm mb-6">
+      <p><strong>Reference:</strong> <span id="ref"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+    </div>
+    <a href="dashboard.html" class="block w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">Go to Dashboard</a>
+  </div>
+
+  <div id="failed" class="hidden">
+    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </div>
+    <h2 class="text-2xl font-bold text-red-600 mb-2">Verification Failed</h2>
+    <p class="text-gray-600 mb-6" id="error-text">We couldn't verify your payment. Please contact support.</p>
+    <button onclick="retryVerification()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 mb-3">Try Again</button>
+    <a href="apply.html" class="block text-sm text-gray-600 hover:text-blue-600">Back to Application</a>
+  </div>
+</div>
+
+<script>
+const API_BASE = "https://fsi.onrender.com";
+
+async function verifyPayment() {
+  const reference = localStorage.getItem("fsi_reference");
+  const email = localStorage.getItem("fsi_email");
+  
+  if (!reference || !email) {
+    showFailed("Missing payment reference. Please restart application.");
+    return;
+  }
+
+  document.getElementById("ref").textContent = reference;
+  document.getElementById("email").textContent = email;
+
+  try {
+    // Wait 3 seconds for Paystack to process
+    await new Promise(r => setTimeout(r, 3000));
+
+    const res = await fetch(`${API_BASE}/api/verify-payment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reference, email })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("success").classList.remove("hidden");
+      
+      // Clear storage after 5 seconds
+      setTimeout(() => {
+        localStorage.removeItem("fsi_reference");
+      }, 5000);
+    } else {
+      showFailed("Payment not confirmed. It may take a few minutes.");
+    }
+  } catch (err) {
+    console.error(err);
+    showFailed("Network error. Please check connection and try again.");
+  }
+}
+
+function showFailed(message) {
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("failed").classList.remove("hidden");
+  document.getElementById("error-text").textContent = message;
+}
+
+function retryVerification() {
+  document.getElementById("failed").classList.add("hidden");
+  document.getElementById("loading").classList.remove("hidden");
+  verifyPayment();
+}
+
+// Auto-verify on page load
+window.addEventListener("load", verifyPayment);
+
+// Also check URL params (Paystack sometimes adds ?reference=)
+const urlParams = new URLSearchParams(window.location.search);
+const urlRef = urlParams.get("reference") || urlParams.get("trxref");
+if (urlRef && !localStorage.getItem("fsi_reference")) {
+  localStorage.setItem("fsi_reference", urlRef);
+}
+</script>
 </body>
 </html>
