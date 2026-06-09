@@ -3,107 +3,83 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const axios = require("axios");
 const path = require("path");
+const crypto = require("crypto");
 require("dotenv").config();
 
 const app = express();
 
-// Middleware
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
-
-// Serve frontend files (frontend folder is one level up from backend)
 app.use(express.static(path.join(__dirname, "..", "frontend")));
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "..", "frontend", "index.html")));
 
-// Root route
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
-});
-
-// MongoDB
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.log("❌ Mongo Error:", err));
+ .then(() => console.log("✅ MongoDB Connected"))
+ .catch(err => console.log("❌ Mongo Error:", err));
 
-// Schema
 const Application = mongoose.model("Application", new mongoose.Schema({
-  name: String,
-  email: String,
-  phone: String,
-  startup: String,
-  problem: String,
-  solution: String,
-  business_model: String,
-  usage: String,
+  name: String, email: String, phone: String, startup: String,
+  problem: String, solution: String, business_model: String, usage: String,
   paymentStatus: { type: String, default: "unpaid" },
-  tx_ref: String,
-  createdAt: { type: Date, default: Date.now }
+  tx_ref: String, createdAt: { type: Date, default: Date.now }
 }));
 
-// Save application
 app.post("/api/save-application", async (req, res) => {
   try {
     await Application.findOneAndDelete({ email: req.body.email });
     const appData = await Application.create(req.body);
-    res.json({ success: true, id: appData._id });
-  } catch (err) {
-    res.status(500).json({ success: false });
-  }
+    res.json({ success: true });
+  } catch { res.status(500).json({ success: false }); }
 });
 
-// Initiate payment - TEST MODE (no encryption)
+// --- ENCRYPTION FUNCTION (Tingg/TransactPay standard) ---
+function encryptPayload(payload) {
+  const key = Buffer.from(process.env.TPAY_ENCRYPTION_KEY, 'base64');
+  const iv = key.slice(0, 16); // first 16 bytes as IV
+  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+  let encrypted = cipher.update(JSON.stringify(payload), 'utf8', 'base64');
+  encrypted += cipher.final('base64');
+  return encrypted;
+}
+
 app.post("/api/initiate-payment", async (req, res) => {
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
 
+  const payload = {
+    amount: "1000",
+    email,
+    name,
+    phone,
+    reference,
+    currency: "NGN",
+    description: "FSI Application Fee",
+    redirectUrl: "https://fsi.onrender.com/pending.html"
+  };
+
   try {
-    console.log("🔐 Creating payment link for:", email);
+    console.log("🔐 Creating payment for:", email);
+    const encryptedData = encryptPayload(payload);
+    console.log("🔒 Encrypted length:", encryptedData.length);
 
     const response = await axios.post(
       "https://payment-api-service.transactpay.ai/payment/create",
-      {
-        amount: 1000,
-        email: email,
-        name: name,
-        phone: phone,
-        reference: reference,
-        currency: "NGN",
-        description: "FSI Application Fee",
-        redirectUrl: "https://fsi.onrender.com/pending.html"
-      },
-      {
-        headers: {
-          "api-key": process.env.TPAY_PUBLIC_KEY,
-          "Content-Type": "application/json"
-        }
-      }
+      { data: encryptedData }, // <-- encrypted payload
+      { headers: { "api-key": process.env.TPAY_PUBLIC_KEY, "Content-Type": "application/json" } }
     );
 
-    const paymentLink = response.data?.data?.link || response.data?.data?.paymentLink || response.data?.data?.url;
-    
-    console.log("✅ Link created:", paymentLink);
+    const paymentLink = response.data?.data?.link;
+    console.log("✅ Link:", paymentLink);
 
-    await Application.findOneAndUpdate(
-      { email },
-      { tx_ref: reference },
-      { upsert: true }
-    );
-
-    res.json({
-      success: true,
-      checkout_url: paymentLink,
-      reference
-    });
+    await Application.findOneAndUpdate({ email }, { tx_ref: reference }, { upsert: true });
+    res.json({ success: true, checkout_url: paymentLink, reference });
 
   } catch (err) {
-    console.log("❌ Error:", err.response?.data || err.message);
-    res.status(500).json({
-      success: false,
-      error: err.response?.data || err.message
-    });
+    console.log("❌ Error:", err.response?.data);
+    res.status(500).json({ success: false, error: err.response?.data });
   }
 });
 
-// Verify payment
 app.post("/api/verify-payment", async (req, res) => {
   try {
     const response = await axios.post(
@@ -111,21 +87,15 @@ app.post("/api/verify-payment", async (req, res) => {
       { transaction_id: req.body.transaction_id },
       { headers: { "api-key": process.env.TPAY_PUBLIC_KEY } }
     );
-    
     const status = String(response.data?.data?.status || "").toUpperCase();
-    if (status === "SUCCESS" || status === "SUCCESSFUL") {
+    if (status.includes("SUCCESS")) {
       await Application.findOneAndUpdate({ email: req.body.email }, { paymentStatus: "paid" });
       return res.json({ success: true });
     }
     res.json({ success: false, status });
-  } catch (err) {
-    res.status(500).json({ success: false });
-  }
+  } catch { res.status(500).json({ success: false }); }
 });
 
-// Health check
 app.get("/health", (req, res) => res.json({ status: "ok" }));
-
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
