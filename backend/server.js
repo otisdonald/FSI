@@ -11,17 +11,27 @@ const app = express();
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "frontend")));
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "..", "frontend", "index.html")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch(err => console.log("❌ Mongo Error:", err));
 
 const Application = mongoose.model("Application", new mongoose.Schema({
-  name: String, email: String, phone: String, startup: String,
-  problem: String, solution: String, business_model: String, usage: String,
+  name: String,
+  email: String,
+  phone: String,
+  startup: String,
+  problem: String,
+  solution: String,
+  business_model: String,
+  usage: String,
   paymentStatus: { type: String, default: "unpaid" },
-  tx_ref: String, createdAt: { type: Date, default: Date.now }
+  tx_ref: String,
+  createdAt: { type: Date, default: Date.now }
 }));
 
 app.post("/api/save-application", async (req, res) => {
@@ -29,7 +39,9 @@ app.post("/api/save-application", async (req, res) => {
     await Application.findOneAndDelete({ email: req.body.email });
     await Application.create(req.body);
     res.json({ success: true });
-  } catch { res.status(500).json({ success: false }); }
+  } catch (err) {
+    res.status(500).json({ success: false });
+  }
 });
 
 function encryptPayload(payload) {
@@ -42,63 +54,74 @@ function encryptPayload(payload) {
 }
 
 app.post("/api/initiate-payment", async (req, res) => {
+  console.log("=== PAYMENT START ===");
+  console.log("Body:", req.body);
+  
   const { email, name, phone } = req.body;
   const reference = "FSI-" + Date.now();
 
-  const payload = {
-    amount: 1000,
-    email: email,
-    name: name || "Test User",
-    phone: phone || "08000000000",
-    reference: reference,
-    currency: "NGN",
-    country: "NG",
-    description: "FSI Application Fee",
-    redirectUrl: "https://fsi.onrender.com/pending.html"
-  };
+  if (!process.env.TPAY_PUBLIC_KEY || !process.env.TPAY_ENCRYPTION_KEY) {
+    console.log("❌ MISSING KEYS");
+    return res.status(500).json({ success: false, error: "Keys not set" });
+  }
 
   try {
-    console.log("=== PAYMENT DEBUG ===");
-    console.log("1. Payload:", payload);
-    console.log("2. Has Public Key:", !!process.env.TPAY_PUBLIC_KEY);
-    console.log("3. Has Enc Key:", !!process.env.TPAY_ENCRYPTION_KEY);
-    console.log("4. Public Key start:", process.env.TPAY_PUBLIC_KEY?.substring(0,15));
-    
+    const payload = {
+      amount: 1000,
+      email: email,
+      name: name || "Test User",
+      phone: phone || "08000000000",
+      reference: reference,
+      currency: "NGN",
+      country: "NG",
+      description: "FSI Application Fee",
+      redirectUrl: "https://fsi.onrender.com/pending.html"
+    };
+
     const encryptedData = encryptPayload(payload);
-    console.log("5. Encrypted length:", encryptedData.length);
+    
+    console.log("Public Key:", process.env.TPAY_PUBLIC_KEY.substring(0, 15) + "...");
+    console.log("Sending request...");
 
-    const response = await axios.post(
-      "https://payment-api-service.transactpay.ai/payment/create",
-      { data: encryptedData },
-      { 
-        headers: { 
-          "api-key": process.env.TPAY_PUBLIC_KEY,
-          "Content-Type": "application/json" 
-        },
-        timeout: 15000
-      }
+    const response = await axios({
+      method: 'post',
+      url: 'https://payment-api-service.transactpay.ai/payment/create',
+      data: { data: encryptedData },
+      headers: {
+        'api-key': process.env.TPAY_PUBLIC_KEY,
+        'Content-Type': 'application/json'
+      },
+      timeout: 15000
+    });
+
+    console.log("✅ SUCCESS:", JSON.stringify(response.data));
+    
+    await Application.findOneAndUpdate(
+      { email },
+      { tx_ref: reference },
+      { upsert: true }
     );
-
-    console.log("6. Response status:", response.status);
-    console.log("7. Response data:", JSON.stringify(response.data));
 
     const paymentLink = response.data?.data?.link || response.data?.data?.paymentLink;
     
-    await Application.findOneAndUpdate({ email }, { tx_ref: reference }, { upsert: true });
-    
-    res.json({ success: true, checkout_url: paymentLink, reference });
+    res.json({
+      success: true,
+      checkout_url: paymentLink,
+      reference: reference
+    });
 
   } catch (err) {
-    console.log("=== ERROR DEBUG ===");
-    console.log("Error message:", err.message);
-    console.log("Error status:", err.response?.status);
-    console.log("Error data:", JSON.stringify(err.response?.data));
-    console.log("Error headers:", err.response?.headers?.['www-authenticate']);
+    console.log("=== ERROR DETAILS ===");
+    console.log("Message:", err.message);
+    console.log("Code:", err.code);
+    console.log("Status:", err.response?.status);
+    console.log("Data:", JSON.stringify(err.response?.data));
+    console.log("=== END ERROR ===");
     
-    res.status(500).json({ 
-      success: false, 
-      error: err.response?.data || err.message,
-      status: err.response?.status
+    res.status(500).json({
+      success: false,
+      error: err.message,
+      details: err.response?.data
     });
   }
 });
@@ -110,18 +133,28 @@ app.post("/api/verify-payment", async (req, res) => {
       { transaction_id: req.body.transaction_id },
       { headers: { "api-key": process.env.TPAY_PUBLIC_KEY } }
     );
+    
     const status = String(response.data?.data?.status || "").toUpperCase();
+    
     if (status.includes("SUCCESS")) {
-      await Application.findOneAndUpdate({ email: req.body.email }, { paymentStatus: "paid" });
+      await Application.findOneAndUpdate(
+        { email: req.body.email },
+        { paymentStatus: "paid" }
+      );
       return res.json({ success: true });
     }
-    res.json({ success: false, status });
+    
+    res.json({ success: false, status: status });
   } catch (err) {
     res.status(500).json({ success: false });
   }
 });
 
-app.get("/health", (req, res) => res.json({ status: "ok" }));
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
