@@ -10,39 +10,39 @@
 <body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
 
 <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl max-w-md w-full text-center">
+  <!-- Loading -->
   <div id="loading">
     <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-6"></div>
     <h2 class="text-2xl font-bold text-gray-800 mb-2">Verifying Payment</h2>
     <p class="text-gray-600">Please wait while we confirm your ₦1,000 payment...</p>
-    <p class="text-sm text-gray-500 mt-4" id="ref-display">Reference: loading...</p>
+    <p class="text-sm text-gray-500 mt-4" id="ref-display">Reference: checking...</p>
   </div>
 
+  <!-- Success -->
   <div id="success" class="hidden">
     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-      <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
+      <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
     </div>
     <h2 class="text-2xl font-bold text-green-600 mb-2">Payment Successful!</h2>
     <p class="text-gray-600 mb-6">Your application has been submitted and is now under review.</p>
-    <div class="bg-blue-50 p-4 rounded-lg text-left text-sm mb-6">
+    <div class="bg-blue-50 p-4 rounded-lg text-left text-sm mb-6 space-y-1">
       <p><strong>Reference:</strong> <span id="ref"></span></p>
       <p><strong>Email:</strong> <span id="email"></span></p>
       <p><strong>Amount:</strong> ₦1,000</p>
+      <p><strong>Status:</strong> Processing</p>
     </div>
-    <a href="dashboard.html" class="block w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">Go to Dashboard</a>
-    <a href="index.html" class="block mt-3 text-sm text-gray-600 hover:text-blue-600">Back to Home</a>
+    <a href="index.html" class="block w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">Back to Home</a>
+    <p class="mt-4 text-xs text-gray-500">You will receive a confirmation email shortly.</p>
   </div>
 
+  <!-- Failed -->
   <div id="failed" class="hidden">
     <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-      <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
+      <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
     </div>
-    <h2 class="text-2xl font-bold text-red-600 mb-2">Verification Pending</h2>
-    <p class="text-gray-600 mb-2" id="error-text">We couldn't verify your payment yet.</p>
-    <p class="text-xs text-gray-500 mb-6">This can happen if Paystack is still processing. Wait 2 minutes and try again.</p>
+    <h2 class="text-2xl font-bold text-red-600 mb-2">Verification Failed</h2>
+    <p class="text-gray-600 mb-2" id="error-text">We couldn't verify your payment.</p>
+    <p class="text-xs text-gray-500 mb-6">Reference: <span id="ref-fail"></span></p>
     <button onclick="retryVerification()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 mb-3">Try Again</button>
     <a href="apply.html" class="block text-sm text-gray-600 hover:text-blue-600">Back to Application</a>
     <a href="mailto:contact@founderssupport.org" class="block mt-2 text-xs text-gray-500">Contact Support</a>
@@ -55,32 +55,28 @@ let currentRef = null;
 let currentEmail = null;
 
 async function verifyPayment() {
-  // Get reference from URL first (Paystack adds it)
   const urlParams = new URLSearchParams(window.location.search);
   const urlRef = urlParams.get("reference") || urlParams.get("trxref");
   
-  // Then fallback to localStorage
   currentRef = urlRef || localStorage.getItem("fsi_reference");
   currentEmail = localStorage.getItem("fsi_email") || "";
 
-  // Save URL ref if found
   if (urlRef) {
     localStorage.setItem("fsi_reference", urlRef);
-    currentRef = urlRef;
   }
 
   document.getElementById("ref-display").textContent = `Reference: ${currentRef || 'not found'}`;
   document.getElementById("ref").textContent = currentRef || 'N/A';
+  document.getElementById("ref-fail").textContent = currentRef || 'N/A';
   document.getElementById("email").textContent = currentEmail || 'retrieving...';
 
   if (!currentRef) {
-    showFailed("No payment reference found. Please complete payment from the apply page.");
+    showFailed("No payment reference found. Please complete payment from apply page.");
     return;
   }
 
   try {
-    // Wait for Paystack to settle
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise(r => setTimeout(r, 1500));
 
     const res = await fetch(`${API_BASE}/api/verify-payment`, {
       method: "POST",
@@ -93,19 +89,18 @@ async function verifyPayment() {
     if (data.success) {
       document.getElementById("loading").classList.add("hidden");
       document.getElementById("success").classList.remove("hidden");
-      document.getElementById("email").textContent = data.email;
+      document.getElementById("email").textContent = data.email || currentEmail;
       
-      // Clear after success
       setTimeout(() => {
         localStorage.removeItem("fsi_reference");
         localStorage.removeItem("fsi_email");
       }, 3000);
     } else {
-      showFailed(data.error || "Payment not confirmed yet. Please wait and retry.");
+      showFailed(data.error || "Payment not confirmed. Please wait 1 minute and retry.");
     }
   } catch (err) {
     console.error(err);
-    showFailed("Network error. Check your connection and try again.");
+    showFailed("Network error. Check connection and try again.");
   }
 }
 
@@ -121,7 +116,6 @@ function retryVerification() {
   verifyPayment();
 }
 
-// Auto-start
 window.addEventListener("load", verifyPayment);
 </script>
 </body>
