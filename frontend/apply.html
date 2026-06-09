@@ -1,131 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Apply – Founders Support Initiative</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>Apply – Founders Support Initiative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans">
 
-<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <a href="index.html"><img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
-  <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html">Home</a>
-    <a href="programs.html">Programs</a>
-    <a href="opportunities.html">Opportunities</a>
-    <a href="learning.html">Learning Hub</a>
-    <a href="community.html">Community</a>
-    <a href="events.html">Events</a>
-    <a href="grants.html" class="text-blue-600">Grants</a>
-  </nav>
-</header>
+  <!-- HEADER -->
+  <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
+    <a href="index.html"><img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="opportunities.html">Opportunities</a>
+      <a href="learning.html">Learning Hub</a>
+      <a href="community.html">Community</a>
+      <a href="events.html">Events</a>
+      <a href="grants.html" class="text-blue-600">Grants</a>
+    </nav>
+  </header>
 
+  <!-- HERO -->
+  <section class="relative bg-blue-700 text-white py-28 text-center px-6 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/apply.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs">
+    </div>
+    <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
+    <div class="absolute w-72 h-72 bg-red-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
 
-<!-- HERO -->
-<section class="relative bg-blue-700 text-white py-28 text-center px-6 overflow-hidden">
-
-  <div class="absolute inset-0">
-    <img src="/images/apply.png"
-         class="w-full h-full object-cover opacity-30" alt="Entrepreneurs">
-  </div>
-
-  <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
-  <div class="absolute w-72 h-72 bg-red-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
-
-  <div class="relative z-10 max-w-3xl mx-auto">
-
-    <p class="uppercase tracking-widest text-sm text-blue-200 mb-4">
-      2026 Cohort — Founder Applications
-    </p>
-
-    <h1 class="text-4xl md:text-5xl font-bold leading-tight">
-      Start Your Founder Application
-    </h1>
-
-    <p class="mt-6 text-lg text-gray-200">
-      This application takes approximately <strong>10–15 minutes</strong> to complete.
-      You will share details about your startup, the problem you are solving,
-      and how funding will accelerate your growth.
-    </p>
-
-    <div class="mt-8 grid md:grid-cols-3 gap-4 text-sm text-blue-100">
-      <div class="bg-white/10 rounded-lg p-4">
-        ✓ Open to founders across Africa
-      </div>
-      <div class="bg-white/10 rounded-lg p-4">
-        ✓ Early-stage & growth-stage startups
-      </div>
-      <div class="bg-white/10 rounded-lg p-4">
-        ✓ Funding + mentorship + training
+    <div class="relative z-10 max-w-3xl mx-auto">
+      <p class="uppercase tracking-widest text-sm text-blue-200 mb-4">
+        2026 Cohort — Founder Applications
+      </p>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+        Start Your Founder Application
+      </h1>
+      <p class="mt-6 text-lg text-gray-200">
+        This application takes approximately <strong>10–15 minutes</strong> to complete.
+        You will share details about your startup, the problem you are solving,
+        and how funding will accelerate your growth.
+      </p>
+      <div class="mt-8 grid md:grid-cols-3 gap-4 text-sm text-blue-100">
+        <div class="bg-white/10 rounded-lg p-4">✓ Open to founders across Africa</div>
+        <div class="bg-white/10 rounded-lg p-4">✓ Early-stage & growth-stage startups</div>
+        <div class="bg-white/10 rounded-lg p-4">✓ Funding + mentorship + training</div>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- FORM -->
+  <div class="max-w-2xl mx-auto p-6 -mt-10 relative z-20">
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Application Form</h2>
 
+      <form id="form" class="space-y-6" aria-label="Founder Application Form">
+        
+        <!-- PERSONAL INFO -->
+        <div>
+          <h3 class="font-semibold mb-3 text-gray-800">Personal Information</h3>
+          <input name="name" placeholder="Full Name *" aria-label="Full Name" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500" required>
+          <input name="email" type="email" placeholder="Email *" aria-label="Email" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500" required>
+          <input name="phone" placeholder="Phone *" aria-label="Phone" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500" required>
+          <div class="grid grid-cols-2 gap-3">
+            <select name="country" aria-label="Country" class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500" required>
+              <option value="">Country *</option>
+              <option>Nigeria</option><option>Ghana</option><option>Kenya</option>
+              <option>South Africa</option><option>Rwanda</option><option>Uganda</option><option>Other</option>
+            </select>
+            <select name="sex" aria-label="Sex" class="w-full border p-3 rounded focus:ring-2 focus:ring-blue-500" required>
+              <option value="">Sex *</option><option>Male</option><option>Female</option><option>Other</option>
+            </select>
+          </div>
+          <input type="date" name="dob" aria-label="Date of Birth" class="w-full border p-3 rounded mt-3 focus:ring-2 focus:ring-blue-500" required>
+        </div>
 
-<div class="max-w-2xl mx-auto p-6 -mt-10 relative z-20">
-<div class="bg-white p-8 rounded-xl shadow-lg">
-<h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Application Form</h2>
+        <!-- STARTUP DETAILS -->
+        <div class="border-t pt-6">
+          <h3 class="font-semibold mb-3">Startup Details</h3>
+          <input name="startup" placeholder="Startup Name *" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500" required>
+          <select name="grant_type" id="grant_type" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500" required>
+            <option value="">Grant Category *</option>
+            <option value="general">General Startup Grant</option>
+            <option value="youth">Youth Grant</option>
+            <option value="women">Women in Business</option>
+            <option value="innovation">Innovation & Tech</option>
+          </select>
+          <textarea name="problem" placeholder="Problem you're solving *" class="w-full border p-3 rounded mb-3 h-24 focus:ring-2 focus:ring-blue-500" required></textarea>
+          <textarea name="solution" placeholder="Your solution *" class="w-full border p-3 rounded mb-3 h-24 focus:ring-2 focus:ring-blue-500" required></textarea>
+          <textarea name="business_model" placeholder="Business model *" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500" required></textarea>
+          <textarea name="usage" placeholder="How will you use the grant? *" class="w-full border p-3 rounded mb-3 h-20 focus:ring-2 focus:ring-blue-500" required></textarea>
+        </div>
 
-<form id="form" class="space-y-6">
-  <div>
-    <h3 class="font-semibold mb-3 text-gray-800">Personal Information</h3>
-    <input name="name" placeholder="Full Name *" class="w-full border p-3 rounded mb-3" required>
-    <input name="email" type="email" placeholder="Email *" class="w-full border p-3 rounded mb-3" required>
-    <input name="phone" placeholder="Phone *" class="w-full border p-3 rounded mb-3" required>
-    <div class="grid grid-cols-2 gap-3">
-      <select name="country" class="w-full border p-3 rounded" required>
-        <option value="">Country *</option>
-        <option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option><option>Rwanda</option><option>Uganda</option><option>Other</option>
-      </select>
-      <select name="sex" class="w-full border p-3 rounded" required>
-        <option value="">Sex *</option><option>Male</option><option>Female</option><option>Other</option>
-      </select>
-    </div>
-    <input type="date" name="dob" class="w-full border p-3 rounded mt-3" required>
-  </div>
+        <!-- ADDITIONAL INFO -->
+        <div class="border-t pt-6">
+          <h3 class="font-semibold mb-3">Additional Info</h3>
+          <textarea name="target_market" placeholder="Target market" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500"></textarea>
+          <textarea name="competition" placeholder="Competitors" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500"></textarea>
+          <input name="funding" placeholder="Previous funding (if any)" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500">
+          <textarea name="traction" placeholder="Traction (users, revenue)" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500"></textarea>
+          <textarea name="vision" placeholder="12-month vision" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500"></textarea>
+          <textarea name="milestones" placeholder="Key milestones" class="w-full border p-3 rounded mb-3 focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
 
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-3">Startup Details</h3>
-    <input name="startup" placeholder="Startup Name *" class="w-full border p-3 rounded mb-3" required>
-    <select name="grant_type" id="grant_type" class="w-full border p-3 rounded mb-3" required>
-      <option value="">Grant Category *</option>
-      <option value="general">General Startup Grant</option>
-      <option value="youth">Youth Grant</option>
-      <option value="women">Women in Business</option>
-      <option value="innovation">Innovation & Tech</option>
-    </select>
-    <textarea name="problem" placeholder="Problem you're solving *" class="w-full border p-3 rounded mb-3 h-24" required></textarea>
-    <textarea name="solution" placeholder="Your solution *" class="w-full border p-3 rounded mb-3 h-24" required></textarea>
-    <textarea name="business_model" placeholder="Business model *" class="w-full border p-3 rounded mb-3" required></textarea>
-    <textarea name="usage" placeholder="How will you use the grant? *" class="w-full border p-3 rounded mb-3 h-20" required></textarea>
-  </div>
+        <!-- AGREEMENT -->
+        <div class="flex items-start gap-2">
+          <input type="checkbox" id="agree" required class="mt-1">
+          <label for="agree" class="text-sm text-gray-600">I confirm information is accurate and agree to terms.</label>
+        </div>
 
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-3">Additional Info</h3>
-    <textarea name="target_market" placeholder="Target market" class="w-full border p-3 rounded mb-3"></textarea>
-    <textarea name="competition" placeholder="Competitors" class="w-full border p-3 rounded mb-3"></textarea>
-    <input name="funding" placeholder="Previous funding (if any)" class="w-full border p-3 rounded mb-3">
-    <textarea name="traction" placeholder="Traction (users, revenue)" class="w-full border p-3 rounded mb-3"></textarea>
-    <textarea name="vision" placeholder="12-month vision" class="w-full border p-3 rounded mb-3"></textarea>
-    <textarea name="milestones" placeholder="Key milestones" class="w-full border p-3 rounded mb-3"></textarea>
-  </div>
-
-  <div class="flex items-start gap-2">
-    <input type="checkbox" id="agree" required class="mt-1">
-    <label for="agree" class="text-sm text-gray-600">I confirm information is accurate and agree to terms.</label>
-  </div>
-
-  <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm">
-
-    <!-- APPLICATION FEE -->
-<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm rounded-lg">
-  <p class="font-bold text-lg">Application Fee: ₦1,000</p>
+        <!-- APPLICATION FEE -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm rounded-lg">
+          <p class="font-bold text-lg">Application Fee: ₦1,000</p>
 
   <ul class="list-disc ml-5 mt-3 text-gray-700 space-y-1">
     <li>Covers administrative review and application processing costs.</li>
