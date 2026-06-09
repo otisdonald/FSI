@@ -11,236 +11,158 @@
 </head>
 <body class="bg-gray-50 font-sans">
 
-<!-- NAVBAR (yours unchanged) -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <a href="index.html" class="block"><img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
+  <a href="index.html"><img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
-    <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
-    <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
-    <a href="grants.html" class="text-gray-900 hover:text-blue-600">Grants</a>
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="opportunities.html">Opportunities</a>
+    <a href="learning.html">Learning Hub</a>
+    <a href="community.html">Community</a>
+    <a href="events.html">Events</a>
+    <a href="grants.html" class="text-blue-600">Grants</a>
   </nav>
-  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-  </button>
 </header>
 
-<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center">
-    <h2 class="font-bold text-blue-700">Menu</h2>
-    <button id="close-btn" class="text-2xl">✕</button>
-  </div>
-  <div class="flex flex-col gap-5 text-gray-800 font-medium">
-    <a href="index.html" class="hover:text-blue-600">Home</a>
-    <a href="programs.html" class="hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="hover:text-blue-600">Community</a>
-    <a href="events.html" class="hover:text-blue-600">Events</a>
-    <a href="grants.html" class="hover:text-blue-600">Grants</a>
-  </div>
-  <a href="grants.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
-</nav>
-
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('overlay');
-  function openMenu() { mobileMenu.classList.remove('translate-x-full'); overlay.classList.remove('opacity-0', 'pointer-events-none'); overlay.classList.add('opacity-100', 'pointer-events-auto'); }
-  function closeMenu() { mobileMenu.classList.add('translate-x-full'); overlay.classList.add('opacity-0', 'pointer-events-none'); overlay.classList.remove('opacity-100', 'pointer-events-auto'); }
-  menuBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-</script>
-
-<!-- HERO (yours unchanged) -->
-<section class="relative bg-blue-700 text-white py-28 text-center px-6 overflow-hidden">
-  <div class="absolute inset-0"><img src="/images/apply.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs"></div>
-  <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
-  <div class="absolute w-72 h-72 bg-red-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+<section class="relative bg-blue-700 text-white py-20 text-center px-6">
+  <div class="absolute inset-0"><img src="/images/apply.png" class="w-full h-full object-cover opacity-20" alt=""></div>
   <div class="relative z-10 max-w-3xl mx-auto">
-    <p class="uppercase tracking-widest text-sm text-blue-200 mb-4">2026 Cohort — Founder Applications</p>
-    <h1 class="text-4xl md:text-5xl font-bold leading-tight">Start Your Founder Application</h1>
-    <p class="mt-6 text-lg text-gray-200">This application takes approximately <strong>10–15 minutes</strong> to complete. You will share details about your startup, the problem you are solving, and how funding will accelerate your growth.</p>
-    <div class="mt-8 grid md:grid-cols-3 gap-4 text-sm text-blue-100">
-      <div class="bg-white/10 rounded-lg p-4">✓ Open to founders across Africa</div>
-      <div class="bg-white/10 rounded-lg p-4">✓ Early-stage & growth-stage startups</div>
-      <div class="bg-white/10 rounded-lg p-4">✓ Funding + mentorship + training</div>
-    </div>
+    <p class="uppercase text-sm text-blue-200 mb-3">2026 Cohort</p>
+    <h1 class="text-4xl md:text-5xl font-bold">Start Your Application</h1>
+    <p class="mt-4 text-lg text-blue-100">10–15 minutes • ₦1,000 processing fee</p>
   </div>
 </section>
 
-<!-- FORM -->
-<div class="max-w-2xl mx-auto p-6 mt-10">
-<div class="bg-white p-8 rounded-xl shadow-lg border">
+<div class="max-w-2xl mx-auto p-6 -mt-10 relative z-20">
+<div class="bg-white p-8 rounded-xl shadow-lg">
 <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Application Form</h2>
+
 <form id="form" class="space-y-6">
   <div>
-    <h3 class="font-semibold mb-2">Personal Info</h3>
-    <input name="name" placeholder="Full Name" class="w-full border p-3 rounded mb-3" required>
-    <input name="email" type="email" placeholder="Email" class="w-full border p-3 rounded mb-3" required>
-    <input name="phone" placeholder="Phone" class="w-full border p-3 rounded mb-3" required>
-    <select name="country" class="w-full border p-3 rounded mb-3" required>
-      <option value="">Select Country</option>
-      <option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option><option>Rwanda</option><option>Uganda</option><option>Tanzania</option><option>Egypt</option><option>Morocco</option><option>Cameroon</option><option>Senegal</option><option>Ivory Coast</option><option>Ethiopia</option><option>Zambia</option><option>Botswana</option><option>Namibia</option><option>Zimbabwe</option><option>Mozambique</option><option>Other African Country</option>
-    </select>
-    <select name="sex" class="w-full border p-3 rounded mb-3" required>
-      <option value="">Select Sex</option><option>Male</option><option>Female</option><option>Other</option>
-    </select>
-    <label class="text-sm">Date of Birth</label>
-    <input type="date" name="dob" class="w-full border p-3 rounded" required>
+    <h3 class="font-semibold mb-3 text-gray-800">Personal Information</h3>
+    <input name="name" placeholder="Full Name *" class="w-full border p-3 rounded mb-3" required>
+    <input name="email" type="email" placeholder="Email *" class="w-full border p-3 rounded mb-3" required>
+    <input name="phone" placeholder="Phone *" class="w-full border p-3 rounded mb-3" required>
+    <div class="grid grid-cols-2 gap-3">
+      <select name="country" class="w-full border p-3 rounded" required>
+        <option value="">Country *</option>
+        <option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option><option>Rwanda</option><option>Uganda</option><option>Other</option>
+      </select>
+      <select name="sex" class="w-full border p-3 rounded" required>
+        <option value="">Sex *</option><option>Male</option><option>Female</option><option>Other</option>
+      </select>
+    </div>
+    <input type="date" name="dob" class="w-full border p-3 rounded mt-3" required>
   </div>
+
   <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Startup Info</h3>
-    <input name="startup" placeholder="Startup Name" class="w-full border p-3 rounded mb-3" required>
-    <!-- ADDED GRANT TYPE -->
+    <h3 class="font-semibold mb-3">Startup Details</h3>
+    <input name="startup" placeholder="Startup Name *" class="w-full border p-3 rounded mb-3" required>
     <select name="grant_type" id="grant_type" class="w-full border p-3 rounded mb-3" required>
-      <option value="">Select Grant Category</option>
+      <option value="">Grant Category *</option>
       <option value="general">General Startup Grant</option>
-      <option value="youth">Youth Grant (18-35)</option>
+      <option value="youth">Youth Grant</option>
       <option value="women">Women in Business</option>
       <option value="innovation">Innovation & Tech</option>
     </select>
-    <textarea name="problem" placeholder="Problem you're solving" class="w-full border p-3 rounded mb-3" required></textarea>
-    <textarea name="solution" placeholder="Your solution" class="w-full border p-3 rounded mb-3" required></textarea>
-    <textarea name="business_model" placeholder="How you make money" class="w-full border p-3 rounded mb-3" required></textarea>
-    <textarea name="usage" placeholder="How you will use funds" class="w-full border p-3 rounded mb-3" required></textarea>
+    <textarea name="problem" placeholder="Problem you're solving *" class="w-full border p-3 rounded mb-3 h-24" required></textarea>
+    <textarea name="solution" placeholder="Your solution *" class="w-full border p-3 rounded mb-3 h-24" required></textarea>
+    <textarea name="business_model" placeholder="Business model *" class="w-full border p-3 rounded mb-3" required></textarea>
+    <textarea name="usage" placeholder="How will you use the grant? *" class="w-full border p-3 rounded mb-3 h-20" required></textarea>
   </div>
+
   <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Market Info</h3>
-    <textarea name="target_market" placeholder="Who is your target market?" class="w-full border p-3 rounded mb-3"></textarea>
-    <textarea name="competition" placeholder="Who are your competitors?" class="w-full border p-3 rounded mb-3"></textarea>
+    <h3 class="font-semibold mb-3">Additional Info</h3>
+    <textarea name="target_market" placeholder="Target market" class="w-full border p-3 rounded mb-3"></textarea>
+    <textarea name="competition" placeholder="Competitors" class="w-full border p-3 rounded mb-3"></textarea>
+    <input name="funding" placeholder="Previous funding (if any)" class="w-full border p-3 rounded mb-3">
+    <textarea name="traction" placeholder="Traction (users, revenue)" class="w-full border p-3 rounded mb-3"></textarea>
+    <textarea name="vision" placeholder="12-month vision" class="w-full border p-3 rounded mb-3"></textarea>
+    <textarea name="milestones" placeholder="Key milestones" class="w-full border p-3 rounded mb-3"></textarea>
   </div>
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Funding & Traction</h3>
-    <input name="funding" placeholder="Have you raised any funding?" class="w-full border p-3 rounded mb-3">
-    <textarea name="traction" placeholder="Any traction (users, revenue, partnerships)?" class="w-full border p-3 rounded mb-3"></textarea>
-  </div>
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Vision & Goals</h3>
-    <textarea name="vision" placeholder="What is your long-term vision?" class="w-full border p-3 rounded mb-3"></textarea>
-    <textarea name="milestones" placeholder="Key milestones for the next 12 months" class="w-full border p-3 rounded mb-3"></textarea>
-  </div>
+
   <div class="flex items-start gap-2">
-    <input type="checkbox" id="agree" required>
-    <label for="agree" class="text-sm">I confirm that the information provided is accurate and I agree to the Founder Agreement.</label>
+    <input type="checkbox" id="agree" required class="mt-1">
+    <label for="agree" class="text-sm text-gray-600">I confirm information is accurate and agree to terms.</label>
   </div>
+
   <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm">
-    <p><b>Application Fee: ₦1,000</b></p>
-    <ul class="list-disc ml-5 mt-2 text-gray-700">
-      <li>Covers administrative review and processing costs.</li>
-      <li>Helps prevent spam or unserious applications.</li>
-      <li>Ensures only committed founders apply.</li>
-      <li>Supports platform maintenance and community programs.</li>
-    </ul>
-    <p class="mt-2 text-gray-600">Secure payment powered by Paystack.</p>
+    <p class="font-bold">Application Fee: ₦1,000</p>
+    <p class="text-gray-600 mt-1">Non-refundable • Secured by Paystack</p>
   </div>
-  <button type="button" id="submitBtn" onclick="submitForm()" class="w-full bg-blue-600 text-white p-3 rounded font-bold hover:bg-blue-700 transition">Submit Application (₦1,000)</button>
-  <p class="mt-3 text-sm text-gray-600 text-center">Once payment is confirmed, your application will be processed immediately.</p>
-  <p id="errorMsg" class="mt-2 text-sm text-red-600 text-center hidden"></p>
+
+  <button type="button" id="submitBtn" onclick="submitForm()" class="w-full bg-blue-600 text-white p-4 rounded-lg font-bold hover:bg-blue-700">Continue to Payment</button>
+  <p id="errorMsg" class="text-red-600 text-sm text-center hidden mt-2"></p>
 </form>
-</div>
+
+<div id="loading" class="hidden text-center py-10">
+  <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+  <p>Saving your application...</p>
 </div>
 
-<footer class="bg-gray-900 text-gray-300 mt-20">
-  <div class="max-w-6xl mx-auto px-6 py-10 text-center text-sm">
-    © 2026 Founders Support Initiative. All rights reserved.
-  </div>
-</footer>
+</div>
+</div>
 
 <script>
 const API_BASE = "https://fsi.onrender.com";
 
-// Auto-select grant from URL
-const urlParams = new URLSearchParams(window.location.search);
-const grant = urlParams.get('grant');
-if (grant) {
-  setTimeout(() => {
-    const select = document.getElementById('grant_type');
-    if (select) select.value = grant;
-  }, 100);
+// Pre-select grant from URL
+const params = new URLSearchParams(location.search);
+if (params.get('grant')) {
+  document.getElementById('grant_type').value = params.get('grant');
 }
 
 async function submitForm() {
-  const f = document.getElementById("form");
-  const btn = document.getElementById("submitBtn");
-  const errorMsg = document.getElementById("errorMsg");
+  const f = document.getElementById('form');
+  const btn = document.getElementById('submitBtn');
+  const err = document.getElementById('errorMsg');
+  const loading = document.getElementById('loading');
 
-  if (!document.getElementById("agree").checked) {
-    alert("Please accept the agreement");
+  if (!f.checkValidity() || !document.getElementById('agree').checked) {
+    f.reportValidity();
     return;
   }
 
   btn.disabled = true;
-  btn.innerHTML = "Processing...";
-  errorMsg.classList.add("hidden");
+  f.classList.add('hidden');
+  loading.classList.remove('hidden');
+  err.classList.add('hidden');
 
-  const data = {
-    name: f.name.value.trim(),
-    email: f.email.value.trim(),
-    phone: f.phone.value.trim(),
-    startup: f.startup.value.trim(),
-    problem: f.problem.value,
-    solution: f.solution.value,
-    business_model: f.business_model.value,
-    usage: f.usage.value,
-    country: f.country.value,
-    sex: f.sex.value,
-    dob: f.dob.value,
-    grant_type: f.grant_type.value,
-    target_market: f.target_market?.value || "",
-    competition: f.competition?.value || "",
-    funding: f.funding?.value || "",
-    traction: f.traction?.value || "",
-    vision: f.vision?.value || "",
-    milestones: f.milestones?.value || ""
-  };
+  const data = Object.fromEntries(new FormData(f).entries());
 
   try {
-    // 1. Save application FIRST
-    const saveRes = await fetch(`${API_BASE}/api/save-application`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    // 1. Save
+    const save = await fetch(`${API_BASE}/api/save-application`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify(data)
-    });
-    const saveData = await saveRes.json();
-    if (!saveData.success) throw new Error("Could not save application");
+    }).then(r => r.json());
+    
+    if (!save.success) throw new Error('Save failed');
 
-    // 2. Initiate Paystack
-    const initRes = await fetch(`${API_BASE}/api/initiate-payment`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: data.email, name: data.name, phone: data.phone })
-    });
-    const initData = await initRes.json();
+    // 2. Payment
+    const pay = await fetch(`${API_BASE}/api/initiate-payment`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({email:data.email, name:data.name, phone:data.phone})
+    }).then(r => r.json());
 
-    if (!initData.success) {
-      throw new Error(initData.error || "Payment initialization failed");
-    }
+    if (!pay.success) throw new Error(pay.error || 'Payment error');
 
-    // 3. Store for pending page BEFORE redirect
-    localStorage.setItem("fsi_email", data.email);
-    localStorage.setItem("fsi_reference", initData.reference);
-    localStorage.setItem("fsi_application", JSON.stringify(data));
+    localStorage.setItem('fsi_email', data.email);
+    localStorage.setItem('fsi_reference', pay.reference);
 
-    // 4. Redirect
-    window.location.href = initData.checkout_url;
+    window.location.href = pay.checkout_url;
 
-  } catch (err) {
-    console.error(err);
-    errorMsg.textContent = err.message + " - Please try again";
-    errorMsg.classList.remove("hidden");
+  } catch (e) {
+    err.textContent = e.message;
+    err.classList.remove('hidden');
+    f.classList.remove('hidden');
+    loading.classList.add('hidden');
     btn.disabled = false;
-    btn.innerHTML = "Submit Application (₦1,000)";
   }
 }
 </script>
+
 </body>
 </html>
