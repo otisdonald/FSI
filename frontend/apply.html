@@ -8,15 +8,12 @@
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 <body class="bg-gray-50 font-sans">
 
-<!-- NAVBAR -->
+<!-- NAVBAR (yours unchanged) -->
 <header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-  <a href="index.html" class="block">
-    <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto">
-  </a>
+  <a href="index.html" class="block"><img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
   <nav class="hidden md:flex gap-6 text-sm font-medium">
     <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
     <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
@@ -63,7 +60,7 @@
   overlay.addEventListener('click', closeMenu);
 </script>
 
-<!-- HERO -->
+<!-- HERO (yours unchanged) -->
 <section class="relative bg-blue-700 text-white py-28 text-center px-6 overflow-hidden">
   <div class="absolute inset-0"><img src="/images/apply.png" class="w-full h-full object-cover opacity-30" alt="Entrepreneurs"></div>
   <div class="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
@@ -103,6 +100,14 @@
   <div class="border-t pt-6">
     <h3 class="font-semibold mb-2">Startup Info</h3>
     <input name="startup" placeholder="Startup Name" class="w-full border p-3 rounded mb-3" required>
+    <!-- ADDED GRANT TYPE -->
+    <select name="grant_type" id="grant_type" class="w-full border p-3 rounded mb-3" required>
+      <option value="">Select Grant Category</option>
+      <option value="general">General Startup Grant</option>
+      <option value="youth">Youth Grant (18-35)</option>
+      <option value="women">Women in Business</option>
+      <option value="innovation">Innovation & Tech</option>
+    </select>
     <textarea name="problem" placeholder="Problem you're solving" class="w-full border p-3 rounded mb-3" required></textarea>
     <textarea name="solution" placeholder="Your solution" class="w-full border p-3 rounded mb-3" required></textarea>
     <textarea name="business_model" placeholder="How you make money" class="w-full border p-3 rounded mb-3" required></textarea>
@@ -123,11 +128,6 @@
     <textarea name="vision" placeholder="What is your long-term vision?" class="w-full border p-3 rounded mb-3"></textarea>
     <textarea name="milestones" placeholder="Key milestones for the next 12 months" class="w-full border p-3 rounded mb-3"></textarea>
   </div>
-  <div class="border-t pt-6">
-    <h3 class="font-semibold mb-2">Supporting Doc (optional)</h3>
-    <input type="file" class="w-full border p-3 rounded">
-    <p class="text-xs text-gray-500 mt-1">Pitch deck or business plan.</p>
-  </div>
   <div class="flex items-start gap-2">
     <input type="checkbox" id="agree" required>
     <label for="agree" class="text-sm">I confirm that the information provided is accurate and I agree to the Founder Agreement.</label>
@@ -140,7 +140,7 @@
       <li>Ensures only committed founders apply.</li>
       <li>Supports platform maintenance and community programs.</li>
     </ul>
-    <p class="mt-2 text-gray-600">Secure payment powered by Paystack. For applicants outside Nigeria, Paystack will automatically convert this fee to your local currency at checkout.</p>
+    <p class="mt-2 text-gray-600">Secure payment powered by Paystack.</p>
   </div>
   <button type="button" id="submitBtn" onclick="submitForm()" class="w-full bg-blue-600 text-white p-3 rounded font-bold hover:bg-blue-700 transition">Submit Application (₦1,000)</button>
   <p class="mt-3 text-sm text-gray-600 text-center">Once payment is confirmed, your application will be processed immediately.</p>
@@ -157,6 +157,16 @@
 
 <script>
 const API_BASE = "https://fsi.onrender.com";
+
+// Auto-select grant from URL
+const urlParams = new URLSearchParams(window.location.search);
+const grant = urlParams.get('grant');
+if (grant) {
+  setTimeout(() => {
+    const select = document.getElementById('grant_type');
+    if (select) select.value = grant;
+  }, 100);
+}
 
 async function submitForm() {
   const f = document.getElementById("form");
@@ -184,6 +194,7 @@ async function submitForm() {
     country: f.country.value,
     sex: f.sex.value,
     dob: f.dob.value,
+    grant_type: f.grant_type.value,
     target_market: f.target_market?.value || "",
     competition: f.competition?.value || "",
     funding: f.funding?.value || "",
@@ -193,7 +204,7 @@ async function submitForm() {
   };
 
   try {
-    // Save application
+    // 1. Save application FIRST
     const saveRes = await fetch(`${API_BASE}/api/save-application`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -202,7 +213,7 @@ async function submitForm() {
     const saveData = await saveRes.json();
     if (!saveData.success) throw new Error("Could not save application");
 
-    // Initiate Paystack
+    // 2. Initiate Paystack
     const initRes = await fetch(`${API_BASE}/api/initiate-payment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -210,19 +221,21 @@ async function submitForm() {
     });
     const initData = await initRes.json();
 
-    if (!initData.success || !initData.checkout_url) {
+    if (!initData.success) {
       throw new Error(initData.error || "Payment initialization failed");
     }
 
-    localStorage.setItem("fsi_application", JSON.stringify(data));
+    // 3. Store for pending page BEFORE redirect
     localStorage.setItem("fsi_email", data.email);
     localStorage.setItem("fsi_reference", initData.reference);
+    localStorage.setItem("fsi_application", JSON.stringify(data));
 
+    // 4. Redirect
     window.location.href = initData.checkout_url;
 
   } catch (err) {
     console.error(err);
-    errorMsg.textContent = err.message;
+    errorMsg.textContent = err.message + " - Please try again";
     errorMsg.classList.remove("hidden");
     btn.disabled = false;
     btn.innerHTML = "Submit Application (₦1,000)";
