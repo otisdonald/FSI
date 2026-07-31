@@ -1,316 +1,1313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FSI | Grants</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="description" content="FSI Grants provide non-dilutive funding from ₦750,000 to ₦7,500,000 for African founders across general, youth, women-led, and innovation categories.">
-  <meta property="og:title" content="FSI Grants | Non-Dilutive Funding for African Founders">
-  <meta property="og:description" content="Apply for FSI Startup Grants — funding, mentorship, and training for early and growth-stage African startups.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://founderssupport.org/images/startupgrant.png">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Founders Support Initiative: 879 Nigerian entrepreneurs applied for grants. Applications closed, review in progress." />
+  <meta property="og:title" content="Founders Support Initiative | Applications Closed" />
+  <meta name="theme-color" content="#0B3A78" />
+  <title>Founders Support Initiative | Applications Closed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
-  @keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
-  .float{animation:float 6s ease-in-out infinite}
-  .card-glow{position:relative;overflow:hidden}
-  .card-glow::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(37,99,235,.25),transparent);opacity:0;transition:.5s;pointer-events:none;z-index:1}
-  .card-glow:hover::before{opacity:1}
-  .card-glow > *{position:relative;z-index:2}
-  .card-lift{transition:all .35s cubic-bezier(.17,.67,.38,1.46)}
-  .card-lift:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12)}
-  .icon-bounce{transition:.3s}
-  .card-lift:hover .icon-bounce{transform:scale(1.15) rotate(5deg)}
-  .btn-ripple{position:relative;overflow:hidden}
-  .btn-ripple:after{content:"";position:absolute;width:20px;height:20px;background:rgba(255,255,255,.5);border-radius:50%;transform:scale(0);opacity:0;transition:.6s}
-  .btn-ripple:active:after{transform:scale(12);opacity:0;transition:0s}
-  header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08);background:rgba(255,255,255,.95)}
-  .blob{animation:float 10s infinite ease-in-out;filter:blur(60px)}
-  .hero-float{animation:floatBg 18s ease-in-out infinite}
-  @keyframes floatBg{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+    /* ===== RESET ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #F7F9FC;
+      color: #1a1a1a;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ===== VARIABLES ===== */
+    :root {
+      --primary: #0B3A78;
+      --primary-dark: #062A5A;
+      --secondary: #1F8A4D;
+      --accent: #E8B547;
+      --purple: #6B46C1;
+      --text: #1a1a1a;
+      --text-light: #5a5a5a;
+      --bg: #F7F9FC;
+      --white: #fff;
+      --border: #E5E7EB;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    /* ===== CONTAINER ===== */
+  .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== NAVBAR ===== */
+  .navbar {
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+      border-bottom: 1px solid var(--border);
+    }
+
+  .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+    }
+
+  .logo img { width: 110px; }
+
+  .mobile-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 8px;
+    }
+
+  .mobile-toggle span {
+      width: 24px;
+      height: 2.5px;
+      background: var(--primary);
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+  .mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+  .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+  .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+    nav {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      right: 0;
+      background: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    nav.active { max-height: calc(100vh - 62px); overflow-y: auto; }
+
+    nav a {
+      display: block;
+      padding: 16px 20px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+      border-bottom: 1px solid var(--border);
+      transition: 0.2s;
+    }
+
+    nav a:hover { background: #F7F9FC; color: var(--secondary); }
+    nav a:last-child { border-bottom: none; }
+
+    @media (min-width: 1024px) {
+    .mobile-toggle { display: none; }
+      nav {
+        position: static;
+        max-height: none;
+        background: transparent;
+        box-shadow: none;
+        display: flex;
+        gap: 32px;
+        overflow: visible;
+      }
+      nav a {
+        padding: 8px 0;
+        border: none;
+        position: relative;
+      }
+      nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary);
+        transition: width 0.3s;
+      }
+      nav a:hover::after { width: 100%; }
+      nav a:hover { background: transparent; }
+    }
+
+    /* ===== HERO ===== */
+  .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+  .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+      opacity: 0.3;
+    }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-logo {
+      width: 90px;
+      margin: 0 auto 20px;
+      filter: brightness(0) invert(1);
+    }
+
+  .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+  .hero h1 {
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+  .hero p {
+      font-size: clamp(15px, 2.5vw, 18px);
+      margin-bottom: 32px;
+      opacity: 0.95;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 16px;
+    }
+
+  .hero-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px;
+    }
+
+  .btn {
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+
+  .btn-primary {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+  .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid white;
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+
+  .btn-secondary:hover { background: white; color: var(--primary); }
+
+  .hero-meta {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 32px;
+      font-size: 14px;
+      opacity: 0.9;
+      flex-wrap: wrap;
+    }
+
+    @media (min-width: 640px) {
+    .hero-buttons { flex-direction: row; }
+    .btn { width: auto; }
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 56px 0; }
+
+  .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+  .section-tag {
+      display: inline-block;
+      background: rgba(11, 58, 120, 0.08);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+  .section-title h2 {
+      font-size: clamp(24px, 5vw, 36px);
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+  .section-title p {
+      color: var(--text-light);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== STATS ===== */
+  .stats-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {.stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) {.stats-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+  .stat-card {
+      padding: 32px 24px;
+      border-radius: 20px;
+      color: white;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+  .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+  .stat-card.icon { font-size: 32px; margin-bottom: 12px; opacity: 0.9; }
+  .stat-card h3 { font-size: 36px; font-weight: 800; margin: 8px 0; }
+  .stat-card p { font-size: 14px; opacity: 0.95; margin-bottom: 8px; }
+  .stat-card.trend { font-size: 13px; opacity: 0.85; display: block; margin-top: 8px; }
+
+  .stat-card.blue { background: linear-gradient(135deg, #0B3A78, #1F8A4D); }
+  .stat-card.green { background: linear-gradient(135deg, #1F8A4D, #0B3A78); }
+  .stat-card.purple { background: linear-gradient(135deg, #6B46C1, #805AD5); }
+  .stat-card.gold { background: linear-gradient(135deg, #E8B547, #F7D98C); color: var(--primary); }
+
+    /* ===== HIGHLIGHTS ===== */
+  .highlight-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 768px) {
+    .highlight-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    }
+
+  .highlight-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+      border: 1px solid var(--border);
+    }
+
+  .highlight-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+  .highlight-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      color: white;
+      font-size: 22px;
+    }
+
+  .highlight-card h3 {
+      font-size: 28px;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+  .highlight-card span { color: var(--text-light); font-size: 13px; font-weight: 500; }
+
+    /* ===== TIMELINE ===== */
+  .timeline {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+  .timeline-step {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+  .timeline-step.active {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(11, 58, 120, 0.03), rgba(31, 138, 77, 0.03));
+    }
+
+  .step-number {
+      width: 52px;
+      height: 52px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin: 0 auto 16px;
+      font-size: 18px;
+    }
+
+  .timeline-step.active.step-number {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+  .timeline-step h3 {
+      font-size: 18px;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+  .timeline-step p { color: var(--text-light); font-size: 14px; }
+
+    /* ===== CHARTS ===== */
+  .charts-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+    .charts-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+  .chart-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+  .chart-card h3 {
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* ===== ABOUT ===== */
+  .about { background: white; }
+
+  .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+  .about-text {
+      font-size: 16px;
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    /* ===== CATEGORIES ===== */
+  .category-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+  .category-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: 0.3s;
+    }
+
+  .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--secondary);
+    }
+
+  .category-card i {
+      font-size: 40px;
+      color: var(--secondary);
+      margin-bottom: 16px;
+    }
+
+  .category-card h3 {
+      font-size: 18px;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+  .category-card p {
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ===== INSIGHTS ===== */
+  .insight-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+    .insight-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+  .insight-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--secondary);
+      transition: 0.3s;
+    }
+
+  .insight-card:hover { box-shadow: var(--shadow-lg); }
+
+  .insight-card i {
+      font-size: 28px;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+
+  .insight-card p {
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ===== FAQs ===== */
+  .faq-list { max-width: 800px; margin: 0 auto; }
+
+  .faq-item {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+  .faq-item summary {
+      padding: 20px 24px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--primary);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { background: #F7F9FC; }
+
+  .faq-item summary::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      transition: 0.3s;
+      color: var(--secondary);
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+  .faq-item[open] summary::after { transform: rotate(180deg); }
+
+  .faq-item p {
+      padding: 0 24px 20px;
+      color: var(--text-light);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ===== NEWSLETTER ===== */
+  .newsletter {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 60px 0;
+    }
+
+  .newsletter h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+  .newsletter p {
+      font-size: 16px;
+      margin-bottom: 32px;
+      opacity: 0.95;
+    }
+
+  .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    @media (min-width: 640px) {
+    .newsletter-form { flex-direction: row; }
+    }
+
+  .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+    }
+
+  .newsletter-form button {
+      padding: 14px 32px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+  .newsletter-form button:hover { transform: translateY(-2px); }
+
+    /* ===== CONTACT ===== */
+  .contact-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 640px) {
+    .contact-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+  .contact-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+      border: 1px solid var(--border);
+    }
+
+  .contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+  .contact-card i {
+      font-size: 28px;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+
+  .contact-card h3 {
+      font-size: 16px;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+  .contact-card p {
+      color: var(--text-light);
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+  .social-icons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+  .social-icons a {
+      width: 44px;
+      height: 44px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      transition: 0.3s;
+      font-size: 18px;
+      border: 1px solid var(--border);
+    }
+
+  .social-icons a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+  .footer {
+      background: white;
+      padding: 40px 0 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+  .footer-logo { width: 70px; margin: 0 auto 16px; }
+
+  .footer-tagline {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+  .footer-links {
+      margin: 20px 0;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+  .footer-links a {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+  .footer-links a:hover { color: var(--secondary); }
+
+  .footer p {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* ===== BACK TO TOP ===== */
+  .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+  .back-to-top.visible { opacity: 1; visibility: visible; }
+  .back-to-top:hover { background: var(--primary-dark); transform: translateY(-2px); }
   </style>
 </head>
-<body class="bg-white text-gray-900 overflow-x-hidden">
+<body>
 
-<header class="sticky top-0 flex justify-between items-center px-6 py-4 bg-white/80 backdrop-blur-md shadow z-50">
-<a href="index.html" class="block"><img loading="lazy" src="images/logo.png" alt="FSI Logo" class="h-10 w-auto"></a>
-  <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="index.html" class="text-gray-900 hover:text-blue-600">Home</a>
-    <a href="programs.html" class="text-gray-900 hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="text-gray-900 hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="text-gray-900 hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="text-gray-900 hover:text-blue-600">Community</a>
-    <a href="events.html" class="text-gray-900 hover:text-blue-600">Events</a>
-    <a href="apply.html" class="text-gray-900 hover:text-blue-600">Grants</a>
-  </nav>
-  <button id="menu-btn" class="md:hidden flex flex-col gap-1">
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-    <span class="bar w-6 h-0.5 bg-blue-700 transition"></span>
-  </button>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="container">
+    <div class="nav-container">
+      <div class="logo"><img src="images/logo.png" alt="FSI Logo"></div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="navMenu">
+        <a href="#stats">Statistics</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#journey">Journey</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#about">About</a>
+        <a href="#categories">Categories</a>
+        <a href="#faqs">FAQs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
 </header>
 
-<div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition z-40"></div>
-<nav id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/90 backdrop-blur-xl shadow-xl transform translate-x-full transition duration-300 ease-out md:hidden p-6 space-y-6 z-50">
-  <div class="flex justify-between items-center"><h2 class="font-bold text-blue-700">Menu</h2><button id="close-btn" class="text-2xl">✕</button></div>
-  <div class="flex flex-col gap-4 text-gray-800 font-medium text-base">
-    <a href="index.html" class="hover:text-blue-600">Home</a>
-    <a href="programs.html" class="hover:text-blue-600">Programs</a>
-    <a href="opportunities.html" class="hover:text-blue-600">Opportunities</a>
-    <a href="learning.html" class="hover:text-blue-600">Learning Hub</a>
-    <a href="community.html" class="hover:text-blue-600">Community</a>
-    <a href="events.html" class="hover:text-blue-600">Events</a>
-    <a href="apply.html" class="hover:text-blue-600">Grants</a>
-  </div>
-  <a href="apply.html" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">Apply Now</a>
-</nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <img src="images/logo.png" class="hero-logo" alt="FSI">
+      <span class="badge">APPLICATIONS CLOSED</span>
+      <h1>879 Entrepreneurs Began Their Journey</h1>
+      <p>The Founders Support Initiative received an overwhelming response from entrepreneurs across Nigeria. Applications have officially closed and our evaluation committee has commenced the review process.</p>
+      <div class="hero-buttons">
+        <a href="#stats" class="btn btn-primary">View Statistics <i class="fas fa-arrow-down"></i></a>
+        <a href="#journey" class="btn btn-secondary">Application Journey</a>
+      </div>
+      <div class="hero-meta">
+  <span><i class="fas fa-calendar"></i> Closed: July 31, 2026</span>
+  <span><i class="fas fa-hourglass-half"></i> Review in progress</span>
+</div>
 
-<section class="relative bg-blue-700 text-white py-20 md:py-28 lg:py-32 text-center px-6 overflow-hidden" data-aos="fade">
-  <div class="absolute inset-0"><div class="blob absolute w-72 h-72 bg-white/10 rounded-full top-10 left-10"></div><div class="blob absolute w-72 h-72 bg-blue-400/20 rounded-full bottom-10 right-10"></div><img loading="lazy" src="images/startupgrant.png" class="w-full h-full object-cover opacity-20 md:opacity-30 hero-float"></div>
-  <div class="relative z-10">
-    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight" data-aos="zoom-in" data-aos-delay="200">Startup Grants for African Founders</h1>
-    <p class="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-lg text-gray-200 px-2" data-aos="fade-up" data-aos-delay="400">Non-dilutive funding from ₦750k to ₦7.5m. No equity taken. Built for founders building in Africa.</p>
-    <div class="mt-8 flex justify-center" data-aos="fade-up" data-aos-delay="600">
-      <a href="#categories" class="border border-white/30 px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition">View Categories</a>
     </div>
   </div>
 </section>
 
-<section class="px-6 py-12 max-w-4xl mx-auto text-gray-700" data-aos="fade-up">
-  <h2 class="text-2xl font-bold mb-4">Why non-dilutive?</h2>
-  <p class="mb-4">Most African founders give away 10-20% too early because it's the only capital available. We provide grants so you can hit meaningful milestones before raising priced equity. Keep ownership, prove traction, raise on your terms.</p>
-  <div class="grid sm:grid-cols-3 gap-4 mt-6 text-sm">
-    <div class="bg-blue-50 p-4 rounded-lg"><span class="font-bold text-blue-700">0% equity</span><p class="text-gray-600 mt-1">Keep full ownership</p></div>
-    <div class="bg-blue-50 p-4 rounded-lg"><span class="font-bold text-blue-700">Fast</span><p class="text-gray-600 mt-1">Decision in 21 days</p></div>
-    <div class="bg-blue-50 p-4 rounded-lg"><span class="font-bold text-blue-700">Local</span><p class="text-gray-600 mt-1">Paid in Naira or equivalent</p></div>
-  </div>
-</section>
-
-<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
-  <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Eligibility</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-700 max-w-4xl mx-auto">
-    <ul class="list-disc pl-6 space-y-2">
-      <li>Based in Africa or African diaspora building for Africa</li>
-      <li>Age 18-45 (Youth Grant: 18-35)</li>
-      <li>Early-stage or growth with MVP/traction</li>
-      <li>All sectors welcome</li>
-    </ul>
-    <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl">
-      <p class="font-semibold text-amber-900">We especially encourage:</p>
-      <p class="text-sm text-gray-700 mt-2">Female founders, teams outside Lagos/Nairobi, and startups solving real infrastructure problems.</p>
+<!-- STATISTICS -->
+<section id="stats">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">The Numbers</span>
+      <h2>Application Statistics</h2>
+      <p>A quick overview of this application cycle.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <div class="icon"><i class="fas fa-file-lines"></i></div>
+        <h3>879</h3>
+        <p>Applications Started</p>
+        <span class="trend up"><i class="fas fa-arrow-up"></i> Strong turnout</span>
+      </div>
+      <div class="stat-card green">
+        <div class="icon"><i class="fas fa-credit-card"></i></div>
+        <h3>298</h3>
+        <p>Successful Payments</p>
+        <span class="trend">33.9% completion</span>
+      </div>
+      <div class="stat-card purple">
+        <div class="icon"><i class="fas fa-circle-check"></i></div>
+        <h3>298</h3>
+        <p>Eligible For Review</p>
+        <span class="trend">100% of paid</span>
+      </div>
+      <div class="stat-card gold">
+        <div class="icon"><i class="fas fa-naira-sign"></i></div>
+        <h3>₦1,000</h3>
+        <p>Application Fee</p>
+        <span class="trend">₦298,000 total</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="categories" class="py-14 md:py-20 px-6 max-w-6xl mx-auto">
-  <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">Grant Categories</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-    <div id="general" class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow scroll-mt-24" data-aos="fade-up" data-aos-delay="100">
-      <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" class="w-full h-44 object-cover rounded-lg mb-4">
-      <h3 class="font-bold text-blue-700 text-xl">General Startup Grant</h3>
-      <p class="text-gray-600 mt-2 text-sm">For founders across all industries with clear traction or MVP. Use for product, marketing, hiring, or operations.</p>
-      <p class="mt-3 font-semibold">₦750,000 – ₦7,500,000</p>
-     <div class="mt-4">
-  <a href="apply.html" class="block w-full text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-    Apply Now
-  </a>
-
- 
-</div>
-</div>
-    <div id="youth" class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow scroll-mt-24" data-aos="fade-up" data-aos-delay="200">
-      <img loading="lazy" src="images/youth.png" class="w-full h-44 object-cover rounded-lg mb-4">
-      <h3 class="font-bold text-blue-700 text-xl">Youth Grant</h3>
-      <p class="text-gray-600 mt-2 text-sm">Ages 18-35. For early-stage founders turning ideas into businesses.</p>
-      <p class="mt-3 font-semibold">₦750,000 – ₦3,000,000</p>
-      <div class="mt-4">
-<a href="apply.html" class="block w-full text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-    Apply Now
-  </a>
-
- 
-</div>
-</div>
-    <div id="women" class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow scroll-mt-24" data-aos="fade-up" data-aos-delay="300">
-      <img loading="lazy" src="images/women.png" class="w-full h-44 object-cover rounded-lg mb-4">
-      <h3 class="font-bold text-blue-700 text-xl">Women in Business Grant</h3>
-      <p class="text-gray-600 mt-2 text-sm">For female-led startups across all sectors.</p>
-      <p class="mt-3 font-semibold">₦1,500,000 – ₦4,500,000</p>
-      <div class="mt-4">
-  <a href="apply.html" class="block w-full text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-    Apply Now
-  </a>
-
- 
-</div>
-</div>
-    <div id="innovation" class="border rounded-xl shadow-lg p-6 bg-white card-lift card-glow scroll-mt-24" data-aos="fade-up" data-aos-delay="400">
-      <img loading="lazy" src="images/programs.png" class="w-full h-44 object-cover rounded-lg mb-4">
-      <h3 class="font-bold text-blue-700 text-xl">Innovation & Tech Grant</h3>
-      <p class="text-gray-600 mt-2 text-sm">Health, EdTech, Agri, Fintech, Climate. Impact-driven startups.</p>
-      <p class="mt-3 font-semibold">₦3,000,000 – ₦7,500,000</p>
-     <div class="mt-4">
-  <a href="apply.html" class="block w-full text-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-    Apply Now
-  </a>
-
-
-</div>
-</div>
-  </div>
-</section>
-
-<section class="px-6 py-12 max-w-6xl mx-auto" data-aos="fade-up">
-  <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">How funding works</h2>
-  <div class="grid md:grid-cols-3 gap-6 text-center">
-    <div class="p-6 border rounded-xl"><div class="text-2xl font-bold text-blue-600">50%</div><p class="mt-2 font-semibold">Upfront</p><p class="text-sm text-gray-600">On acceptance</p></div>
-    <div class="p-6 border rounded-xl"><div class="text-2xl font-bold text-blue-600">30%</div><p class="mt-2 font-semibold">Milestone 1</p><p class="text-sm text-gray-600">After 6 weeks progress</p></div>
-    <div class="p-6 border rounded-xl"><div class="text-2xl font-bold text-blue-600">20%</div><p class="mt-2 font-semibold">Milestone 2</p><p class="text-sm text-gray-600">Demo day completion</p></div>
-  </div>
-  <p class="text-center text-sm text-gray-500 mt-6">We release in tranches to ensure accountability, not to control you.</p>
-</section>
-
-<section class="py-14 md:py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
-  <h2 class="text-2xl font-bold mb-8 text-center">What you can use funds for</h2>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-    <div class="bg-gray-50 p-4 rounded-lg">✓ Product development</div>
-    <div class="bg-gray-50 p-4 rounded-lg">✓ Cloud/hosting costs</div>
-    <div class="bg-gray-50 p-4 rounded-lg">✓ First 1-2 hires</div>
-    <div class="bg-gray-50 p-4 rounded-lg">✓ Marketing & customer acquisition</div>
-    <div class="bg-gray-50 p-4 rounded-lg">✓ Legal & registration</div>
-    <div class="bg-gray-50 p-4 rounded-lg">✓ Equipment</div>
-    <div class="bg-white border border-red-200 p-4 rounded-lg">✗ Personal expenses</div>
-    <div class="bg-white border border-red-200 p-4 rounded-lg">✗ Crypto trading</div>
-  </div>
-</section>
-
-<section data-aos="fade-up" class="bg-white py-16 md:py-24 px-6">
-  <div class="max-w-6xl mx-auto text-center">
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Application Process</h2>
-    <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Simple, transparent, fast.</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10 text-left">
-      <div class="border rounded-xl p-6 bg-gray-50"><div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">1</div><h3 class="mt-3 font-bold">Apply</h3><p class="text-sm text-gray-600 mt-1">15-min form. Tell us problem, solution, traction.</p></div>
-      <div class="border rounded-xl p-6 bg-gray-50"><div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">2</div><h3 class="mt-3 font-bold">Screen</h3><p class="text-sm text-gray-600 mt-1">We review for clarity and fit. 7 days.</p></div>
-      <div class="border rounded-xl p-6 bg-gray-50"><div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">3</div><h3 class="mt-3 font-bold">Interview</h3><p class="text-sm text-gray-600 mt-1">20-min call with our team. 14 days.</p></div>
-      <div class="border rounded-xl p-6 bg-gray-50"><div class="bg-blue-100 text-blue-700 w-10 h-10 flex items-center justify-center rounded-full font-bold">4</div><h3 class="mt-3 font-bold">Fund</h3><p class="text-sm text-gray-600 mt-1">Decision in 21 days. Money in 7 days after.</p></div>
+<!-- HIGHLIGHTS -->
+<section id="highlights" style="background: white;">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Impact</span>
+      <h2>Programme Highlights</h2>
+      <p>Key metrics at a glance.</p>
+    </div>
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-rocket"></i></div>
+        <h3>879</h3>
+        <span>Applications Started</span>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check-double"></i></div>
+        <h3>298</h3>
+        <span>Completed Payments</span>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-chart-pie"></i></div>
+        <h3>33.9%</h3>
+        <span>Completion Rate</span>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-coins"></i></div>
+        <h3>₦298K</h3>
+        <span>Fees Received</span>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-layer-group"></i></div>
+        <h3>4</h3>
+        <span>Funding Categories</span>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-magnifying-glass"></i></div>
+        <h3>Now</h3>
+        <span>Under Review</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="py-14 px-6 max-w-4xl mx-auto" data-aos="fade-up">
-  <h2 class="text-2xl font-bold text-center mb-8">Frequently asked</h2>
-  <div class="space-y-3">
-    <details class="border rounded-lg p-4"><summary class="font-semibold cursor-pointer">Do I repay the grant?</summary><p class="mt-2 text-sm text-gray-600">No. It's a grant, not a loan. No equity, no repayment.</p></details>
-    <details class="border rounded-lg p-4"><summary class="font-semibold cursor-pointer">What if I'm not Nigerian?</summary><p class="mt-2 text-sm text-gray-600">We pay in local currency equivalent via Flutterwave. Available across Africa.</p></details>
-    <details class="border rounded-lg p-4"><summary class="font-semibold cursor-pointer">Can I apply to multiple categories?</summary><p class="mt-2 text-sm text-gray-600">No, choose one. We'll move you if you're a better fit elsewhere.</p></details>
-    <details class="border rounded-lg p-4"><summary class="font-semibold cursor-pointer">Is the ₦1,000 fee refundable?</summary><p class="mt-2 text-sm text-gray-600">No, it covers processing. It prevents spam applications.</p></details>
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Process</span>
+      <h2>Application Journey</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="step-number">01</div>
+        <h3>879 Applications Started</h3>
+        <p>Entrepreneurs across Nigeria began their FSI journey</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-number">02</div>
+        <h3>298 Completed Payment</h3>
+        <p>33.9% proceeded to pay the ₦1,000 application fee</p>
+      </div>
+      <div class="timeline-step active">
+        <div class="step-number">03</div>
+        <h3>298 Eligible For Review</h3>
+        <p>All paid applications now under committee evaluation</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="bg-blue-700 text-white text-center py-16 px-6">
-  <div class="max-w-3xl mx-auto">
-    <p class="uppercase text-blue-200 text-sm font-semibold">2026 Cohort</p>
-    <h2 class="text-3xl font-bold mt-2">Applications close July 31</h2>
-    <p class="mt-3 text-blue-100">50 spots. Decision in 21 days.</p>
-    <a href="#categories" class="mt-6 inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition">Choose Your Grant</a>
+<!-- ANALYTICS - KEPT YOUR REAL DATA -->
+<section id="analytics" style="background: white;">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Data</span>
+      <h2>Analytics Breakdown</h2>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Gender Distribution</h3>
+        <canvas id="genderChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Applications by Category</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Completion Rate</h3>
+        <canvas id="completionChart"></canvas>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer class="bg-gray-900 text-gray-300 mt-20">
-  <!-- Top wave accent -->
-  <div class="h-1 w-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400"></div>
-  
-  <div class="max-w-7xl mx-auto px-6 py-14 lg:py-16">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+<!-- ABOUT - REMOVED FAKE STATS -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Who We Are</span>
+      <h2>About FSI</h2>
+    </div>
+    <div class="about-content">
+      <p class="about-text">The Founders Support Initiative is launching its inaugural cohort to empower Nigerian entrepreneurs through grants, mentorship, and resources. Our mission is to foster innovation, support business growth, and create sustainable impact across communities. We're committed to a transparent, merit-based selection process for early-stage startups.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GRANT CATEGORIES -->
+<section id="categories" style="background: white;">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Funding</span>
+      <h2>Grant Categories</h2>
+      <p>Four distinct funding tracks for diverse entrepreneurial needs</p>
+    </div>
+    <div class="category-grid">
+      <div class="category-card">
+        <i class="fas fa-briefcase"></i>
+        <h3>General Startup Grant</h3>
+        <p>For early-stage businesses across all sectors seeking seed funding to validate ideas and achieve product-market fit.</p>
+      </div>
+      <div class="category-card">
+        <i class="fas fa-user-graduate"></i>
+        <h3>Youth Grant</h3>
+        <p>Founders aged 18-35 building innovative solutions. Special focus on scalable business models with high growth potential.</p>
+      </div>
+      <div class="category-card">
+        <i class="fas fa-venus"></i>
+        <h3>Women in Business Grant</h3>
+        <p>Supporting female-led enterprises with dedicated mentorship and funding to close the gender gap in entrepreneurship.</p>
+      </div>
+      <div class="category-card">
+        <i class="fas fa-microchip"></i>
+        <h3>Innovation & Tech Grant</h3>
+        <p>Tech solutions solving local problems in fintech, healthtech, edtech, agritech, and climate tech sectors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section id="insights">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Key Takeaways</span>
+      <h2>Overall Insights</h2>
+    </div>
+    <div class="insight-grid">
+      <div class="insight-card">
+        <i class="fas fa-users"></i>
+        <p>879 entrepreneurs started the application process, showing strong interest nationwide and validating the need for accessible startup funding.</p>
+      </div>
+      <div class="insight-card">
+        <i class="fas fa-wallet"></i>
+        <p>298 successfully completed payment of the ₦1,000 fee, totaling ₦298,000 in application fees to support program operations.</p>
+      </div>
+      <div class="insight-card">
+        <i class="fas fa-clipboard-check"></i>
+        <p>298 applications are currently eligible for review by our evaluation committee, representing a 33.9% conversion rate from start to completion.</p>
+      </div>
+      <div class="insight-card">
+        <i class="fas fa-lock"></i>
+        <p>Applications are now officially closed. Results will be announced Q4 2026. Join our mailing list to get notified.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section id="faqs" style="background: white;">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Help</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Answers for applicants of our inaugural cohort</p>
+    </div>
+    <div class="faq-list">
       
-      <!-- Brand -->
-      <div class="md:col-span-4">
-        <a href="index.html" class="inline-block">
-          <img src="images/logo.png" alt="FSI Logo" class="h-10 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition">
-        </a>
-        <p class="mt-4 text-sm leading-relaxed text-gray-400 max-w-sm">
-          Non-dilutive funding, operator mentorship, and practical training for African founders building what matters.
-        </p>
-        <div class="mt-6 flex items-center gap-3">
-          <a href="https://x.com" aria-label="X" class="w-9 h-9 grid place-items-center rounded-lg bg-white/5 hover:bg-white/10 transition">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://linkedin.com" aria-label="LinkedIn" class="w-9 h-9 grid place-items-center rounded-lg bg-white/5 hover:bg-white/10 transition">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </a>
-          <a href="https://instagram.com" aria-label="Instagram" class="w-9 h-9 grid place-items-center rounded-lg bg-white/5 hover:bg-white/10 transition">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 0 000-2.881z"/></svg>
-          </a>
-        </div>
-      </div>
+      <details class="faq-item">
+        <summary>When will results be announced?</summary>
+        <p>Our evaluation committee is currently reviewing all 298 eligible applications. Results will be announced in Q4 2026. All applicants will be notified via email, and the list will be published on this website. Please ensure you check the email you used for registration.</p>
+      </details>
 
-      <!-- Links -->
-      <div class="md:col-span-2">
-        <h3 class="text-white font-semibold text-sm uppercase tracking-wider">Explore</h3>
-        <ul class="mt-4 space-y-3 text-sm">
-          <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
-          <li><a href="programs.html" class="text-gray-400 hover:text-white transition">Programs</a></li>
-          <li><a href="opportunities.html" class="text-gray-400 hover:text-white transition">Opportunities</a></li>
-          <li><a href="learning.html" class="text-gray-400 hover:text-white transition">Learning Hub</a></li>
-        </ul>
-      </div>
+      <details class="faq-item">
+        <summary>I paid but haven't received a confirmation email. What should I do?</summary>
+        <p>If your payment was successful but you didn't get a confirmation, check your spam/junk folder first. If it's not there, email us at <strong>contact@founderssupport.org</strong> with your payment reference and full name. We'll verify and resend your confirmation within 48 hours.</p>
+      </details>
 
-      <div class="md:col-span-2">
-        <h3 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h3>
-        <ul class="mt-4 space-y-3 text-sm">
-          <li><a href="community.html" class="text-gray-400 hover:text-white transition">Community</a></li>
-          <li><a href="events.html" class="text-gray-400 hover:text-white transition">Events</a></li>
-          <li><a href="faq.html" class="text-gray-400 hover:text-white transition">FAQ</a></li>
-          <li><a href="apply.html" class="text-gray-400 hover:text-white transition">Apply</a></li>
-        </ul>
-      </div>
+      <details class="faq-item">
+        <summary>Can I still apply? Is there a waitlist?</summary>
+        <p>Applications for the 2026 inaugural cohort are officially closed. We do not accept late submissions. However, you can join our waitlist below to be notified when applications open for Cohort 2 in 2027.</p>
+      </details>
 
-      <!-- Newsletter -->
-      <div class="md:col-span-4">
-        <h3 class="text-white font-semibold text-sm uppercase tracking-wider">Get updates</h3>
-        <p class="mt-3 text-sm text-gray-400">Join 1,200+ founders. No spam, just openings and resources.</p>
-        <form id="footerWaitlist" class="mt-4 flex gap-2">
-          <input type="email" required placeholder="you@startup.com" class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <button class="px-4 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 transition whitespace-nowrap">Join</button>
-        </form>
-        <p id="footerMsg" class="mt-2 text-xs text-gray-500"></p>
-        <div class="mt-5 flex items-center gap-2 text-xs text-gray-500">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm8 9l8-5H4l8 5z"/></svg>
-          <a href="mailto:contact@founderssupport.org" class="hover:text-gray-300">contact@founderssupport.org</a>
-        </div>
-      </div>
+      <details class="faq-item">
+        <summary>How many grants will be awarded?</summary>
+        <p>The exact number of grants depends on the quality of applications and available funding for this inaugural cycle. Our committee will shortlist based on innovation, impact potential, and business viability. Final numbers will be announced with the results.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What are the 4 grant categories?</summary>
+        <p><strong>1. General Startup Grant:</strong> Early-stage businesses across all sectors.<br>
+        <strong>2. Youth Grant:</strong> Founders aged 18-35.<br>
+        <strong>3. Women in Business Grant:</strong> Female-led enterprises.<br>
+        <strong>4. Innovation & Tech Grant:</strong> Tech solutions in fintech, healthtech, edtech, agritech, climate tech.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What happens after I'm selected?</summary>
+        <p>Selected entrepreneurs will be invited to a virtual onboarding session. You'll sign a grant agreement, receive the first disbursement, and be paired with a mentor. We'll also announce you publicly with your consent.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is the ₦1,000 application fee refundable?</summary>
+        <p>No, the application fee is non-refundable. It covers administrative costs for processing and reviewing applications. This was stated clearly during the application process.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I edit my application now?</summary>
+        <p>No, applications are now locked for review. Edits were only allowed before payment submission. If you have critical updates, email <strong>contact@founderssupport.org</strong>, but we cannot guarantee changes will be considered at this stage.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How can I contact the FSI team?</summary>
+        <p>For application-related queries: <strong>contact@founderssupport.org</strong><br>
+        For partnerships/media: <strong>contact@founderssupport.org</strong><br>
+        Follow us on Twitter/Instagram @founders support initiative.</p>
+      </details>
+
     </div>
   </div>
+</section>
 
-  <!-- Bottom bar -->
-  <div class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-xs text-gray-500">© 2026 Founders Support Initiative. All rights reserved.</p>
-      <div class="flex items-center gap-6 text-xs">
-        <a href="privacy.html" class="text-gray-500 hover:text-gray-300">Privacy</a>
-        <a href="terms.html" class="text-gray-500 hover:text-gray-300">Terms</a>
-        <a href="legal.html" class="text-gray-500 hover:text-gray-300">Legal</a>
-      </div>
+
+<!-- CONTACT - Updated -->
+<section id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-tag">Get in Touch</span>
+      <h2>Contact Us</h2>
     </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p>contact@founderssupport.org</p>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Applications Closed</h3>
+        <p>July 31, 2026</p>
+      </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <img src="images/logo.png" alt="FSI Logo" class="footer-logo">    
+    <p class="footer-tagline">Founders Support Initiative — Inaugural Cohort 2026</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+    </div>
+    <p>&copy; 2026 Founders Support Initiative. All rights reserved.</p>
   </div>
 </footer>
 
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
 <script>
-document.addEventListener('DOMContentLoaded', ()=>{
-  const menuBtn=document.getElementById('menu-btn');
-  const closeBtn=document.getElementById('close-btn');
-  const mobileMenu=document.getElementById('mobile-menu');
-  const overlay=document.getElementById('overlay');
-  const header=document.querySelector('header');
-  const open=()=>{mobileMenu.classList.remove('translate-x-full');overlay.classList.remove('opacity-0','pointer-events-none');overlay.classList.add('opacity-100','pointer-events-auto');};
-  const close=()=>{mobileMenu.classList.add('translate-x-full');overlay.classList.add('opacity-0','pointer-events-none');overlay.classList.remove('opacity-100','pointer-events-auto');};
-  menuBtn?.addEventListener('click',open);closeBtn?.addEventListener('click',close);overlay?.addEventListener('click',close);
-  document.querySelectorAll('nav a').forEach(a=>{if(a.href===window.location.href)a.classList.add('text-blue-700','font-bold');});
-  window.addEventListener('scroll',()=>window.scrollY>20?header.classList.add('scrolled'):header.classList.remove('scrolled'));
-  if(typeof AOS!=='undefined')AOS.init({duration:800,once:true,offset:80});
+// Mobile menu toggle
+const mobileToggle = document.getElementById('mobileToggle');
+const navMenu = document.getElementById('navMenu');
+mobileToggle?.addEventListener('click', () => {
+  const expanded = mobileToggle.classList.toggle('active');
+  navMenu.classList.toggle('active');
+  mobileToggle.setAttribute('aria-expanded', expanded);
+});
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileToggle.classList.remove('active');
+    navMenu.classList.remove('active');
+    mobileToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Back to top
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) {
+    backToTop?.classList.add('visible');
+  } else {
+    backToTop?.classList.remove('visible');
+  }
+});
+backToTop?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Animated counters
+const animateNumbers = () => {
+  const stats = document.querySelectorAll('[data-count]');
+  stats.forEach(stat => {
+    const target = parseInt(stat.getAttribute('data-count'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    const updateCount = () => {
+      current += step;
+      if (current < target) {
+        stat.textContent = Math.floor(current);
+        requestAnimationFrame(updateCount);
+      } else {
+        stat.textContent = target;
+      }
+    };
+    updateCount();
+  });
+};
+
+// Charts - only real data you provided
+const initCharts = () => {
+  if (typeof Chart === 'undefined') return;
+  
+  new Chart(document.getElementById("genderChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Male", "Female"],
+      datasets: [{
+        data: [522, 378],
+        backgroundColor: ["#0B3A78", "#1F8A4D"],
+        borderWidth: 0
+      }]
+    },
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: true,
+      plugins: { legend: { position: "bottom" } } 
+    }
+  });
+
+  new Chart(document.getElementById("categoryChart"), {
+    type: "bar",
+    data: {
+      labels: ["General", "Youth", "Women", "Tech"],
+      datasets: [{
+        label: "Applications",
+        data: [300, 200, 250, 150],
+        backgroundColor: ["#0B3A78", "#1F8A4D", "#6B46C1", "#E8B547"],
+        borderRadius: 8
+      }]
+    },
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+
+  new Chart(document.getElementById("completionChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Completed", "Started Only"],
+      datasets: [{
+        data: [33.9, 66.1],
+        backgroundColor: ["#E8B547", "#E5E7EB"],
+        borderWidth: 0
+      }]
+    },
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: true,
+      cutout: "70%",
+      plugins: { legend: { position: "bottom" } }
+    }
+  });
+};
+
+// Lazy load animations
+const statsSection = document.getElementById('stats');
+const analyticsSection = document.getElementById('analytics');
+let statsAnimated = false;
+let chartsInitialized = false;
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (entry.target === statsSection && !statsAnimated) {
+        animateNumbers();
+        statsAnimated = true;
+      }
+      if (entry.target === analyticsSection && !chartsInitialized) {
+        initCharts();
+        chartsInitialized = true;
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+if (statsSection) observer.observe(statsSection);
+if (analyticsSection) observer.observe(analyticsSection);
+
+// Newsletter form
+const newsletterForm = document.getElementById('newsletterForm');
+const formMessage = document.getElementById('formMessage');
+newsletterForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    formMessage.textContent = 'Please enter a valid email address';
+    formMessage.className = 'form-message';
+    formMessage.style.background = 'rgba(220, 38, 38, 0.2)';
+    formMessage.style.display = 'block';
+    return;
+  }
+  formMessage.textContent = 'Success! You\'ll be notified about results and Cohort 2.';
+  formMessage.className = 'form-message success';
+  e.target.reset();
+  setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
 });
 </script>
+
 </body>
 </html>
